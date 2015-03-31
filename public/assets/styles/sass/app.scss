@@ -1,0 +1,19 @@
+@import "icons";
+
+body{
+	visibility: visible;
+	margin: 0;
+}
+
+html{
+	margin: 0;
+}
+
+
+.main-list{
+	font-size: 0.8em;
+	.item{
+		border: solid 1px black;
+		padding: 10px;
+	}
+}
