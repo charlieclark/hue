@@ -6,7 +6,8 @@ module.exports = {
 	    "lib/bower/backbone.babysitter.js",
 	    "lib/bower/backbone.wreqr.js",
 	    "lib/bower/backbone.marionette.js",
-		"lib/bower/TweenMax.js"  
+		"lib/bower/TweenMax.js",  
+		"lib/bower/one-color.js",
 	]
 }     
 

@@ -1,5 +1,7 @@
 var hue = require("node-hue-api"),
-	HueApi = hue.HueApi;
+	HueApi = hue.HueApi,
+	lightState = hue.lightState,
+	timeout = 20000;
 
 var displayResults = function(result) {
     console.log(JSON.stringify(result, null, 2));
@@ -12,7 +14,7 @@ var displayError = function(err) {
 function Connector( hostname, username ){
 	this._hostname = hostname;
 	this._username = username;
-	this._api = new HueApi(hostname, username);
+	this._api = new HueApi(hostname, username, timeout);
 }
 
 Connector.prototype = {
@@ -45,21 +47,18 @@ Connector.prototype = {
 		    .done();
 	},
 
-	setLight : function( id ){
+	setLight : function( id, data ){
 
-		var r = Math.floor( Math.random() * 255 );
-		var g = Math.floor( Math.random() * 255 );
-		var b = Math.floor( Math.random() * 255 );
-		var rgb = [ r, g, b ];
+		var h = data.hsl.h;
+		var s = data.hsl.s;
+		var l = data.hsl.l;
 
-		this._api.setLightState(id, {
-			"on": true,
-			"rgb" : rgb,
-			"brightness" : 255
-		}) // provide a value of false to turn off
-	    .then(displayResults)
-	    .fail(displayError)
-	    .done();
+		state = lightState.create().on().hsl(h, s, l);
+
+		this._api.setLightState(id, state) // provide a value of false to turn off
+		    .then(displayResults)
+		    .fail(displayError)
+		    .done();
 	}
 }
 

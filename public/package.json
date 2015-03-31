@@ -21,5 +21,8 @@
     "npm": "^2.7.4",
     "path": "^0.11.14",
     "serve-static": "^1.9.2"
+  },
+  "dependencies": {
+    "underscore": "^1.8.2"
   }
 }

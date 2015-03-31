@@ -6,7 +6,8 @@ var CalendarItem = Marionette.ItemView.extend({
 	},
 	events : {
 		'click @ui.title' : function(){
-			console.log("!")
+
+
 		}
 	}
 });
