@@ -2,7 +2,10 @@ var calendarLoad = require("controllers/calendarLoad");
 var CalendarItems 	= require("views/calendarItems");
 var CalendarModel 	= require("models/calendarModel");
 var helpers = require("helpers"); 
-var updateLights = require("controllers/updateLights");
+var hueConnect = require("controllers/hueConnect");
+var LightPattern = require("controllers/lightPattern");
+
+
 
 var CalendarView = Marionette.LayoutView.extend({
 	template : _.template( require("templates/calendar.html") ),
@@ -10,7 +13,15 @@ var CalendarView = Marionette.LayoutView.extend({
 		mainList : ".main-list"
 	},
 	ui : {
-		colorPicker : ".color"
+		colorPicker : ".color",
+		test : "#test"
+	},
+	events : {
+		"click @ui.test" : function(){
+			for( var i = 0 ; i < 5 ; i++ ){
+				new LightPattern(i+1, "test");
+			}
+		}
 	},
 	initialize : function(){
 		
@@ -31,7 +42,7 @@ var CalendarView = Marionette.LayoutView.extend({
 
 			console.log(hsl)
 
-			updateLights.update([
+			hueConnect.update([
 				{
 					'id' : 1,
 					'data' : {
@@ -46,6 +57,18 @@ var CalendarView = Marionette.LayoutView.extend({
 				},
 				{
 					'id' : 3,
+					'data' : {
+						'hsl' : hsl
+					}
+				},
+				{
+					'id' : 4,
+					'data' : {
+						'hsl' : hsl
+					}
+				},
+				{
+					'id' : 5,
 					'data' : {
 						'hsl' : hsl
 					}

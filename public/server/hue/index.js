@@ -13,7 +13,8 @@ var displayBridges = function(bridge) {
 //connection wrapper
 var c1 = new Connector( "192.168.108.102", "2ab6066a1edd6f77253320d628b7e493" );
 
-// c1.listLights();
+c1.findNewLights();
+c1.listLights();
 
 function testLights(){
 	var hsl = {

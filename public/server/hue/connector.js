@@ -51,11 +51,11 @@ Connector.prototype = {
 		var h = data.hsl.h;
 		var s = data.hsl.s;
 		var l = data.hsl.l;
+		var duration = data.duration * 1000;
 
-		state = lightState.create().on().hsl(h, s, l);
+		state = lightState.create().on().hsl(h, s, l).transition( duration );
 
 		this._api.setLightState(id, state) // provide a value of false to turn off
-		    .then(displayResults)
 		    .fail(displayError)
 		    .done();
 	}
