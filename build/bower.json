@@ -14,12 +14,16 @@
   ],
   "dependencies": {
     "jquery": "*",
-    "backbone" : "*",
+    "backbone": "*",
     "marionette": "*",
-    "preloadjs": "*", 
+    "preloadjs": "*",
     "gsap": "*",
-    "color" : "*" 
+    "color": "*",
+    "socket.io-client": "*"
   },
-  "overrides" : {
+  "overrides": {
+    "socket.io-client" : {
+      "main" : "socket.io.js"
+    }
   }
 }

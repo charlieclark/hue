@@ -31,26 +31,26 @@ var CalendarView = Marionette.LayoutView.extend({
 
 			console.log(hsl)
 
-			// updateLights.update([
-			// 	{
-			// 		'id' : 1,
-			// 		'data' : {
-			// 			'hsl' : hsl
-			// 		}
-			// 	},
-			// 	{
-			// 		'id' : 2,
-			// 		'data' : {
-			// 			'hsl' : hsl
-			// 		}
-			// 	},
-			// 	{
-			// 		'id' : 3,
-			// 		'data' : {
-			// 			'hsl' : hsl
-			// 		}
-			// 	}
-			// ]);
+			updateLights.update([
+				{
+					'id' : 1,
+					'data' : {
+						'hsl' : hsl
+					}
+				},
+				{
+					'id' : 2,
+					'data' : {
+						'hsl' : hsl
+					}
+				},
+				{
+					'id' : 3,
+					'data' : {
+						'hsl' : hsl
+					}
+				}
+			]);
 		});
 
 	},

@@ -1,21 +1,30 @@
 var windowParent = null;
+var mySocket = null;
 
 function init(){
 
-	windowParent = window.parent;
+	// windowParent = window.parent;
+	console.log(io);
+	mySocket = io.connect('//localhost:3000');
+	// socket.on('connect', goog.bind(this.onConnected, this));
+	
 }
 
 function update( data ){
 
 	var stringData = JSON.stringify( data );
 
-	if( windowParent ){
+	console.log(data);
 
-		windowParent.postMessage( stringData, "*" );		
-	}
+	mySocket.emit( 'update_data', data );
+
+	// if( windowParent ){
+
+	// 	windowParent.postMessage( stringData, "*" );		
+	// }
 }
 
-var throttledUpdate = _.throttle( update, 1000, {leading: false} );
+var throttledUpdate = _.throttle( update, 500, {leading: false} );
 
 init();
 

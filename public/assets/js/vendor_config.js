@@ -8,6 +8,7 @@ module.exports = {
 	    "lib/bower/backbone.marionette.js",
 		"lib/bower/TweenMax.js",  
 		"lib/bower/one-color.js",
+		"lib/bower/socket.io.js",
 	]
 }     
 
