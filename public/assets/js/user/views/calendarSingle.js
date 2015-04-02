@@ -1,5 +1,6 @@
 var CalendarItem 	= require("views/calendarItem");
-var CalendarModel 	= require("models/calendarModel");
+var CalendarItemModel 	= require("models/calendarItemModel");
+var CalendarStatus = require("controllers/calendarStatus");
 var AppRouter 		= require( "controllers/appRouter" );
 
 var CalendarSingle = Marionette.LayoutView.extend({
@@ -17,15 +18,18 @@ var CalendarSingle = Marionette.LayoutView.extend({
 
 		this.collectionView = new Marionette.CollectionView({
 			childView : CalendarItem,
-			collection : new Backbone.Collection()
+			collection : this.model.get("eventCollection")
 		});
 
+		new CalendarStatus( this.collectionView.collection, this.model );
+
 		this.listenTo( this.model, "change:roomData", this.updateEvents );
+		this.updateEvents();
 	},
 	onShow : function(){
 
 		this.getRegion( "eventList" ).show( this.collectionView );
-		this.updateEvents();
+		
 	},
 	onClose : function(){
 
@@ -33,12 +37,24 @@ var CalendarSingle = Marionette.LayoutView.extend({
 	},
 	updateEvents : function(){
 
-		var roomData = this.model.get("roomData")
+		console.log("ASDASD!")
+
+		console.log( this.collectionView.collection );
+
+		var roomData = this.model.get("roomData");
+		var newModels = [];
+
 		_.each( roomData.items, function( item ){
 
-			var m = new CalendarModel( item );
-			this.collectionView.collection.add( m );
+			var m = new CalendarItemModel( item );
+			newModels.push( m );
 		}, this);
+
+		this.collectionView.collection.reset( newModels );
+
+
+		console.log(roomData);
+		this.model.set("roomData", roomData);
 	}
 });
 

@@ -2,6 +2,8 @@ var AppRouter 		= require( "controllers/appRouter" );
 
 var calendarLoad = require("controllers/calendarLoad");
 var CalendarSingle 	= require("views/calendarSingle");
+var CalendarModel 	= require("models/calendarModel");
+var CalendarCollection 	= require("collections/calendarCollection");
 
 var hueConnect = require("controllers/hueConnect");
 var LightPattern = require("controllers/lightPattern");
@@ -73,7 +75,8 @@ var CalendarView = Marionette.LayoutView.extend({
 		if( !model ){
 			this.queuedKey = key;
 		} else {
-			var view =  new CalendarSingle( { model : model });
+			
+			var view = new CalendarSingle({ model : model })
 			var region = this.getRegion( "roomSingle" ).show( view );
 			$singleEl = region.$el;
 
@@ -137,11 +140,14 @@ var CalendarView = Marionette.LayoutView.extend({
 		
 		var key = data.key;
 		
-		var myCalendarModel = this.calendarStore[ key ] || new Backbone.Model() ;
+		if(  !this.calendarStore[ key ] ){
 
-		myCalendarModel.set("roomData", data.data);
+			this.calendarStore[ key ] = new CalendarModel({
+				eventCollection : new CalendarCollection()
+			});
+		} 
 
-		this.calendarStore[ key ] = myCalendarModel;
+		this.calendarStore[ key ].set("roomData", data.data);
 
 		this.checkQueue();
 	} 
