@@ -4,7 +4,7 @@ var pipe = require("pipe");
 window.handleClientLoad = function(){
 
   console.log("google api loaded");
-  init();
+  _.defer( function(){ init() });
 }
 
 var clientId = '433839723365-u7grldtvf8pabjkj4frcio3cv5hit8fm.apps.googleusercontent.com';
