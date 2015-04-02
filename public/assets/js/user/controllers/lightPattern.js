@@ -69,11 +69,11 @@ var patterns = {
 	'test' : {
 		repeat :  -1,
 		sequence : [
-			{ color : "#ff00ff", fade : 1, wait : 1 },
-			{ color : "#00ff00", fade : 1, wait : 1 },
-			{ color : "#4156FF", fade : 1, wait : 1 },
-			{ color : "#FF001D", fade : 1, wait : 1 },
-			{ color : "#FFFF07", fade : 1, wait : 1 },
+			{ color : "#FB1911", fade : 1, wait : 1 },
+			// { color : "#00ff00", fade : 1, wait : 1 },
+			// { color : "#4156FF", fade : 1, wait : 1 },
+			// { color : "#FF001D", fade : 1, wait : 1 },
+			// { color : "#FFFF07", fade : 1, wait : 1 },
 		]
 	}
 }
