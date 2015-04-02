@@ -44,18 +44,23 @@ function makeApiCall() {
 
 function pullRooms(){
 
-  var from = new Date().toISOString();
+  var from = new Date();
+  var to = new Date();
+      to.setDate( to.getDate() + 1 );
 
   _.each( roomData, function( data, key ){
 
     var request = gapi.client.calendar.events.list({
         'calendarId': data.calendarId,
-        timeMin : from
+        timeMin : from.toISOString(),
+        timeMax : to.toISOString(),
+        singleEvents : true
       });
 
      request.then(function(response) {
 
-          roomLoaded( key, response.result );console.log(response.result)
+          console.log(response.result);
+          roomLoaded( key, response.result );
       }, function(reason) {
 
           console.log('Error: ' + reason.result.error.message);
