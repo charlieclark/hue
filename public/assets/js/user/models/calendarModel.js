@@ -1,5 +1,7 @@
 var CalendarModel = Backbone.Model.extend({
-	defaults : {},
+	defaults : {
+		organizer : "Wes"
+	},
 	initialize : function(){}
 });
 

@@ -1,13 +1,11 @@
-
-<div id="room-split">
-	<% _.each( rooms, function( data, key ){ %>
-		<div id="room-<%= key %>" class="room" data-id="<%= key %>">room <%= key %></div>
-	<% }); %>
+<div id="splash-page">
+	<div id="room-split"></div>
 </div>
+
 <div id="room-single"></div>
 
 <!-- TEST -->
-<div class="test">
+<div class="test" style="position:absolute;top:0;">
 	<div>
 		<input id="hex-input" type="text"></input>
 		<button id="hex">hex</button>
@@ -15,5 +13,3 @@
 	<button id="test">test</button>
 	<input class="color" type="color" name="favcolor">
 </div>
-
- 

@@ -4,6 +4,7 @@ var calendarLoad = require("controllers/calendarLoad");
 var CalendarSingle 	= require("views/calendarSingle");
 var CalendarModel 	= require("models/calendarModel");
 var CalendarCollection 	= require("collections/calendarCollection");
+var SplashView 	= require("views/splashView");
 
 var hueConnect = require("controllers/hueConnect");
 var LightPattern = require("controllers/lightPattern");
@@ -13,13 +14,13 @@ var CalendarView = Marionette.LayoutView.extend({
 	template : _.template( require("templates/calendarWrapper.html") ),
 	regions : {
 		roomSingle : "#room-single",
+		roomSplit : "#room-split"
 	},
 	ui : {
 		colorPicker : ".color",
 		test : "#test",
 		hexButton : "#hex",
 		hexInput : "#hex-input",
-		roomSplit : "#room-split",
 		room : ".room"
 	},
 	events : {
@@ -52,6 +53,10 @@ var CalendarView = Marionette.LayoutView.extend({
 			_this.testColor( val );
 		});
 
+		this._splashView = new SplashView({ model : new Backbone.Model({ rooms : {} }) }) ;
+
+		this.getRegion("roomSplit").show( this._splashView );
+
 		this.listenTo( AppRouter, "route:roomRoute", function( key ){
 			
 			this.showRoom( key );
@@ -60,7 +65,7 @@ var CalendarView = Marionette.LayoutView.extend({
 	},
 	showSplit : function(){
 
-		var $splitEl = this.ui.roomSplit;
+		var $splitEl = this.getRegion( "roomSplit" ).$el;
 		var $singleEl = this.getRegion( "roomSingle" ).$el;
 
 		$splitEl.show();
@@ -68,7 +73,7 @@ var CalendarView = Marionette.LayoutView.extend({
 	},
 	showRoom : function( key ){
 
-		var $splitEl = this.ui.roomSplit;
+		var $splitEl = this.getRegion( "roomSplit" ).$el;
 		
 		var model = this.calendarStore[ key ];
 
@@ -143,8 +148,10 @@ var CalendarView = Marionette.LayoutView.extend({
 		if(  !this.calendarStore[ key ] ){
 
 			this.calendarStore[ key ] = new CalendarModel({
+				key : key,
 				eventCollection : new CalendarCollection()
 			});
+			this._splashView.addRoom( this.calendarStore[ key ] );
 		} 
 
 		this.calendarStore[ key ].set("roomData", data.data);

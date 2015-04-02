@@ -46,10 +46,49 @@ body {
   margin: 0; }
 
 html {
-  margin: 0; }
+  margin: 0;
+  min-width: 320px;
+  min-height: 320px; }
 
 .main-list {
   font-size: 0.8em; }
   .main-list .item {
     border: solid 1px black;
     padding: 10px; }
+
+#splash-page {
+  height: 100%; }
+  #splash-page #room-split {
+    height: 100%;
+    box-sizing: border-box;
+    font-size: 0; }
+    @media screen and (max-width: 320px) {
+      #splash-page #room-split {
+        padding: 2px 2px 70px 2px; }
+        #splash-page #room-split > .room-container {
+          padding: 2px; } }
+    @media screen and (min-width: 320px) and (max-width: 1200px) {
+      #splash-page #room-split {
+        padding: 4px 4px 70px 4px; }
+        #splash-page #room-split > .room-container {
+          padding: 4px; } }
+    @media screen and (min-width: 1200px) {
+      #splash-page #room-split {
+        padding: 8px 8px 70px 8px; }
+        #splash-page #room-split > .room-container {
+          padding: 8px; } }
+    #splash-page #room-split.in-rows {
+      display: block;
+      width: 100%;
+      height: 25%; }
+    #splash-page #room-split > .room-container {
+      display: inline-block;
+      vertical-align: top;
+      width: 25%;
+      height: 100%;
+      box-sizing: border-box; }
+      #splash-page #room-split > .room-container > section {
+        position: relative;
+        height: 100%;
+        background-color: #dfdfdf;
+        cursor: pointer; }

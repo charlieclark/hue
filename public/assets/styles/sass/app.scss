@@ -1,5 +1,13 @@
 @import "icons";
 
+$split_padding_large: 8px;
+$split_padding_medium: 4px;
+$split_padding_small: 2px;
+
+$break-large: 1200px;
+$break-medium: 1024px;
+$break-small: 320px;
+
 body{
 	visibility: visible;
 	margin: 0;
@@ -7,13 +15,67 @@ body{
 
 html{
 	margin: 0;
+	min-width: 320px;
+	min-height: 320px;
 }
-
 
 .main-list{
 	font-size: 0.8em;
 	.item{
 		border: solid 1px black;
 		padding: 10px;
+	}
+}
+
+#splash-page{
+	height: 100%;
+
+	#room-split{
+		height: 100%;
+		box-sizing: border-box;
+		font-size: 0;
+
+		@media screen and (max-width: $break-small) {
+	    padding: $split_padding_small $split_padding_small 70px $split_padding_small;
+
+	    >.room-container{
+	    	padding: $split_padding_small;
+	    }
+	  }
+	  @media screen and (min-width: $break-small) and (max-width: $break-large) {
+	    padding: $split_padding_medium $split_padding_medium 70px $split_padding_medium;
+
+	    >.room-container{
+	    	padding: $split_padding_medium;
+	    }
+	  }
+	  @media screen and (min-width: $break-large) {
+	    padding: $split_padding_large $split_padding_large 70px $split_padding_large;
+
+	    >.room-container{
+	    	padding: $split_padding_large;
+	    }
+	  }
+
+		&.in-rows{
+			display: block;
+			width: 100%;
+			height: 25%;
+		}
+
+		>.room-container{
+			display: inline-block;
+			vertical-align: top;
+			width: 25%;
+			height: 100%;
+			box-sizing: border-box;
+
+			>section{
+				position: relative;
+				height: 100%;
+				background-color: #dfdfdf;
+				cursor: pointer;
+			}
+		}
 	}
 }
