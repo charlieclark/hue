@@ -55,7 +55,7 @@ function pullRooms(){
 
      request.then(function(response) {
 
-          roomLoaded( key, response.result );
+          roomLoaded( key, response.result );console.log(response.result)
       }, function(reason) {
 
           console.log('Error: ' + reason.result.error.message);
