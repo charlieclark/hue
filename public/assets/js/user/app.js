@@ -23,14 +23,15 @@ var MyApp = Marionette.Application.extend({
 		
 	},
 	onStart : function(){
-		Backbone.history.start({
-			pushState : false
-		});
+
 		AppLayout.render(); 
-		console.log("!!!!!!!!asdasdsadas!!!!")
 
 		var myCalendar = new CalendarWrapper( { model : new Backbone.Model({ rooms : roomData }) });
 		AppLayout.getRegion("main").show( myCalendar );
+
+		Backbone.history.start({
+			pushState : false
+		});
 	} 
 });
 

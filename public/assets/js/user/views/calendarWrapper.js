@@ -1,3 +1,5 @@
+var AppRouter 		= require( "controllers/appRouter" );
+
 var calendarLoad = require("controllers/calendarLoad");
 var CalendarSingle 	= require("views/calendarSingle");
 
@@ -8,10 +10,6 @@ var roomData = require("roomData");
 var CalendarView = Marionette.LayoutView.extend({
 	template : _.template( require("templates/calendarWrapper.html") ),
 	regions : {
-
-		mainList : ".main-list",
-		calendarContainer : "calendar-container",
-		roomSplit : "#room-split",
 		roomSingle : "#room-single",
 	},
 	ui : {
@@ -19,6 +17,7 @@ var CalendarView = Marionette.LayoutView.extend({
 		test : "#test",
 		hexButton : "#hex",
 		hexInput : "#hex-input",
+		roomSplit : "#room-split",
 		room : ".room"
 	},
 	events : {
@@ -31,12 +30,16 @@ var CalendarView = Marionette.LayoutView.extend({
 			var color = this.ui.hexInput.val();
 			this.testColor( color );
 		},
-		"click @ui.room" : "onClickRoom"
+		"click @ui.room" : function( e ){
+			var key = $( e.currentTarget ).data("id");
+			AppRouter.navigate("room/"+key, {trigger: true});
+		}
 	},
 	initialize : function(){
 		
 		this.calendarStore = {};
 		this.listenTo( calendarLoad.events, "eventsLoaded", this.eventsLoaded );
+		
 	},
 	onShow : function(){
 
@@ -46,13 +49,43 @@ var CalendarView = Marionette.LayoutView.extend({
 			var val = $(this).val();
 			_this.testColor( val );
 		});
-	},
-	onClickRoom : function( e ){
 
-		var $room = $( e.currentTarget );
-		var model = this.calendarStore[ $room.data("id") ];
-		var view =  new CalendarSingle( { model : model });
-		this.getRegion( "roomSingle" ).show( view );
+		this.listenTo( AppRouter, "route:roomRoute", function( key ){
+			
+			this.showRoom( key );
+		});
+		this.listenTo( AppRouter, "route:defaultRoute", this.showSplit );
+	},
+	showSplit : function(){
+
+		var $splitEl = this.ui.roomSplit;
+		var $singleEl = this.getRegion( "roomSingle" ).$el;
+
+		$splitEl.show();
+		$singleEl.hide();
+	},
+	showRoom : function( key ){
+
+		var $splitEl = this.ui.roomSplit;
+		
+		var model = this.calendarStore[ key ];
+
+		if( !model ){
+			this.queuedKey = key;
+		} else {
+			var view =  new CalendarSingle( { model : model });
+			var region = this.getRegion( "roomSingle" ).show( view );
+			$singleEl = region.$el;
+
+			$singleEl.show();
+			$splitEl.hide();
+		}
+	},
+	checkQueue : function(){
+
+		if( this.queuedKey ){
+			this.showRoom( this.queuedKey );
+		}
 	},
 	testColor : function( _color ){
 
@@ -109,6 +142,8 @@ var CalendarView = Marionette.LayoutView.extend({
 		myCalendarModel.set("roomData", data.data);
 
 		this.calendarStore[ key ] = myCalendarModel;
+
+		this.checkQueue();
 	} 
 });
 

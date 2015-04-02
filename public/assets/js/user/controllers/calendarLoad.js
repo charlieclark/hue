@@ -65,13 +65,10 @@ function pullRooms(){
 
 function roomLoaded( key, data ){
 
-  console.log("ROOM LOADED", data);
   events.trigger( "eventsLoaded", { key : key, data : data } );
 }
 
-var events = _.extend({
-
-}, Backbone.Events);
+var events = _.extend({}, Backbone.Events);
 
 module.exports = {
 

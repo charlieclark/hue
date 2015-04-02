@@ -1,9 +1,11 @@
-var AppController = require("controllers/appController");
-
 var MyAppRouter = Marionette.AppRouter.extend({
-	controller : AppController,
+	controller : {
+		"defaultRoute" : function(){},
+		"roomRoute" : function(){},
+	},
 	appRoutes : {
-		":page" : "loadPage"
+		"room/:key" : "roomRoute",
+		"*actions" : "defaultRoute",
 	}
 });
 
