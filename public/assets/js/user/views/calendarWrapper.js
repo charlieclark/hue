@@ -14,7 +14,7 @@ var CalendarView = Marionette.LayoutView.extend({
 	template : _.template( require("templates/calendarWrapper.html") ),
 	regions : {
 		roomSingle : "#room-single",
-		roomSplit : "#room-split"
+		splashPage : "#splash-page"
 	},
 	ui : {
 		colorPicker : ".color",
@@ -55,7 +55,7 @@ var CalendarView = Marionette.LayoutView.extend({
 
 		this._splashView = new SplashView({ model : new Backbone.Model({ rooms : {} }) }) ;
 
-		this.getRegion("roomSplit").show( this._splashView );
+		this.getRegion("splashPage").show( this._splashView );
 
 		this.listenTo( AppRouter, "route:roomRoute", function( key ){
 			
@@ -65,7 +65,7 @@ var CalendarView = Marionette.LayoutView.extend({
 	},
 	showSplit : function(){
 
-		var $splitEl = this.getRegion( "roomSplit" ).$el;
+		var $splitEl = this.getRegion( "splashPage" ).$el;
 		var $singleEl = this.getRegion( "roomSingle" ).$el;
 
 		$splitEl.show();
@@ -73,7 +73,7 @@ var CalendarView = Marionette.LayoutView.extend({
 	},
 	showRoom : function( key ){
 
-		var $splitEl = this.getRegion( "roomSplit" ).$el;
+		var $splitEl = this.getRegion( "splashPage" ).$el;
 		
 		var model = this.calendarStore[ key ];
 

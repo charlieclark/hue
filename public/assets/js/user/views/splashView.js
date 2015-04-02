@@ -1,4 +1,5 @@
 var SplashView = Marionette.LayoutView.extend({
+	id : "room-split",
 	template : _.template( require("templates/splashWrapper.html") ),
 	addRoom : function( model ){
 		var rooms = this.model.get("rooms");
