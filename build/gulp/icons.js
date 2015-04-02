@@ -13,7 +13,7 @@ gulp.task('iconfont', function(){
         .on('codepoints', function(codepoints, options) {
             // CSS templating, e.g. 
             gulp.src( paths.build.templates + "icons.css" )
-            .pipe(plugins.consolidate('lodash', {
+            .pipe(plugins.consolidate('underscore', {
                 glyphs: codepoints,
                 fontName: 'myfont',
                 fontPath: '../fonts/',
