@@ -8,15 +8,17 @@ $break-large: 1200px;
 $break-medium: 1024px;
 $break-small: 320px;
 
-body{
+html, body{
 	visibility: visible;
-	margin: 0;
-}
-
-html{
 	margin: 0;
 	min-width: 320px;
 	min-height: 320px;
+}
+
+body{
+	position: absolute;
+	width: 100%;
+	height: 100%;
 }
 
 .main-list{
@@ -74,7 +76,22 @@ html{
 				position: relative;
 				height: 100%;
 				background-color: #dfdfdf;
+				color: #fff;
 				cursor: pointer;
+
+				>.number{
+					position: absolute;
+					top: 4%;
+					left: 10%;
+					font-size: 60px;
+				}
+
+				>.person{
+					position: absolute;
+					bottom: 3%;
+					right: 10%;
+					font-size: 30px;
+				}
 			}
 		}
 	}

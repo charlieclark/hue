@@ -41,14 +41,16 @@
 .s-something:before {
   content: ""; }
 
-body {
+html, body {
   visibility: visible;
-  margin: 0; }
-
-html {
   margin: 0;
   min-width: 320px;
   min-height: 320px; }
+
+body {
+  position: absolute;
+  width: 100%;
+  height: 100%; }
 
 .main-list {
   font-size: 0.8em; }
@@ -91,4 +93,15 @@ html {
         position: relative;
         height: 100%;
         background-color: #dfdfdf;
+        color: #fff;
         cursor: pointer; }
+        #splash-page #room-split > .room-container > section > .number {
+          position: absolute;
+          top: 4%;
+          left: 10%;
+          font-size: 60px; }
+        #splash-page #room-split > .room-container > section > .person {
+          position: absolute;
+          bottom: 3%;
+          right: 10%;
+          font-size: 30px; }
