@@ -11,23 +11,18 @@ var CalendarModel = Backbone.Model.extend({
 		this.convertDate("end");
 	},
 	convertDate : function( key ){
-
 		//convert datas
 		var dateString = this.get( key )
 		if(!dateString) return;
 		
 		dateString = dateString.dateTime;
+		var now = new Date();
 		var date = new Date( dateString );
 
 		this.set( key, {
 			raw : date,
 			formatted : date.toString()
 		});
-	},
-	parse : function( data ){
-		console.log("ASDADASDASDASDASDSAasdsa")
-		console.log(data);
-		return data;
 	}
 })
 
