@@ -10,34 +10,42 @@ function LightPattern( lightId, patternId ){
 
 	this._lightId = lightId;
 	this._patternId = patternId;
-	this._step = 0;
 
-	this.newSequence( this._patternId );
+	this._step = 0;
+	this._iteration = 0;
+	this._repeat = patterns[ this._patternId ].repeat;
+
+	this._sequence = this.startSequence( this._patternId );
+
+	this._timeout = null;
 }
 
 LightPattern.prototype = {
-	newSequence : function( id ){
+	startSequence : function( id ){
 
-		var pattern = patterns[ id ];
-		var sequence = pattern.sequence;
+		this._sequence = patterns[ id ].sequence;
 
-		this._tweener = new TimelineMax({
-			repeat : pattern.repeat,
-			onComplete : function(){
-				console.log("complete!");
-			}
-		});
+		this.stopSequence();
+		this.playSequenceStep(0);
 
-		_.each( sequence, function( step ){
-
-			this.queueColor( step );
-		}, this );
+		return this._sequence;
 	},
-	queueColor : function( step ){
+	stopSequence : function(){
 
-		var color = one.color( step.color );
-		var fade = step.fade;
-		var wait = step.wait;
+		this._step = 0;
+		this._iteration = 0;
+
+		window.clearTimeout( this._timeout );
+	},
+	playSequenceStep: function( step ){
+
+		this._step = step;
+
+		var segment = this._sequence[this._step];
+
+		var color = one.color( segment.color );
+		var fade = segment.fade;
+		var wait = segment.wait;
 
 		var hsl = {
 			h : Math.floor( color.h() * 360), 
@@ -45,23 +53,34 @@ LightPattern.prototype = {
 			l : Math.floor( color.l() * 100) 
 		};
 
-		var options = {
-			onStart : function(){
-				//updating LEDs
-				hueConnect.update([{
-					id : this._lightId,
-					data : {
-						hsl : hsl,
-						duration : fade
-					}
-				}]);				
-			},
-			onStartScope : this
+		hueConnect.update([{
+			id : this._lightId,
+			data : {
+				hsl : hsl,
+				duration : fade
+			}
+		}]);
+
+		window.clearTimeout( this._timeout );
+		this._timeout = window.setTimeout($.proxy(this.nextSequenceStep, this), wait*1000);
+	},
+	nextSequenceStep: function(){
+
+		var totalSteps = this._sequence.length;
+		var repeat = this._repeat;
+
+		this._step ++;
+		if(this._step > totalSteps - 1) {
+			this._step = 0;
+			this._iteration ++;
 		}
 
-		//updating frontend
-		this._tweener.to( this._hsl, fade, _.extend( options, hsl ) );
-		this._tweener.to( this._hsl, wait, {} );
+		if(repeat > -1 && this._iteration > repeat) {
+			this.stopSequence();
+			return;
+		}
+
+		this.playSequenceStep( this._step );
 	}
 }
 
