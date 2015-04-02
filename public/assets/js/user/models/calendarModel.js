@@ -21,7 +21,7 @@ var CalendarModel = Backbone.Model.extend({
 
 		this.set( key, {
 			raw : date,
-			formatted : date.toDateString()
+			formatted : date.toString()
 		});
 	},
 	parse : function( data ){
