@@ -1,22 +1,25 @@
 var calendarLoad = require("controllers/calendarLoad");
-var CalendarItems 	= require("views/calendarItems");
-var CalendarModel 	= require("models/calendarModel");
-var helpers = require("helpers"); 
+var CalendarSingle 	= require("views/calendarSingle");
+
 var hueConnect = require("controllers/hueConnect");
 var LightPattern = require("controllers/lightPattern");
-
-
+var roomData = require("roomData");
 
 var CalendarView = Marionette.LayoutView.extend({
-	template : _.template( require("templates/calendar.html") ),
+	template : _.template( require("templates/calendarWrapper.html") ),
 	regions : {
-		mainList : ".main-list"
+
+		mainList : ".main-list",
+		calendarContainer : "calendar-container",
+		roomSplit : "#room-split",
+		roomSingle : "#room-single",
 	},
 	ui : {
 		colorPicker : ".color",
 		test : "#test",
 		hexButton : "#hex",
-		hexInput : "#hex-input"
+		hexInput : "#hex-input",
+		room : ".room"
 	},
 	events : {
 		"click @ui.test" : function(){
@@ -27,10 +30,12 @@ var CalendarView = Marionette.LayoutView.extend({
 		"click @ui.hexButton" : function(){
 			var color = this.ui.hexInput.val();
 			this.testColor( color );
-		}
+		},
+		"click @ui.room" : "onClickRoom"
 	},
 	initialize : function(){
 		
+		this.calendarStore = {};
 		this.listenTo( calendarLoad.events, "eventsLoaded", this.eventsLoaded );
 	},
 	onShow : function(){
@@ -41,6 +46,13 @@ var CalendarView = Marionette.LayoutView.extend({
 			var val = $(this).val();
 			_this.testColor( val );
 		});
+	},
+	onClickRoom : function( e ){
+
+		var $room = $( e.currentTarget );
+		var model = this.calendarStore[ $room.data("id") ];
+		var view =  new CalendarSingle( { model : model });
+		this.getRegion( "roomSingle" ).show( view );
 	},
 	testColor : function( _color ){
 
@@ -90,16 +102,14 @@ var CalendarView = Marionette.LayoutView.extend({
 	},
 	eventsLoaded : function( data ){
 		
-		var myCalendarItems = new CalendarItems();
+		var key = data.key;
+		
+		var myCalendarModel = this.calendarStore[ key ] || new Backbone.Model() ;
 
-		_.each( data.items, function( item ){
+		myCalendarModel.set("roomData", data.data);
 
-			var m = new CalendarModel( item );
-			myCalendarItems.collection.add( m );
-		});
-
-		this.getRegion("mainList").show( myCalendarItems );
-	}          
+		this.calendarStore[ key ] = myCalendarModel;
+	} 
 });
 
 

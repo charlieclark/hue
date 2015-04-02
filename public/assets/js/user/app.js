@@ -14,7 +14,8 @@ var AppRouter 		= require( "controllers/appRouter" );
 var AppLayout 		= require( "views/appLayout" );
 
 //custom
-var CalendarView	= require("views/calendar");
+var CalendarWrapper	= require("views/calendarWrapper");
+var roomData = require("roomData");
 
 //THE APPLICATION
 var MyApp = Marionette.Application.extend({
@@ -28,7 +29,7 @@ var MyApp = Marionette.Application.extend({
 		AppLayout.render(); 
 		console.log("!!!!!!!!asdasdsadas!!!!")
 
-		var myCalendar = new CalendarView();
+		var myCalendar = new CalendarWrapper( { model : new Backbone.Model({ rooms : roomData }) });
 		AppLayout.getRegion("main").show( myCalendar );
 	} 
 });

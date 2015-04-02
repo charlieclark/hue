@@ -1,0 +1,20 @@
+<div>
+	<input id="hex-input" type="text"></input>
+	<button id="hex">hex</button>
+</div>
+<button id="test">test</button>
+<input class="color" type="color" name="favcolor">
+<div class="main-list"></div>
+
+<div id="room-split">
+	<% _.each( rooms, function( data, key ){ %>
+		<div id="room-<%= key %>" class="room" data-id="<%= key %>">room <%= key %></div>
+	<% }); %>
+</div>
+<div id="room-single"></div>
+
+<div id="calendar-container">
+
+</div>
+
+ 
