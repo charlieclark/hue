@@ -7,13 +7,6 @@ function LightPattern( lightId, patternId, opt_data ){
 	// make sequence by patternId
 	this.createSequence( patternId, opt_data );
 
-	//
-	this._hsl = {
-		h : 0,
-		s : 0,
-		l : 0
-	}
-
 	this._lightId = lightId;
 
 	this._step = 0;
@@ -88,6 +81,8 @@ LightPattern.prototype = {
 		window.clearTimeout( this._timeout );
 	},
 	playSequenceStep: function( step, instant ){
+
+		// console.log("play sequence step")
 
 		this._step = step;
 

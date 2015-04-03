@@ -48,6 +48,8 @@ Connector.prototype = {
 
 	setLight : function( id, data ){
 
+		console.log("set light")
+
 		var h = data.hsl.h;
 		var s = data.hsl.s;
 		var l = data.hsl.l;

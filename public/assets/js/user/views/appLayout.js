@@ -46,6 +46,7 @@ var MyAppLayout = Marionette.LayoutView.extend({
 		}, this );
 	},
 	onResizeWindow : function(){
+		
 		Common.ww = $(window).width();
 		Common.wh = $(window).height();
 	}

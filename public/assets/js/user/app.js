@@ -3,15 +3,11 @@ window.Common = {
 		assets : "assets/",
 		img : "assets/img/",
 		audio : "assets/audio/"
-	},
-	sizes :{
-		frame : 10
 	}
 };
 
 //base
-var AppRouter 		= require( "controllers/appRouter" );
-var AppLayout 		= require( "views/appLayout" );
+var AppLayout = require( "views/appLayout" );
 
 //custom
 var CalendarWrapper	= require("views/calendarWrapper");
@@ -24,8 +20,6 @@ var MyApp = Marionette.Application.extend({
 	},
 	onStart : function(){
 
-		AppLayout.render(); 
-
 		var myCalendar = new CalendarWrapper( { model : new Backbone.Model({ rooms : roomData }) });
 		AppLayout.getRegion("main").show( myCalendar );
 
@@ -35,8 +29,7 @@ var MyApp = Marionette.Application.extend({
 	} 
 });
 
-
-
+//kickoff
 $(function(){
 	window.app = new MyApp();
 	window.app.start(); 

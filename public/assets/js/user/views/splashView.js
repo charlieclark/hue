@@ -50,6 +50,7 @@ var SplashView = Marionette.LayoutView.extend({
 		rooms[ model.get("key") ] = model;
 
 		this.listenTo( model, "change:currentEvent", this.render );
+		this.listenTo( model, "change:timeLeft", this.updateTimeLeft );
 		this.render();
 	},
 	resize : function(){
@@ -69,9 +70,13 @@ var SplashView = Marionette.LayoutView.extend({
 			});
 		});
 	},
+	updateTimeLeft : function(model, data){
+
+		var key = model.get("key");
+		$('#room-'+key).find(".person").html( [ data.hours , data.minutes , data.seconds ].join(":") );
+	},
 	onBeforeRender : function(){
 
-		console.log("RERENDER SPLASH");
 		var rooms =  this.model.get("rooms");
 		var roomsData =  this.model.get("roomsData");
 
