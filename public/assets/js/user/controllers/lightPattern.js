@@ -138,8 +138,8 @@ var patterns = {
 	},
 	'available' : {
 		instant : true,
-		repeat : -1,
-		fade: 0,
+		repeat : 0,
+		fade: 1,
 		wait: 0,
 		colors: ["#3523f6"],
 		sequence : []

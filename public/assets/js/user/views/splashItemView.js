@@ -9,7 +9,7 @@ var SplashItemView = Marionette.ItemView.extend({
 
 		TweenMax.ticker.addEventListener('tick', this.update, this);
 
-		this.render();
+		// this.render();
 	},
 	update: function(){
 
@@ -23,6 +23,10 @@ var SplashItemView = Marionette.ItemView.extend({
 
 		var key = model.get("key");
 		this.$el.find(".person").html( [ data.hours , data.minutes ].join(":") );
+	},
+	onBeforeRender : function(){
+		var currentEvent = this.model.get("currentEvent");
+		this.model.set( "currentEventData", currentEvent ? currentEvent.toJSON() : null );
 	}
 });
 

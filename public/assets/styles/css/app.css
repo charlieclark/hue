@@ -1,5 +1,5 @@
 @charset "UTF-8";
-@import url(http://fonts.googleapis.com/css?family=Raleway:100);
+@import url(http://fonts.googleapis.com/css?family=Raleway:600,100);
 @import url(http://fonts.googleapis.com/css?family=Crimson+Text);
 @font-face {
   font-family: "myfont";
@@ -43,18 +43,6 @@
 .s-something:before {
   content: ""; }
 
-.s-room-1:before {
-  content: ""; }
-
-.s-room-2:before {
-  content: ""; }
-
-.s-room-3:before {
-  content: ""; }
-
-.s-room-5:before {
-  content: ""; }
-
 .number {
   font-family: "Raleway", sans-serif;
   font-weight: 100;
@@ -74,8 +62,6 @@ body {
   position: absolute;
   width: 100%;
   height: 100%; }
-  body * {
-    -webkit-font-smoothing: antialiased; }
 
 .main-list {
   font-size: 0.8em; }
@@ -93,57 +79,125 @@ body {
     @media screen and (max-width: 320px) {
       #splash-page #room-split {
         padding: 2px 2px 70px 2px; }
-        #splash-page #room-split > .room-container {
-          padding: 2px; } }
+        #splash-page #room-split section {
+          left: 2px;
+          top: 2px;
+          width: calc(100% - 4px);
+          height: calc(100% - 4px); } }
     @media screen and (min-width: 320px) and (max-width: 1200px) {
       #splash-page #room-split {
         padding: 4px 4px 70px 4px; }
-        #splash-page #room-split > .room-container {
-          padding: 4px; } }
+        #splash-page #room-split section {
+          left: 4px;
+          top: 4px;
+          width: calc(100% - 8px);
+          height: calc(100% - 8px); } }
     @media screen and (min-width: 1200px) {
       #splash-page #room-split {
         padding: 8px 8px 70px 8px; }
-        #splash-page #room-split > .room-container {
-          padding: 8px; } }
+        #splash-page #room-split section {
+          left: 8px;
+          top: 8px;
+          width: calc(100% - 16px);
+          height: calc(100% - 16px); } }
     .state-portrait #splash-page #room-split {
       white-space: normal; }
       .state-portrait #splash-page #room-split > .room-container {
         display: block;
         width: 100%;
-        height: 25%; }
+        height: 25%;
+        transition: height 0.25s cubic-bezier(0.23, 1, 0.32, 1); }
+        .state-portrait #splash-page #room-split > .room-container.hovered {
+          width: 100%;
+          height: 28%; }
+        .state-portrait #splash-page #room-split > .room-container.not-hovered {
+          width: 100%;
+          height: 24%; }
+        .state-portrait #splash-page #room-split > .room-container.expanded {
+          width: 100%;
+          height: 100%; }
+        .state-portrait #splash-page #room-split > .room-container.collapsed {
+          width: 100%;
+          height: 0%; }
     #splash-page #room-split > .room-container {
       display: inline-block;
       vertical-align: top;
       width: 25%;
       height: 100%;
-      box-sizing: border-box;
       cursor: pointer;
       transition: width 0.25s cubic-bezier(0.23, 1, 0.32, 1); }
       #splash-page #room-split > .room-container.hovered {
         width: 28%; }
+        #splash-page #room-split > .room-container.hovered .circle {
+          transform: scale(1.2); }
+          #splash-page #room-split > .room-container.hovered .circle .graph {
+            transform: scale(1.2); }
       #splash-page #room-split > .room-container.not-hovered {
         width: 24%; }
+      #splash-page #room-split > .room-container.expanded {
+        width: 100%; }
+      #splash-page #room-split > .room-container.collapsed {
+        width: 0%; }
       #splash-page #room-split > .room-container > section {
         position: relative;
-        width: 100%;
-        height: 100%;
         background-color: #dfdfdf;
         color: #fff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
         overflow: hidden;
-        white-space: normal; }
+        white-space: normal;
+        transition: background-color 1s linear; }
         #splash-page #room-split > .room-container > section > .number {
           position: absolute;
           top: 1vmin;
           left: 4vmin;
-          font-size: 12vmin; }
-        #splash-page #room-split > .room-container > section > .graph {
-          font-size: 200px; }
-        #splash-page #room-split > .room-container > section > .person {
+          font-size: 12vmin;
+          -webkit-font-smoothing: antialiased; }
+        #splash-page #room-split > .room-container > section > .circle {
           position: absolute;
-          bottom: 4vmin;
-          right: 4vmin;
-          font-size: 3vmin;
-          text-align: right; }
+          left: calc(50% - 20vmin);
+          top: calc(50% - 20vmin);
+          width: 40vmin;
+          height: 40vmin;
+          border-radius: 100%;
+          border: 2px solid #fff;
+          overflow: hidden;
+          transition: transform 0.25s cubic-bezier(0.23, 1, 0.32, 1);
+          transform: translateZ(0); }
+          .state-portrait #splash-page #room-split > .room-container > section > .circle {
+            left: calc(50% - 7.5vh);
+            top: calc(50% - 7.5vh);
+            width: 15vh;
+            height: 15vh; }
+          #splash-page #room-split > .room-container > section > .circle > .graph {
+            width: 100%;
+            height: 100%;
+            background-size: 100% 100%;
+            background-position: center center;
+            transition: transform 0.25s cubic-bezier(0.23, 1, 0.32, 1);
+            transform: translateZ(0) scale(1); }
+            #splash-page #room-split > .room-container > section > .circle > .graph.room-1 {
+              background-image: url("/assets/images/room-1.png"); }
+            #splash-page #room-split > .room-container > section > .circle > .graph.room-2 {
+              background-image: url("/assets/images/room-2.png"); }
+            #splash-page #room-split > .room-container > section > .circle > .graph.room-3 {
+              background-image: url("/assets/images/room-3.png"); }
+            #splash-page #room-split > .room-container > section > .circle > .graph.room-5 {
+              background-image: url("/assets/images/room-5.png"); }
+        #splash-page #room-split > .room-container > section > .availability {
+          position: absolute;
+          left: 0;
+          bottom: 2vmin;
+          width: 100%;
+          font-size: 2.5vmin;
+          font-weight: 600;
+          text-align: center;
+          text-transform: uppercase;
+          font-family: "Raleway", sans-serif;
+          letter-spacing: .1vw; }
+          #splash-page #room-split > .room-container > section > .availability > p:first-child {
+            -webkit-font-smoothing: antialiased;
+            line-height: 0; }
+          .state-portrait #splash-page #room-split > .room-container > section > .availability {
+            left: auto;
+            right: 4vmin;
+            width: 50%;
+            text-align: right; }
