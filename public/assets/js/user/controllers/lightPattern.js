@@ -141,6 +141,14 @@ var patterns = {
 		colors: ["#FB1911", "#00ff00", "#4156FF", "#FF001D", "#FFFF07"],
 		sequence : []
 	},
+	'available' : {
+		instant : true,
+		repeat : -1,
+		fade: 0,
+		wait: 0,
+		colors: ["#3523f6"],
+		sequence : []
+	},
 	'occupied' : {
 		instant : true,
 		repeat : 0,

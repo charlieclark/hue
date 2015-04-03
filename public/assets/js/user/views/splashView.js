@@ -6,6 +6,8 @@ var SplashView = Marionette.LayoutView.extend({
 	initialize : function(){
 		_.bindAll(this, 'resize');
 		$(window).resize( this.resize ).resize();
+
+		TweenMax.ticker.addEventListener('tick', this.update, this);
 	},
 	addRoom : function( model ){
 		var rooms = this.model.get("rooms");
@@ -27,8 +29,8 @@ var SplashView = Marionette.LayoutView.extend({
 			var lightPattern = room.getLightPattern();
 
 			$('#room-'+key).css({
-				'background-color': lightPattern.getColor();
-			})
+				'background-color': lightPattern.getColor()
+			});
 		});
 	},
 	onBeforeRender : function(){
