@@ -16,7 +16,7 @@ var SplashView = Marionette.LayoutView.extend({
 		console.log("RERENDER SPLASH");
 		var rooms =  this.model.get("rooms");
 		var roomsData =  this.model.get("roomsData");
-		
+
 		_.each( rooms, function( room, key ) {
 			roomsData[ key ] = room.toJSON();
 		});

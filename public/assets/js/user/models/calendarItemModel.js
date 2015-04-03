@@ -25,6 +25,7 @@ var CalendarItemModel = Backbone.Model.extend({
 		});
 	},
 	isActive : function(){
+		
 		 var start = this.get("start").raw;
 		 var end = this.get("end").raw;
 		 var now = new Date();
@@ -34,6 +35,11 @@ var CalendarItemModel = Backbone.Model.extend({
 		 }
 
 		 return false;
+	},
+	getPatternType : function(){
+
+		var type = "occupied";
+		return type;
 	}
 })
 

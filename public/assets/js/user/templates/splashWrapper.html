@@ -3,7 +3,7 @@
 		<section id="room-<%= key %>" class="room" data-id="<%= key %>">
 			<div class="number"><%= key %></div>
 			<div class="graph"></div>
-			<div class="person"><%= data.currentEvent ? data.currentEvent.summary : 'nothing' %></div>
+			<div class="person"><%= data.currentEventData ? data.currentEventData.summary : 'nothing' %></div>
 		</section>
 	</div>
 <% }); %>

@@ -9,7 +9,7 @@ var SplashView 	= require("views/splashView");
 
 var hueConnect = require("controllers/hueConnect");
 var LightPattern = require("controllers/lightPattern");
-var roomData = require("roomData");
+var LightPatternController = require("controllers/lightPatternController");
 
 var CalendarView = Marionette.LayoutView.extend({
 	template : _.template( require("templates/calendarWrapper.html") ),
@@ -155,6 +155,7 @@ var CalendarView = Marionette.LayoutView.extend({
 			});
 			this._splashView.addRoom( myCalendarModel );
 			this.calendarStore[ key ] = myCalendarModel;
+			new LightPatternController( myCalendarModel );
 		} 
 
 		var roomData = data.data;
