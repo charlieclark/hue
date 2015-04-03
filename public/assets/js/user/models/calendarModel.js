@@ -10,7 +10,6 @@ var CalendarModel = Backbone.Model.extend({
 
 		this.listenTo( this, "change:updated", this.updateEvents );
 		this.listenTo( this, "change:updated", this.getCurrent );
-		// this.listenTo( this, "change:currentEvent", this.currentChanged );
 
 		setInterval( this.getCurrent, 1000 );
 	},

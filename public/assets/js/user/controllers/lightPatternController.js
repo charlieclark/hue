@@ -9,9 +9,13 @@ function LightPatternController( model ){
 LightPatternController.prototype = {
 	init : function(){
 
-		this._model.on( "change:currentEvent", this.currentChanged  );
+		this._model.on( "change:currentEvent", this.currentChanged, this  );
 	},
 	currentChanged : function( parent, model ){
+
+		this.stopExisting();
+
+		if( !model ) return;
 
 		var type = model.getPatternType();
 		var start = model.get("start").raw;
@@ -22,6 +26,12 @@ LightPatternController.prototype = {
 			start : start,
 			end : end
 		});
+	},
+	stopExisting : function(){
+
+		if( this._currentPattern ){
+			this._currentPattern.stopSequence();	
+		}
 	}
 }
 
