@@ -43,6 +43,11 @@ var CalendarModel = Backbone.Model.extend({
 		}, this);
 
 		eventCollection.reset( newModels );
+	},
+	getLightPattern : function(){
+
+		var lightPatternController = this.get("lightPatternController");
+		return lightPatternController.getCurrent();
 	}
 });
 

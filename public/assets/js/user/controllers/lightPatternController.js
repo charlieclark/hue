@@ -27,6 +27,10 @@ LightPatternController.prototype = {
 			end : end
 		});
 	},
+	getCurrent : function(){
+
+		return this._currentPattern;
+	},
 	stopExisting : function(){
 
 		if( this._currentPattern ){

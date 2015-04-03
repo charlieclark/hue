@@ -43,7 +43,6 @@ var CalendarView = Marionette.LayoutView.extend({
 		
 		this.calendarStore = {};
 		this.listenTo( calendarLoad.events, "eventsLoaded", this.eventsLoaded );
-		
 	},
 	onShow : function(){
 
@@ -155,13 +154,12 @@ var CalendarView = Marionette.LayoutView.extend({
 			});
 			this._splashView.addRoom( myCalendarModel );
 			this.calendarStore[ key ] = myCalendarModel;
-			new LightPatternController( myCalendarModel );
+			var lightPatternController = new LightPatternController( myCalendarModel );
+			myCalendarModel.set("lightPatternController", lightPatternController);
 		} 
 
 		var roomData = data.data;
 		var updated = roomData.updated;
-
-		console.log(updated);
 
 		myCalendarModel.set("roomData", roomData);
 		myCalendarModel.set("updated", updated);
