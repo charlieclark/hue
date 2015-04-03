@@ -41,6 +41,7 @@ body{
 		height: 100%;
 		box-sizing: border-box;
 		font-size: 0;
+		white-space: nowrap;
 
 		@media screen and (max-width: $break-small) {
 	    padding: $split_padding_small $split_padding_small 70px $split_padding_small;
@@ -65,6 +66,8 @@ body{
 	  }
 
 		.state-portrait &{
+			white-space: normal;
+
 			>.room-container{
 				display: block;
 				width: 100%;
@@ -78,16 +81,28 @@ body{
 			width: 25%;
 			height: 100%;
 			box-sizing: border-box;
+			cursor: pointer;
+			transition: width .25s cubic-bezier(0.23, 1, 0.32, 1);
+
+			&.hovered{
+				width: 28%;
+			}
+
+			&.not-hovered{
+				width: 24%;
+			}
 
 			>section{
 				position: relative;
+				width: 100%;
 				height: 100%;
 				background-color: #dfdfdf;
 				color: #fff;
-				cursor: pointer;
 				display: flex;
 				align-items: center;
   			justify-content: center;
+  			overflow: hidden;
+  			white-space: normal;
 
 				>.number{
 					position: absolute;
@@ -105,6 +120,7 @@ body{
 					bottom: 4vmin;
 					right: 4vmin;
 					font-size: 3vmin;
+					text-align: right;
 				}
 			}
 		}

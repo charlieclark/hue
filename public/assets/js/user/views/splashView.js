@@ -3,11 +3,32 @@ var State = require('models/state');
 var SplashView = Marionette.LayoutView.extend({
 	id : "room-split",
 	template : _.template( require("templates/splashWrapper.html") ),
+	ui : {
+		roomContainers : ".room-container"
+	},
+	events : {
+		"mouseenter @ui.roomContainers" : function(e){
+				$('.room-container').each(function(index, el) {
+					var isHovered = (el === e.currentTarget);
+					$(el).toggleClass('hovered', isHovered);
+					$(el).toggleClass('not-hovered', !isHovered);
+				});
+		},
+		"mouseleave @ui.roomContainers" : function(e){
+				$('.room-container').each(function(index, el) {
+					$(el).removeClass('hovered');
+					$(el).removeClass('not-hovered');
+				});
+		}
+	},
 	initialize : function(){
 		_.bindAll(this, 'resize');
 		$(window).resize( this.resize ).resize();
 
 		TweenMax.ticker.addEventListener('tick', this.update, this);
+	},
+	onRender : function(){
+
 	},
 	addRoom : function( model ){
 		var rooms = this.model.get("rooms");
