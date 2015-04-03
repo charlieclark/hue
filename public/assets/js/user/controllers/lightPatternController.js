@@ -9,6 +9,7 @@ function LightPatternController( model ){
 LightPatternController.prototype = {
 	init : function(){
 
+		this.isAvailable();
 		this._model.on( "change:currentEvent", this.currentChanged, this  );
 	},
 	currentChanged : function( parent, model ){
@@ -27,6 +28,11 @@ LightPatternController.prototype = {
 			end : end
 		});
 	},
+	isAvailable : function(){
+
+		var key = this._model.get("key");
+		this._currentPattern = new LightPattern( key, "available", {} );
+	},
 	getCurrent : function(){
 
 		return this._currentPattern;
@@ -35,6 +41,7 @@ LightPatternController.prototype = {
 
 		if( this._currentPattern ){
 			this._currentPattern.stopSequence();	
+			this.isAvailable();
 		}
 	}
 }
