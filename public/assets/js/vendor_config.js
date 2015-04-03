@@ -11,7 +11,7 @@ module.exports = {
 		"lib/bower/one-color.js",
 		"lib/bower/socket.io.js",
 	]
-}     
+}
 
 
 

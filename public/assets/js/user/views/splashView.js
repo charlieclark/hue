@@ -1,8 +1,11 @@
+var State = require('models/state');
+
 var SplashView = Marionette.LayoutView.extend({
 	id : "room-split",
 	template : _.template( require("templates/splashWrapper.html") ),
 	initialize : function(){
-		
+		_.bindAll(this, 'resize');
+		$(window).resize( this.resize ).resize();
 	},
 	addRoom : function( model ){
 		var rooms = this.model.get("rooms");
@@ -10,6 +13,23 @@ var SplashView = Marionette.LayoutView.extend({
 
 		this.listenTo( model, "change:currentEvent", this.render );
 		this.render();
+	},
+	resize : function(){
+		var aspectRatio = $(window).width() / $(window).height();
+		State.set('portrait', aspectRatio <= 1);
+	},
+	update: function(){
+
+		var rooms =  this.model.get("rooms");
+
+		_.each( rooms, function( room, key ) {
+			
+			var lightPattern = room.getLightPattern();
+
+			$('#room-'+key).css({
+				'background-color': lightPattern.getColor();
+			})
+		});
 	},
 	onBeforeRender : function(){
 

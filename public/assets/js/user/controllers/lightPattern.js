@@ -52,8 +52,6 @@ LightPattern.prototype = {
 			pattern.sequence = pattern.colors.concat();
 			break;
 		}
-
-		pattern.getColor = $.proxy(this.getColor, this);
 	},
 	getColor : function(){
 
@@ -61,10 +59,24 @@ LightPattern.prototype = {
 	},
 	startSequence : function( patternId ){
 
-		this._sequence = patterns[ patternId ].sequence;
+		var pattern = patterns[ patternId ];
+		this._sequence = pattern.sequence;
 
 		this.stopSequence();
-		this.playSequenceStep(0);
+
+		var step;
+
+		switch(patternId) {
+			case 'occupied':
+			step = Math.floor( (new Date() - pattern.start) / (pattern.end - pattern.start) * 30 );
+			break;
+
+			default:
+			step = 0;
+			break;
+		}
+
+		this.playSequenceStep( step, pattern.instant );
 
 		return this._sequence;
 	},
@@ -75,12 +87,12 @@ LightPattern.prototype = {
 
 		window.clearTimeout( this._timeout );
 	},
-	playSequenceStep: function( step ){
+	playSequenceStep: function( step, instant ){
 
 		this._step = step;
 
 		var color = one.color( this.getColor() );
-		var fade = this._pattern.fade;
+		var fade = instant ? 0 : this._pattern.fade;
 		var wait = this._pattern.wait;
 
 		var hsl = {
@@ -127,8 +139,7 @@ var patterns = {
 		fade: 1,
 		wait: 1,
 		colors: ["#FB1911", "#00ff00", "#4156FF", "#FF001D", "#FFFF07"],
-		sequence : [],
-		getColor : function(){return null}
+		sequence : []
 	},
 	'occupied' : {
 		instant : true,
@@ -138,8 +149,7 @@ var patterns = {
 		start : 0,
 		end : 0,
 		colors: ["#2dcc3d", "#f3e533", "#fc312c"],
-		sequence : [],
-		getColor : function(){return null}
+		sequence : []
 	}
 }
 

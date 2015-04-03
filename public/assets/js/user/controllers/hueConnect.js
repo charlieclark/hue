@@ -18,7 +18,7 @@ function connect(){
 
 function update( data ){
 
-	if(connected){
+	if(connected){console.log(data)
 		mySocket.emit( 'update_data', data );	
 	}
 }
