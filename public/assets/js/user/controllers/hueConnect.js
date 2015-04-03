@@ -1,8 +1,15 @@
 var mySocket = null;
 var connected = false;
 
+var pipe = require("pipe");
+
 function init(){
 
+	pipe.on("param:socket", connect)
+}
+
+function connect(){
+	
 	mySocket = io.connect('//localhost:3000');
 	mySocket.on('connect', function(){
 		connected = true;
@@ -15,8 +22,6 @@ function update( data ){
 		mySocket.emit( 'update_data', data );	
 	}
 }
-
-// var throttledUpdate = _.throttle( update, 500, {leading: false} );
 
 init();
 

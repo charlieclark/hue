@@ -25,8 +25,8 @@ var CalendarItemModel = Backbone.Model.extend({
 		});
 	},
 	isActive : function(){
-		 var start = this.get("start");
-		 var end = this.get("end");
+		 var start = this.get("start").raw;
+		 var end = this.get("end").raw;
 		 var now = new Date();
 
 		 if( now > start && now < end ){

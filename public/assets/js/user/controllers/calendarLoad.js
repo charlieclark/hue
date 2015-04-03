@@ -11,7 +11,7 @@ var clientId = '433839723365-u7grldtvf8pabjkj4frcio3cv5hit8fm.apps.googleusercon
 var apiKey = 'AIzaSyBsKdTplRXuEwgvPSH_gGF8OGsw35t15v0';
 var scopes = 'https://www.googleapis.com/auth/calendar';
 var roomData = require("roomData");
-
+var pullInterval = 1000 * 10;
 
 //TODO : integrate all 4 calendars
 
@@ -38,7 +38,8 @@ function handleAuthResult( authResult ){
 function makeApiCall() {
   gapi.client.load('calendar', 'v3', function() {
       
-      pullRooms();          
+      pullRooms();
+      setInterval( pullRooms, pullInterval );          
   });
 }
 
@@ -59,7 +60,6 @@ function pullRooms(){
 
      request.then(function(response) {
 
-          console.log(response.result);
           roomLoaded( key, response.result );
       }, function(reason) {
 

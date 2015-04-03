@@ -3,6 +3,7 @@ var AppRouter 		= require( "controllers/appRouter" );
 var calendarLoad = require("controllers/calendarLoad");
 var CalendarSingle 	= require("views/calendarSingle");
 var CalendarModel 	= require("models/calendarModel");
+var CalendarItemModel 	= require("models/calendarItemModel");
 var CalendarCollection 	= require("collections/calendarCollection");
 var SplashView 	= require("views/splashView");
 
@@ -53,7 +54,7 @@ var CalendarView = Marionette.LayoutView.extend({
 			_this.testColor( val );
 		});
 
-		this._splashView = new SplashView({ model : new Backbone.Model({ rooms : {} }) }) ;
+		this._splashView = new SplashView({ model : new Backbone.Model({ rooms : {}, roomsData : {} }) }) ;
 
 		this.getRegion("splashPage").show( this._splashView );
 
@@ -144,17 +145,25 @@ var CalendarView = Marionette.LayoutView.extend({
 	eventsLoaded : function( data ){
 		
 		var key = data.key;
+		var myCalendarModel = this.calendarStore[ key ];
 		
-		if(  !this.calendarStore[ key ] ){
+		if(  !myCalendarModel ){
 
-			this.calendarStore[ key ] = new CalendarModel({
+			myCalendarModel = new CalendarModel({
 				key : key,
 				eventCollection : new CalendarCollection()
 			});
-			this._splashView.addRoom( this.calendarStore[ key ] );
+			this._splashView.addRoom( myCalendarModel );
+			this.calendarStore[ key ] = myCalendarModel;
 		} 
 
-		this.calendarStore[ key ].set("roomData", data.data);
+		var roomData = data.data;
+		var updated = roomData.updated;
+
+		console.log(updated);
+
+		myCalendarModel.set("roomData", roomData);
+		myCalendarModel.set("updated", updated);
 
 		this.checkQueue();
 	} 

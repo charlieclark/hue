@@ -21,5 +21,5 @@ io.listen(3000);
 
 connect().use(serveStatic( root )).listen( port );
 
-open( 'http://localhost:' + port );
+open( 'http://localhost:' + port + "/#/?socket" );
 
