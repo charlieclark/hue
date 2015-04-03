@@ -1,5 +1,4 @@
 var CalendarItem 	= require("views/calendarItem");
-var CalendarItemModel 	= require("models/calendarItemModel");
 var AppRouter 		= require( "controllers/appRouter" );
 
 var CalendarSingle = Marionette.LayoutView.extend({
@@ -20,8 +19,7 @@ var CalendarSingle = Marionette.LayoutView.extend({
 			collection : this.model.get("eventCollection")
 		});
 
-		this.listenTo( this.model, "change:roomData", this.updateEvents );
-		this.updateEvents();
+		
 	},
 	onShow : function(){
 
@@ -31,21 +29,6 @@ var CalendarSingle = Marionette.LayoutView.extend({
 	onClose : function(){
 
 		AppRouter.navigate("/", {trigger: true});
-	},
-	updateEvents : function(){
-
-		var roomData = this.model.get("roomData");
-		var newModels = [];
-
-		_.each( roomData.items, function( item ){
-
-			var m = new CalendarItemModel( item );
-			newModels.push( m );
-		}, this);
-
-		this.collectionView.collection.reset( newModels );
-
-		this.model.set("roomData", roomData);
 	}
 });
 

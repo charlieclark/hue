@@ -1,9 +1,9 @@
-<% _.each( rooms, function( data, key ){ %>
+<% _.each( roomsData, function( data, key ){ %>
 	<div class="room-container">
 		<section id="room-<%= key %>" class="room" data-id="<%= key %>">
 			<div class="number"><%= key %></div>
 			<div class="graph s s-room-<%= key %>"></div>
-			<div class="person"><%= data.organizer %></div>
+			<div class="person"><%= data.currentEventData ? data.currentEventData.summary : 'nothing' %></div>
 		</section>
 	</div>
 <% }); %>
