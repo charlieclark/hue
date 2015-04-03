@@ -1,4 +1,8 @@
+var AppRouter 		= require( "controllers/appRouter" );
+
 var State = require('models/state');
+var roomData = require("roomData");
+var SplashItemView = require("views/splashItemView");
 
 var SplashView = Marionette.LayoutView.extend({
 	id : "room-split",
@@ -19,55 +23,32 @@ var SplashView = Marionette.LayoutView.extend({
 					$(el).removeClass('hovered');
 					$(el).removeClass('not-hovered');
 				});
+		},
+		"click @ui.roomContainers" : function( e ){
+			var key = $( e.currentTarget ).data("id");
+			AppRouter.navigate("room/"+key, {trigger: true});
 		}
 	},
 	initialize : function(){
 		_.bindAll(this, 'resize');
 		$(window).resize( this.resize ).resize();
 
-		TweenMax.ticker.addEventListener('tick', this.update, this);
-	},
-	onRender : function(){
+		this.model.set("roomData", roomData);
+
+		_.each( roomData, function( value, key ){
+			this.addRegion( key, "#room-"+key );
+		}, this);
 
 	},
 	addRoom : function( model ){
-		var rooms = this.model.get("rooms");
-		rooms[ model.get("key") ] = model;
 
-		this.listenTo( model, "change:currentEvent", this.render );
-		this.listenTo( model, "change:timeLeft", this.updateTimeLeft );
-		this.render();
+		var key = model.get("key");
+		var region = this.getRegion( key );
+		region.show( new SplashItemView({ model : model } ) );
 	},
 	resize : function(){
 		var aspectRatio = $(window).width() / $(window).height();
 		State.set('portrait', aspectRatio <= 1);
-	},
-	update: function(){
-
-		var rooms =  this.model.get("rooms");
-
-		_.each( rooms, function( room, key ) {
-			
-			var lightPattern = room.getLightPattern();
-
-			$('#room-'+key).css({
-				'background-color': lightPattern.getColor()
-			});
-		});
-	},
-	updateTimeLeft : function(model, data){
-
-		var key = model.get("key");
-		$('#room-'+key).find(".person").html( [ data.hours , data.minutes , data.seconds ].join(":") );
-	},
-	onBeforeRender : function(){
-
-		var rooms =  this.model.get("rooms");
-		var roomsData =  this.model.get("roomsData");
-
-		_.each( rooms, function( room, key ) {
-			roomsData[ key ] = room.toJSON();
-		});
 	}
 });
 

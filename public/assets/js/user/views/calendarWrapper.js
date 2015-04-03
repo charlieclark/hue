@@ -21,8 +21,7 @@ var CalendarView = Marionette.LayoutView.extend({
 		colorPicker : ".color",
 		test : "#test",
 		hexButton : "#hex",
-		hexInput : "#hex-input",
-		room : ".room"
+		hexInput : "#hex-input"
 	},
 	events : {
 		"click @ui.test" : function(){
@@ -33,10 +32,6 @@ var CalendarView = Marionette.LayoutView.extend({
 		"click @ui.hexButton" : function(){
 			var color = this.ui.hexInput.val();
 			this.testColor( color );
-		},
-		"click @ui.room" : function( e ){
-			var key = $( e.currentTarget ).data("id");
-			AppRouter.navigate("room/"+key, {trigger: true});
 		}
 	},
 	initialize : function(){
@@ -152,10 +147,11 @@ var CalendarView = Marionette.LayoutView.extend({
 				key : key,
 				eventCollection : new CalendarCollection()
 			});
-			this._splashView.addRoom( myCalendarModel );
+			
 			this.calendarStore[ key ] = myCalendarModel;
 			var lightPatternController = new LightPatternController( myCalendarModel );
 			myCalendarModel.set("lightPatternController", lightPatternController);
+			this._splashView.addRoom( myCalendarModel );
 		} 
 
 		var roomData = data.data;
