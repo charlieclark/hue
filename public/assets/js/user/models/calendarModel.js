@@ -6,10 +6,11 @@ var CalendarModel = Backbone.Model.extend({
 	},
 	initialize : function(){
 
-		_.bindAll( this, "getCurrent" );
+		_.bindAll( this, "getCurrent", "checkTime" );
 
 		this.listenTo( this, "change:updated", this.updateEvents );
 		this.listenTo( this, "change:updated", this.getCurrent );
+		this.listenTo( this, "change:currentEvent", this.changeCurrent );
 
 		setInterval( this.getCurrent, 1000 );
 	},
@@ -22,6 +23,45 @@ var CalendarModel = Backbone.Model.extend({
 		
 		this.set("currentEventData", current ? current.toJSON() : null);
 		this.set("currentEvent", current );	
+	},
+	changeCurrent : function(view, model){
+
+		if(model){
+			this.startCheckingTime();
+		} else {
+			this.stopCheckingTime();
+		}
+	},
+	startCheckingTime : function(){
+
+		this.stopCheckingTime();
+		this._timeChecker = setInterval( this.checkTime, 1000 );
+	},
+	stopCheckingTime : function(){
+
+		window.clearInterval( this._timeChecker );
+	},
+	checkTime : function(){
+		
+		var model = this.get("currentEvent");
+		var end = model.get("end").raw;
+		var now = new Date();
+		var time = end - now;
+
+		var seconds, minutes, hours, x;
+
+		x = time / 1000
+		seconds = Math.floor( x % 60 );
+		x /= 60
+		minutes = Math.floor( x % 60 );
+		x /= 60
+		hours = Math.floor( x % 24 );
+
+		this.set("timeLeft", {
+			hours : hours,
+			minutes : minutes,
+			seconds : seconds
+		});
 	},
 	updateEvents : function(){
 

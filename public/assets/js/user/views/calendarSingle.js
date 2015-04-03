@@ -18,8 +18,6 @@ var CalendarSingle = Marionette.LayoutView.extend({
 			childView : CalendarItem,
 			collection : this.model.get("eventCollection")
 		});
-
-		
 	},
 	onShow : function(){
 

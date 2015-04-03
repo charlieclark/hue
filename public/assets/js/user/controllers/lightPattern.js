@@ -2,19 +2,10 @@ var hueConnect = require("controllers/hueConnect");
 
 function LightPattern( lightId, patternId, opt_data ){
 
-	console.log("light pattern");
-
 	this._pattern = patterns[ patternId ];
 
 	// make sequence by patternId
 	this.createSequence( patternId, opt_data );
-
-	//
-	this._hsl = {
-		h : 0,
-		s : 0,
-		l : 0
-	}
 
 	this._lightId = lightId;
 

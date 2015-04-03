@@ -16,15 +16,19 @@ LightPatternController.prototype = {
 
 		this.stopExisting();
 
-		if( !model ) return;
+		var data = {};
+		var type = 'available';
 
-		var type = model.getPatternType();
+		if( model ){
 
-		var data = {
-			start : model.get("start").raw,
-			end : model.get("end").raw
+			type = model.getPatternType();
+			data = {
+				start : model.get("start").raw,
+				end : model.get("end").raw
+			}
+
 		}
-
+		
 		this.newPattern( type, data );
 
 	},
@@ -51,7 +55,6 @@ LightPatternController.prototype = {
 
 		if( this._currentPattern ){
 			this._currentPattern.stopSequence();	
-			this.isAvailable();
 		}
 	}
 }
