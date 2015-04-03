@@ -19,23 +19,33 @@ LightPatternController.prototype = {
 		if( !model ) return;
 
 		var type = model.getPatternType();
-		var start = model.get("start").raw;
-		var end = model.get("end").raw;
-		var key = model.get("key");
 
-		this._currentPattern = new LightPattern( key, type, {
-			start : start,
-			end : end
-		});
+		var data = {
+			start : model.get("start").raw,
+			end : model.get("end").raw
+		}
+
+		this.newPattern( type, data );
+
 	},
 	isAvailable : function(){
 
-		var key = this._model.get("key");
-		this._currentPattern = new LightPattern( key, "available", {} );
+		this.newPattern( "available" );
 	},
 	getCurrent : function(){
 
 		return this._currentPattern;
+	},
+	newPattern : function( type, data ){
+
+		var key = this._model.get("key");
+
+		data = data || {};
+
+		this.stopExisting();
+
+		this._currentPattern = new LightPattern( key, type, data);
+
 	},
 	stopExisting : function(){
 

@@ -56,7 +56,6 @@ var SplashView = Marionette.LayoutView.extend({
 	},
 	onBeforeRender : function(){
 
-		console.log("RERENDER SPLASH");
 		var rooms =  this.model.get("rooms");
 		var roomsData =  this.model.get("roomsData");
 

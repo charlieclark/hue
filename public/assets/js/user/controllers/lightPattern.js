@@ -2,6 +2,8 @@ var hueConnect = require("controllers/hueConnect");
 
 function LightPattern( lightId, patternId, opt_data ){
 
+	console.log("light pattern");
+
 	this._pattern = patterns[ patternId ];
 
 	// make sequence by patternId
@@ -88,6 +90,8 @@ LightPattern.prototype = {
 		window.clearTimeout( this._timeout );
 	},
 	playSequenceStep: function( step, instant ){
+
+		// console.log("play sequence step")
 
 		this._step = step;
 
