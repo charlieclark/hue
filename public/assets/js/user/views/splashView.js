@@ -19,7 +19,22 @@ var SplashView = Marionette.LayoutView.extend({
 					$(el).removeClass('hovered');
 					$(el).removeClass('not-hovered');
 				});
+		},
+		"click @ui.roomContainers" : function(e){
+				$('.room-container').each(function(index, el) {
+					var shouldExpand = (el === e.currentTarget);
+					$(el).toggleClass('expanded', shouldExpand);
+					$(el).toggleClass('collapsed', !shouldExpand);
+				});
 		}
+	},
+	reset : function(){
+		$('.room-container').each(function(index, el) {
+			$(el).toggleClass('expanded', false);
+			$(el).toggleClass('collapsed', false);
+			$(el).toggleClass('hovered', false);
+			$(el).toggleClass('not-hovered', false);
+		});
 	},
 	initialize : function(){
 		_.bindAll(this, 'resize');
