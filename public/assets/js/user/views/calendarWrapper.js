@@ -53,7 +53,8 @@ var CalendarView = Marionette.LayoutView.extend({
 			_this.testColor( val );
 		});
 
-		this._splashView = new SplashView({ model : new Backbone.Model({ rooms : {} }) }) ;
+		this._splashView = new SplashView({ model : new Backbone.Model({ rooms : {} }) });
+		this._splashView.initialize();
 
 		this.getRegion("splashPage").show( this._splashView );
 

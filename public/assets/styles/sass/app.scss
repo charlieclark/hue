@@ -1,4 +1,5 @@
 @import "icons";
+@import "typography";
 
 $split_padding_large: 8px;
 $split_padding_medium: 4px;
@@ -19,6 +20,10 @@ body{
 	position: absolute;
 	width: 100%;
 	height: 100%;
+
+	*{
+		-webkit-font-smoothing: antialiased;
+	}
 }
 
 .main-list{
@@ -59,10 +64,12 @@ body{
 	    }
 	  }
 
-		&.in-rows{
-			display: block;
-			width: 100%;
-			height: 25%;
+		.state-portrait &{
+			>.room-container{
+				display: block;
+				width: 100%;
+				height: 25%;
+			}
 		}
 
 		>.room-container{
@@ -78,19 +85,26 @@ body{
 				background-color: #dfdfdf;
 				color: #fff;
 				cursor: pointer;
+				display: flex;
+				align-items: center;
+  			justify-content: center;
 
 				>.number{
 					position: absolute;
-					top: 4%;
-					left: 10%;
-					font-size: 60px;
+					top: 1vmin;
+					left: 4vmin;
+					font-size: 12vmin;
+				}
+
+				>.graph{
+					font-size: 200px;
 				}
 
 				>.person{
 					position: absolute;
-					bottom: 3%;
-					right: 10%;
-					font-size: 30px;
+					bottom: 4vmin;
+					right: 4vmin;
+					font-size: 3vmin;
 				}
 			}
 		}

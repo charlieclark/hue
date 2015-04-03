@@ -1,0 +1,17 @@
+@import url(http://fonts.googleapis.com/css?family=Raleway:100);
+@import url(http://fonts.googleapis.com/css?family=Crimson+Text);
+
+$font_raleway: 'Raleway', sans-serif;
+$font_crimson: 'Crimson Text', serif;
+
+
+.number {
+	font-family: $font_raleway;
+	font-weight: 100;
+	line-height: 1;
+}
+
+.person {
+	font-family: $font_crimson;
+	line-height: 1;
+}
