@@ -58,7 +58,6 @@ var SplashView = Marionette.LayoutView.extend({
 	updateTimeLeft : function(model, data){
 
 		var key = model.get("key");
-		console.log(key);
 		$('#room-'+key).find(".person").html( [ data.hours , data.minutes , data.seconds ].join(":") );
 	},
 	onBeforeRender : function(){
