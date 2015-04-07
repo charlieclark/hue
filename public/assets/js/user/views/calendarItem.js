@@ -1,5 +1,6 @@
 var CalendarItem = Marionette.ItemView.extend({
-	className : "item",
+	className : 'item',
+	tagName : 'li',
 	template : _.template( require("templates/calendarItem.html") ),
 	ui : {
 		'title' : "h2"

@@ -4,25 +4,24 @@ var AppRouter 		= require( "controllers/appRouter" );
 var CalendarSingle = Marionette.LayoutView.extend({
 	template : _.template( require("templates/calendarSingle.html") ),
 	regions : {
-		eventList : "#event-list"
+		eventListContainer : "#event-list-container"
 	},
 	ui : {
-		closeButton : "#close"
 	},
 	events : {
-		'click @ui.closeButton' : "onClose"
 	},
 	initialize : function(){
 
 		this.collectionView = new Marionette.CollectionView({
+			tagName : 'ul',
+			id : 'event-list',
 			childView : CalendarItem,
 			collection : this.model.get("eventCollection")
 		});
 	},
 	onShow : function(){
 
-		this.getRegion( "eventList" ).show( this.collectionView );
-		
+		this.getRegion( "eventListContainer" ).show( this.collectionView );
 	},
 	onClose : function(){
 

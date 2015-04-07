@@ -63,6 +63,23 @@ body {
   width: 100%;
   height: 100%; }
 
+#content {
+  height: 100%;
+  box-sizing: border-box; }
+  @media screen and (max-width: 320px) {
+    #content {
+      padding: 2px 2px 70px 2px; } }
+  @media screen and (min-width: 320px) and (max-width: 1200px) {
+    #content {
+      padding: 4px 4px 70px 4px; } }
+  @media screen and (min-width: 1200px) {
+    #content {
+      padding: 8px 8px 70px 8px; } }
+
+#main {
+  position: relative;
+  height: 100%; }
+
 .main-list {
   font-size: 0.8em; }
   .main-list .item {
@@ -70,36 +87,31 @@ body {
     padding: 10px; }
 
 #splash-page {
+  position: absolute;
+  width: 100%;
   height: 100%; }
   #splash-page #room-split {
     height: 100%;
-    box-sizing: border-box;
     font-size: 0;
     white-space: nowrap; }
     @media screen and (max-width: 320px) {
-      #splash-page #room-split {
-        padding: 2px 2px 70px 2px; }
-        #splash-page #room-split section {
-          left: 2px;
-          top: 2px;
-          width: calc(100% - 4px);
-          height: calc(100% - 4px); } }
+      #splash-page #room-split section {
+        left: 2px;
+        top: 2px;
+        width: calc(100% - 4px);
+        height: calc(100% - 4px); } }
     @media screen and (min-width: 320px) and (max-width: 1200px) {
-      #splash-page #room-split {
-        padding: 4px 4px 70px 4px; }
-        #splash-page #room-split section {
-          left: 4px;
-          top: 4px;
-          width: calc(100% - 8px);
-          height: calc(100% - 8px); } }
+      #splash-page #room-split section {
+        left: 4px;
+        top: 4px;
+        width: calc(100% - 8px);
+        height: calc(100% - 8px); } }
     @media screen and (min-width: 1200px) {
-      #splash-page #room-split {
-        padding: 8px 8px 70px 8px; }
-        #splash-page #room-split section {
-          left: 8px;
-          top: 8px;
-          width: calc(100% - 16px);
-          height: calc(100% - 16px); } }
+      #splash-page #room-split section {
+        left: 8px;
+        top: 8px;
+        width: calc(100% - 16px);
+        height: calc(100% - 16px); } }
     .state-portrait #splash-page #room-split {
       white-space: normal; }
       .state-portrait #splash-page #room-split > .room-container {
@@ -149,7 +161,7 @@ body {
           position: absolute;
           top: 1vmin;
           left: 4vmin;
-          font-size: 12vmin;
+          font-size: 10vmin;
           -webkit-font-smoothing: antialiased; }
         #splash-page #room-split > .room-container > section > .circle {
           position: absolute;
@@ -201,3 +213,14 @@ body {
             right: 4vmin;
             width: 50%;
             text-align: right; }
+
+#room-single {
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden; }
+
+#event-list {
+  margin: 0;
+  padding: 0; }

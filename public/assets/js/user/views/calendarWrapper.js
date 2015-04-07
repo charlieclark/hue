@@ -76,7 +76,7 @@ var CalendarView = Marionette.LayoutView.extend({
 			this.queuedKey = key;
 		} else {
 			
-			var view = new CalendarSingle({ model : model })
+			var view = new CalendarSingle({ model : model });
 			var region = this.getRegion( "roomSingle" ).show( view );
 			$singleEl = region.$el;
 
