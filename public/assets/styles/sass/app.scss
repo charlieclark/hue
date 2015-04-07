@@ -211,6 +211,10 @@ body{
 						line-height: 0;
 					}
 
+					>.time{
+						@extend .number;
+					}
+
 					.state-portrait &{
 						left: auto;
 						right: 4vmin;

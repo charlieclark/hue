@@ -1,7 +1,12 @@
+var TimeDisplayTemplate = _.template( require("templates/timeDisplay.html") );
+
 var SplashItemView = Marionette.ItemView.extend({
 	template : _.template( require("templates/splashItem.html") ),
 	tagName : "section",
 	className : "room",
+	ui: {
+		timeDisplay: '.time'
+	},
 	initialize : function(){
 
 		this.listenTo( this.model, "change:currentEvent", this.render );
@@ -22,7 +27,11 @@ var SplashItemView = Marionette.ItemView.extend({
 	updateTimeLeft : function(model, data){
 
 		var key = model.get("key");
-		this.$el.find(".person").html( [ data.hours , data.minutes ].join(":") );
+		this.ui.timeDisplay.html( TimeDisplayTemplate({
+			hours : data.hours,
+			minutes : data.minutes,
+			showColon : (data.seconds % 2 === 0)
+		}) );
 	},
 	onBeforeRender : function(){
 		var currentEvent = this.model.get("currentEvent");
