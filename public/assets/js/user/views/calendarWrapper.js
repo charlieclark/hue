@@ -37,7 +37,7 @@ var CalendarView = Marionette.LayoutView.extend({
 	initialize : function(){
 		
 		this.calendarStore = {};
-		this.listenTo( calendarLoad.events, "eventsLoaded", this.eventsLoaded );
+		this.listenTo( hueConnect.events, "eventsLoaded", this.eventsLoaded );
 	},
 	onShow : function(){
 
@@ -137,6 +137,8 @@ var CalendarView = Marionette.LayoutView.extend({
 		]);		
 	},
 	eventsLoaded : function( data ){
+
+		console.log(data);
 		
 		var key = data.key;
 		var myCalendarModel = this.calendarStore[ key ];

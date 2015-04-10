@@ -16,8 +16,8 @@ var pullInterval = 1000 * 10;
 //TODO : integrate all 4 calendars
 
 function init(){
-	gapi.client.setApiKey(apiKey);
-	checkAuth();
+	// gapi.client.setApiKey(apiKey);
+	// checkAuth();
 }
 
 function checkAuth(){

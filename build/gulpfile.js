@@ -20,4 +20,5 @@ require("./gulp/template");
 require("./gulp/sass");
 require("./gulp/watch");
 require("./gulp/build");
+require("./gulp/deploy");
 
