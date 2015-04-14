@@ -19,11 +19,12 @@
     "preloadjs": "*",
     "gsap": "*",
     "color": "*",
-    "socket.io-client": "*"
+    "socket.io-client": "*",
+    "jquery-cookie": "~1.4.1"
   },
   "overrides": {
-    "socket.io-client" : {
-      "main" : "socket.io.js"
+    "socket.io-client": {
+      "main": "socket.io.js"
     }
   }
 }

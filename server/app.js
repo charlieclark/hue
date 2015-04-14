@@ -1,24 +1,35 @@
-// var connect = require('connect');
-// var serveStatic = require('serve-static');
-// var hue = require("./hue/index.js");
 var io = require('socket.io')();
 var calendar = require('./calendar.js');
 var hue = require("./hue/index.js");
 var _ = require('underscore');
-// var open = require('open');
 
+var connections = {};
 var masterConnections = [];
 var baseID = 0;
 
 //SOCKET CONNECTION
 io.on('connection', function(socket){
 
-    var connectionID = baseID++;
+    var connectionID = null;
+    var isMaster = false;
+
+    //initial call makes a request for data and sets ID
+    socket.on('requestData', function( data ){
+
+        connectionID = data.id;
+        connections[ data.id ] = {
+            isMaster : false
+        }
+        calendar.request();
+    });
 
     socket.on('disconnect', function(){
 
-        masterConnections = _.without( masterConnections, connectionID);
-        console.log("close", masterConnections);
+        if( connections[ connectionID ] && connections[ connectionID ].isMaster ){
+            connections[ connectionID ].isMaster = false;
+            masterConnections = _.without( masterConnections, connectionID);
+            console.log("close", masterConnections);
+        }
     });
 
     socket.on('authenticate', function(data){  	
@@ -29,9 +40,10 @@ io.on('connection', function(socket){
       });
     });
 
-    socket.on('got_code', function(data){
+    socket.on('got_code', function(data, callback){
 
     	calendar.useCode( data );
+        callback();
     });
 
     calendar.setUpdateCallback(function(key, data){
@@ -39,24 +51,17 @@ io.on('connection', function(socket){
         socket.emit("updateData", { key : key, data : data });
     });
 
-    socket.on('requestData', function(){
+    socket.on('master_connect', function( data ){
 
-        calendar.request();
-    });
-
-    socket.on('master_connect', function( data, callback ){
-
-        
-
-        if(masterConnections > 0){
-            console.log("someone is already connected")
-        } else {
+        if( masterConnections.length > 0 ){
+            console.log("someone is already connected");
+        } else {    
+            console.log("you are the master", connectionID);    
             calendar.setRoomData( data.roomData );
         }
 
+        connections[ connectionID ].isMaster = true;
         masterConnections.push( connectionID );
-
-        callback( connectionID );
     });
 
     socket.on('update_data', function( _data ){
@@ -65,7 +70,8 @@ io.on('connection', function(socket){
         var id = _data.id;
 
         if( masterConnections.length && masterConnections[0] == id ){
-          hue.updateLights( data );
+            console.log( connectionID );
+            hue.updateLights( data );
         }
     });
 

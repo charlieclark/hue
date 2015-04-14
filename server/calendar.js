@@ -29,14 +29,13 @@ function authenticate( callback ) {
 }
 
 function useCode( code ){
+    oauth2Client.getToken(code, function(err, tokens) {
 
-  oauth2Client.getToken(code, function(err, tokens) {
-
-    if(!err) {
-      oauth2Client.setCredentials(tokens);
-      autenticated = true;
-  }
-});
+      if(!err) {
+        oauth2Client.setCredentials(tokens);
+        autenticated = true;
+    }
+  });
 }
 
 function pullRooms(){

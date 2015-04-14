@@ -2,6 +2,7 @@ module.exports = {
 	desktop : [
 		"lib/rainbow.js",
 		"lib/bower/jquery.js",
+		"lib/bower/jquery.cookie.js",
 		"lib/bower/underscore.js",
 		"lib/bower/backbone.js",
 	    "lib/bower/backbone.babysitter.js",

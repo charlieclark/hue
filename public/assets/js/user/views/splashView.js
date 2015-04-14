@@ -12,36 +12,32 @@ var SplashView = Marionette.LayoutView.extend({
 	},
 	events : {
 		"mouseenter @ui.roomContainers" : function(e){
-				$('.room-container').each(function(index, el) {
-					var isHovered = (el === e.currentTarget);
-					$(el).toggleClass('hovered', isHovered);
-					$(el).toggleClass('not-hovered', !isHovered);
-				});
+
+			this.ui.roomContainers.each(function(index, el) {
+				var isHovered = (el === e.currentTarget);
+				$(el).toggleClass('hovered', isHovered);
+				$(el).toggleClass('not-hovered', !isHovered);
+			});
 		},
 		"mouseleave @ui.roomContainers" : function(e){
-				$('.room-container').each(function(index, el) {
-					$(el).removeClass('hovered');
-					$(el).removeClass('not-hovered');
-				});
+				
+			this.ui.roomContainers.removeClass('hovered not-hovered');
 		},
 		"click @ui.roomContainers" : function( e ){
+
 			var key = $( e.currentTarget ).data("id");
 			AppRouter.navigate("room/"+key, {trigger: true});
 
-				$('.room-container').each(function(index, el) {
-					var shouldExpand = (el === e.currentTarget);
-					$(el).toggleClass('expanded', shouldExpand);
-					$(el).toggleClass('collapsed', !shouldExpand);
-				});
+			this.ui.roomContainers.each(function(index, el) {
+				var shouldExpand = (el === e.currentTarget);
+				$(el).toggleClass('expanded', shouldExpand);
+				$(el).toggleClass('collapsed', !shouldExpand);
+			});
 		}
 	},
 	reset : function(){
-		$('.room-container').each(function(index, el) {
-			$(el).toggleClass('expanded', false);
-			$(el).toggleClass('collapsed', false);
-			$(el).toggleClass('hovered', false);
-			$(el).toggleClass('not-hovered', false);
-		});
+
+		this.ui.roomContainers.removeClass('expanded collapsed hovered not-hovered');
 	},
 	initialize : function(){
 		_.bindAll(this, 'resize');
