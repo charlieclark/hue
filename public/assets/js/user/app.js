@@ -25,7 +25,7 @@ var MyApp = Marionette.Application.extend({
 
 		Backbone.history.start({
 			pushState : false
-		});
+		}); 
 	} 
 });
 
