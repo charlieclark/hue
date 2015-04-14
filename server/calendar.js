@@ -1,5 +1,10 @@
 var google = require('googleapis');
 var _ = require('underscore');
+
+var events = require('events');
+var eventEmitter = new events.EventEmitter();
+var CalendarItem = require('./calendarItem.js');
+
 var OAuth2 = google.auth.OAuth2;
 var calendar = google.calendar('v3');
 
@@ -16,7 +21,11 @@ var pullInterval = 1000 * 10;
 var autenticated = false;
 var roomData = null;
 
-setInterval( pullRooms, pullInterval );
+var myCalendars = {};
+
+function init(){
+  setInterval( pullRooms, pullInterval );
+}
 
 function authenticate( callback ) {
   // generate consent page url
@@ -42,47 +51,48 @@ function pullRooms(){
 
     if(!autenticated || !roomData) return;
 
-    var from = new Date();
-    var to = new Date();
-    to.setDate( to.getDate() + 1 );
+    console.log("pulling rooms");
 
     _.each( roomData, function( data, key ){
 
-        calendar.events.list({ 
-            userId: 'me', 
-            auth: oauth2Client,
-            calendarId : data.calendarId,
-            timeMin : from.toISOString(),
-            timeMax : to.toISOString(),
-            singleEvents : true
-        }, function(err, response) {
-
-            roomLoaded( key, response );
+        var myCalendarItem = myCalendars[ key ] || new CalendarItem( key, data, calendar, oauth2Client, eventEmitter );
+        myCalendars[ key ] = myCalendarItem;
+        myCalendarItem.pull( function( key, roomData ){
+          eventEmitter.emit("updateData", { key : key , data : roomData })
         });
     });
 }
 
-function roomLoaded( key, data ){
+function request(){
 
-    if( updateCallback ){
-        updateCallback( key, data );
-    }
+    if(!autenticated || !roomData) return;
+
+    var returnData = {};
+
+    _.each( roomData, function( data, key ){
+
+        var myCalendarItem = myCalendars[ key ];
+        if( myCalendarItem ){
+          returnData[ key ] = myCalendarItem.get( key );  
+        }
+    });
+
+    return returnData;
 }
+
+
 
 function setRoomData(data ){
 
   roomData = data;
 }
 
-function setUpdateCallback( _callback ){
-
-    updateCallback = _callback;
-}
-
 module.exports = {
+
+  init :  init,
   authenticate : authenticate,
   useCode : useCode,
   setRoomData : setRoomData,
-  setUpdateCallback : setUpdateCallback,
-  request : pullRooms
+  request : request,
+  eventEmitter : eventEmitter
 }

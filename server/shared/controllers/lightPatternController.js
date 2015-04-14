@@ -1,4 +1,5 @@
-var LightPattern = require("controllers/lightPattern");
+var _ = require('underscore');
+var LightPattern = require("./lightPattern");
 
 function LightPatternController( model ){
 	
@@ -48,7 +49,7 @@ LightPatternController.prototype = {
 
 		this.stopExisting();
 
-		this._currentPattern = new LightPattern( key, type, data);
+		this._currentPattern = new LightPattern( key, type, data, this._model );
 
 	},
 	stopExisting : function(){

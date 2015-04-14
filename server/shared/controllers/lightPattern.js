@@ -1,8 +1,13 @@
-var hueConnect = require("controllers/hueConnect");
+var _ = require('underscore');
+var one = require("onecolor");
+var Rainbow = require("./../libs/rainbow");
 
-function LightPattern( lightId, patternId, opt_data ){
+var isNode = typeof window === 'undefined';
+
+function LightPattern( lightId, patternId, opt_data, model ){
 
 	this._pattern = patterns[ patternId ];
+	this._model = model;
 
 	// make sequence by patternId
 	this.createSequence( patternId, opt_data );
@@ -78,7 +83,7 @@ LightPattern.prototype = {
 		this._step = 0;
 		this._iteration = 0;
 
-		window.clearTimeout( this._timeout );
+		clearTimeout( this._timeout );
 	},
 	playSequenceStep: function( step, instant ){
 
@@ -86,7 +91,8 @@ LightPattern.prototype = {
 
 		this._step = step;
 
-		var color = one.color( this.getColor() );
+		var color = one( this.getColor() );
+
 		var fade = instant ? 0 : this._pattern.fade;
 		var wait = this._pattern.wait;
 
@@ -96,16 +102,11 @@ LightPattern.prototype = {
 			l : Math.floor( color.l() * 100) 
 		};
 
-		hueConnect.update([{
-			id : this._lightId,
-			data : {
-				hsl : hsl,
-				duration : fade
-			}
-		}]);
+		this._model.set('fade', fade);
+		this._model.set('hsl', hsl);
 
-		window.clearTimeout( this._timeout );
-		this._timeout = window.setTimeout($.proxy(this.nextSequenceStep, this), wait*1000);
+		clearTimeout( this._timeout );
+		this._timeout = setTimeout(_.bind(this.nextSequenceStep, this), wait*1000);
 	},
 	nextSequenceStep: function(){
 

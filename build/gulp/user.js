@@ -22,11 +22,12 @@ gulp.task('browserify_nowatch', function(){
 
 function browserifyWrap( watch ){
 
-	var watchPaths = [ paths.js.user ];
-
-	if( !watch ){
-		watchPaths = watchPaths.concat( [ paths.build.nodeModules ] );
-	}
+	var watchPaths = [ 
+		paths.js.user, 
+		paths.rootPath + "server/",
+		paths.rootPath + "server/shared/",
+		paths.build.nodeModules
+	];
 
 	var b = plugins.browserify(paths.js.user + 'app.js', {
 		 debug : true,

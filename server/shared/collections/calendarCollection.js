@@ -1,6 +1,9 @@
+var _ = require('underscore');
+var Backbone = require('backbone'); 
+
 var CalendarCollection = Backbone.Collection.extend({
 	initialize : function(){
-
+		console.log("SHARED");
 	},
 	comparator : function( a, b ){
 		var aTime = a.get("start").raw;

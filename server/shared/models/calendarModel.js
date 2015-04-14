@@ -1,4 +1,6 @@
-var CalendarItemModel 	= require("models/calendarItemModel");
+var _ = require('underscore');
+var Backbone = require('backbone');
+var CalendarItemModel 	= require("./calendarItemModel.js");
 
 var CalendarModel = Backbone.Model.extend({
 	defaults : {
@@ -39,7 +41,7 @@ var CalendarModel = Backbone.Model.extend({
 	},
 	stopCheckingTime : function(){
 
-		window.clearInterval( this._timeChecker );
+		clearInterval( this._timeChecker );
 	},
 	checkTime : function(){
 		

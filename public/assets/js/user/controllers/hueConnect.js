@@ -7,22 +7,27 @@ var pipe = require("pipe");
 var helpers = require("helpers");
 var roomData = require("roomData");
 
+var router = require("controllers/appRouter");
+
 function init(){
 
 	connect(function(){
 
 		var code = null ;
-		myID = getUniqueId();
 
 		//DATA UPDATE LISTENER
 		mySocket.on('updateData', function(data){
 
+			console.log("DATA ENTRY", data);
 			events.trigger( "eventsLoaded", data );
 		});
 
 		//REQUEST DATA & PASS UNIQUE ID
-		mySocket.emit('requestData',{
-			id : myID
+		mySocket.emit('requestData',{}, function( rooms ){
+
+			_.each( rooms, function( data, key ){
+				events.trigger( "eventsLoaded", { data : data, key : key } );
+			})
 		});
 
 		//CONDITIONAL STUFF
@@ -32,36 +37,26 @@ function init(){
 				mySocket.disconnect();
 				window.location = data;
 			});
-			mySocket.emit('authenticate');
-
-		} else if( helpers.getParameterByName('master') ){
-
-			isMaster = true;
-			mySocket.emit('master_connect', {
+			mySocket.emit('authenticate',{
 				roomData : roomData
 			});
 
 		} else if( code = helpers.getParameterByName('code') ){
 
 			mySocket.emit('got_code', code, function(){
-				mySocket.disconnect();
-				window.location = "?master=true";
+				//clear url
+				history.replaceState({}, '', '/');
+				window.location.reload();
 			});
 
 		}		
 	});
 }
 
-function getUniqueId(){
-
-	var id = helpers.generateUUID();
-	return id;
-}	 
-
 function connect( callback ){
 
-	// var socket = 'http://charliepi.local:3000';  
-	var socket = 'http://localhost:3000';  
+	var socket = 'http://charliepi.local:3000';  
+	// var socket = 'http://localhost:3000';  
 
 	mySocket = io.connect( socket );   
 
@@ -72,16 +67,6 @@ function connect( callback ){
 	});	
 }
 
-function update( data ){
-
-	console.log( data, isConnected );
-
-	if(isConnected && isMaster){
-		
-		mySocket.emit( 'update_data', { data : data, id : myID } );	
-	}
-}
-
 var events = _.extend({}, Backbone.Events);
 
 init();
@@ -89,6 +74,5 @@ init();
 module.exports = {
 	init : init,
 	connected : isConnected,
-	events : events,
-	update : update
+	events : events
 }

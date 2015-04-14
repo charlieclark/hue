@@ -2,9 +2,11 @@ var AppRouter 		= require( "controllers/appRouter" );
 
 var calendarLoad = require("controllers/calendarLoad");
 var CalendarSingle 	= require("views/calendarSingle");
+
 var CalendarModel 	= require("models/calendarModel");
 var CalendarItemModel 	= require("models/calendarItemModel");
 var CalendarCollection 	= require("collections/calendarCollection");
+
 var SplashView 	= require("views/splashView");
 
 var hueConnect = require("controllers/hueConnect");
@@ -158,6 +160,8 @@ var CalendarView = Marionette.LayoutView.extend({
 
 		var roomData = data.data;
 		var updated = roomData.updated;
+
+		console.log(roomData);
 
 		myCalendarModel.set("roomData", roomData);
 		myCalendarModel.set("updated", updated);
