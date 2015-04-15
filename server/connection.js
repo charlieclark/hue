@@ -19,9 +19,7 @@ Connection.prototype = {
             callback( calendar.request() );
         });
 
-        socket.on('authenticate', function(data){ 
-
-            calendar.setRoomData( data.roomData );  
+        socket.on('authenticate', function(){ 
 
             calendar.authenticate(function( url ){
 

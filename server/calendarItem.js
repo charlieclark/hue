@@ -14,14 +14,46 @@ var CalendarItem = function(key, data, calendar, oauth2Client, eventEmitter){
 	this._oauth2Client = oauth2Client;
 	this._eventEmitter = eventEmitter;
 	this.calendarStore = {};
+	this.init();
 }
 
 CalendarItem.prototype = {
 
-	pull : function( callback ){
+	init : function(){
 
-		console.log("PULL");
+		//creating model
+		var myCalendarModel = new CalendarModel({
+			key : this._key,
+			eventCollection : new CalendarCollection()
+		});
+
+		myCalendarModel.on( "change:updated", _.bind( function( model ){ 
+			
+			this._eventEmitter.emit("updateData", { key : this._key , data : model.get("roomData") });
+		}, this) );
 		
+		var lightPatternController = new LightPatternController( myCalendarModel );
+
+		myCalendarModel.set("lightPatternController", lightPatternController);
+
+		this._model = myCalendarModel;
+
+		setInterval( _.bind( this.updateLights, this ), 5000 );
+	},
+
+	updateLights : function(){
+
+		hue.updateLights({
+			id : this._key,
+			data : {
+				hsl : this._model.get("hsl"),
+				duration : this._model.get("fade")
+			}
+		});
+	},
+
+	pull : function(){
+
 	    var from = new Date();
 	    var to = new Date();
 	    to.setDate( to.getDate() + 1 );
@@ -35,60 +67,23 @@ CalendarItem.prototype = {
             singleEvents : true
         }, _.bind( function(err, response) {
 
-            this.eventsLoaded({
-            	key : this._key, 
-            	data : response, 
-            	callback : callback 
-            });
-
+            
+            this.setData( response );
         }, this) );
 	},
 
 	get : function( key ){
 
-		return this.calendarStore[ key ].get("roomData");
+		return this._model.get("roomData");
 	},
 
 	//this logic is copied from front-end
-	eventsLoaded : function( data ){
+	setData : function( roomData ){
 
-		var key = data.key;
-		var myCalendarModel = this.calendarStore[ key ];
-		var roomData = data.data;
 		var updated = roomData.updated;
 
-		if(  !myCalendarModel ){
-
-			var myCalendarModel = new CalendarModel({
-				key : key,
-				eventCollection : new CalendarCollection()
-			});
-
-			myCalendarModel.on("change:hsl", function(model, hsl){
-				hue.updateLights([{
-					id : model.get("key"),
-					data : {
-						hsl : hsl,
-						duration : model.get("fade")
-					}
-				}]);
-			});
-
-			myCalendarModel.on( "change:updated", function( model ){ 
-				
-				data.callback( key, model.get("roomData") );
-			});
-			
-			this.calendarStore[ key ] = myCalendarModel;
-			var lightPatternController = new LightPatternController( myCalendarModel );
-
-			myCalendarModel.set("lightPatternController", lightPatternController);
-		} 
-
-
-
-		myCalendarModel.set("roomData", roomData);
-		myCalendarModel.set("updated", updated);
+		this._model.set("roomData", roomData);
+		this._model.set("updated", updated);
 	}
 }
 

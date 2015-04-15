@@ -49,10 +49,15 @@ function testLights(){
 
 function updateLights( data ){
 
-	_.each( data, function( value ){
+	if( _.isArray(data) ){
+		_.each( data, function( value ){
 
-		c1.setLight(value.id, value.data)
-	});
+			c1.setLight(value.id, value.data);
+		});
+	} else {
+		c1.setLight(data.id, data.data)
+	}
+
 }
 
 
