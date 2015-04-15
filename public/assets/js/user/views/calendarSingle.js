@@ -24,7 +24,7 @@ var CalendarSingle = Marionette.LayoutView.extend({
 
 		this.getRegion( "eventListContainer" ).show( this.collectionView );
 
-		this.setCurrent();
+		setTimeout($.proxy(this.setCurrent,this), 0);
 	},
 	setCurrent : function(){
 		var currentEvent = this.collectionView.collection.getCurrent();
@@ -47,6 +47,8 @@ var CalendarSingle = Marionette.LayoutView.extend({
 			
 			var $needle = this.$el.find('.needle');
 			$needle.css('top', y+'px');
+
+			console.log($curEl.get(0), $curEl.position().top, height)
 		}
 	},
 	onClose : function(){

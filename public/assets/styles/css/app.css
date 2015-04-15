@@ -37,6 +37,12 @@
   width: 1.2857142857142858em;
   text-align: center; }
 
+.s-hamburger:before {
+  content: ""; }
+
+.s-pencil:before {
+  content: ""; }
+
 .s-napoleon:before {
   content: ""; }
 
@@ -53,9 +59,11 @@
   font-weight: 300;
   -webkit-font-smoothing: antialiased; }
 
-.person {
-  font-family: "Crimson Text", serif;
-  line-height: 1; }
+.name {
+  font-family: "museo-sans", sans-serif;
+  font-weight: 700;
+  -webkit-font-smoothing: antialiased;
+  text-transform: uppercase; }
 
 /* apply a natural box layout model to all elements, but allowing components to change */
 html {
@@ -103,6 +111,12 @@ body {
   width: 100%;
   height: 100%;
   padding-bottom: 70px; }
+  #splash-page #home-nav {
+    position: absolute;
+    bottom: 0;
+    height: 70px;
+    width: 100%;
+    left: 0; }
   #splash-page #room-split {
     height: 100%;
     font-size: 0;
@@ -312,7 +326,10 @@ body {
         vertical-align: top;
         width: 85%;
         height: 100%;
-        color: inherit; }
+        color: inherit;
+        font-family: "museo-sans", sans-serif; }
+        #room-single #event-list .item > .event h2 {
+          text-transform: capitalize; }
   #room-single .viewport {
     position: relative;
     overflow: hidden; }
@@ -320,6 +337,18 @@ body {
       position: absolute;
       top: 0;
       right: 0;
-      width: 85%;
-      height: 1px;
-      background: red; }
+      width: 85%; }
+      #room-single .viewport .needle:before {
+        content: "";
+        display: block;
+        position: absolute;
+        left: -80px;
+        width: 80px;
+        height: 23px;
+        background-image: url("/assets/images/needle-head.png"); }
+      #room-single .viewport .needle:after {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 23px;
+        background-image: url("/assets/images/needle-fill.png"); }

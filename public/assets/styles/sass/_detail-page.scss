@@ -51,6 +51,11 @@
 			width: 85%;
 			height: 100%;
 			color: inherit;
+			font-family: $font_museo;
+
+			h2{
+				text-transform: capitalize;
+			}
 		}
 	}
 }
@@ -64,7 +69,23 @@
 		top: 0;
 		right: 0;
 		width: 85%;
-		height: 1px;
-		background: red;
+
+		&:before{
+			content: "";
+			display: block;
+			position: absolute;
+			left: -80px;
+			width: 80px;
+			height: 23px;
+			background-image: url('/assets/images/needle-head.png');
+		}
+
+		&:after{
+			content: "";
+			display: block;
+			width: 100%;
+			height: 23px;
+			background-image: url('/assets/images/needle-fill.png');
+		}
 	}
 }

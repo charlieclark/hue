@@ -15,7 +15,7 @@ var MyAppLayout = Marionette.LayoutView.extend({
 
 		//resize events
 		$(window).resize(function(){
-			_this.onResizeWindow();
+			_this.onResizeWindow(); 
 		}).resize();
 
 		this.listenForState();

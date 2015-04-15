@@ -33,5 +33,7 @@
   text-align: center;
 }
 
+.s-hamburger:before { content: "\E003" }
+.s-pencil:before { content: "\E004" }
 .s-napoleon:before { content: "\E001" }
 .s-something:before { content: "\E002" }

@@ -18,7 +18,9 @@ $font_museo: 'museo-sans', sans-serif;
 	-webkit-font-smoothing: antialiased;
 }
 
-.person {
-	font-family: $font_crimson;
-	line-height: 1;
+.name {
+	font-family: $font_museo;
+	font-weight: 700;
+	-webkit-font-smoothing: antialiased;
+	text-transform: uppercase;
 }
