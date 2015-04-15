@@ -27,6 +27,8 @@ var CalendarItem = Marionette.ItemView.extend({
 		var background;
 		var now = new Date();
 
+		console.log("init")
+
 		if(now < start) {
 
 			type = "scheduled";
@@ -46,7 +48,11 @@ var CalendarItem = Marionette.ItemView.extend({
 		}
 */
 
-		$(this.el).height( height + 'vh' ).addClass(type).css('background', background);
+		this.$el
+			.height( height + 'vh' )
+			.addClass(type)
+			.data("id", this.model.get('id'))
+			.css('background', background);
 	}
 });
 
