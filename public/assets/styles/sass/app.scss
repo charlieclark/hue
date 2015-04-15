@@ -166,10 +166,10 @@ body{
 
 				>.circle{
 					position: absolute;
-	  			left: calc(50% - 20vmin);
-	  			top: calc(50% - 20vmin);
-					width: 40vmin;
-					height: 40vmin;
+	  			left: calc(50% - 10vw);
+	  			top: calc(50% - 10vw);
+					width: 20vw;
+					height: 20vw;
 					border-radius: 100%;
 					border: 2px solid #fff;
 					overflow: hidden;
@@ -214,20 +214,25 @@ body{
 					left: 0;
 					bottom: 2vmin;
 					width: 100%;
-					font-size: 2.5vmin;
-					font-weight: 600;
+					font-size: 2.3vmin;
 					text-align: center;
 					text-transform: uppercase;
-					font-family: $font_raleway;
+					font-family: $font_museo;
 					letter-spacing: .1vw;
 
 					>p:first-child{
+						display: block;
+						margin: 0 auto;
+						max-width: 100%;
+						width: 400px;
 						-webkit-font-smoothing: antialiased;
-						line-height: 0;
+						line-height: 1.2;
+						font-weight: 700;
 					}
 
 					>.time{
-						@extend .number;
+						line-height: 0;
+						font-weight: 300;
 					}
 
 					.state-portrait &{
