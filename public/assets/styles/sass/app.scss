@@ -156,12 +156,66 @@ body{
   			white-space: normal;
   			transition: background-color 1s linear;
 
+				.state-portrait &{
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					padding: 4vmin;
+					box-sizing: border-box;
+				}
+
 				>.number{
 					position: absolute;
 					top: 1vmin;
 					left: 4vmin;
-					font-size: 16vmin;
-					-webkit-font-smoothing: antialiased;
+					white-space: nowrap;
+
+					>.graph{
+						display: none;
+					}
+					
+					>p{
+						margin: 0;
+						font-size: 16vmin;
+						-webkit-font-smoothing: antialiased;
+					}
+
+					.state-portrait &{
+						position: static;
+
+						>.graph{
+							display: inline-block;
+							vertical-align: middle;
+							width: 12vh;
+							height: 12vh;
+							background-size: 100% 100%;
+							transform: translateZ(0);
+
+							&.room-1{
+								background-image: url('/assets/images/icon-room-1.png');
+							}
+
+							&.room-2{
+								background-image: url('/assets/images/icon-room-2.png');
+							}
+
+							&.room-3{
+								background-image: url('/assets/images/icon-room-3.png');
+							}
+
+							&.room-5{
+								background-image: url('/assets/images/icon-room-5.png');
+							}
+						}
+
+						>p{
+							display: inline-block;
+							vertical-align: middle;
+							font-size: 13vh;
+							margin-top: -2vh;
+							text-indent: 3vh;
+						}
+					}
 				}
 
 				>.circle{
@@ -171,16 +225,13 @@ body{
 					width: 20vw;
 					height: 20vw;
 					border-radius: 100%;
-					border: 2px solid #fff;
+					border: 3px solid #fff;
 					overflow: hidden;
 					transition: transform .25s cubic-bezier(0.23, 1, 0.32, 1);
 					transform: translateZ(0);
 
 					.state-portrait &{
-						left: calc(50% - 7.5vh);
-	  				top: calc(50% - 7.5vh);
-						width: 15vh;
-						height: 15vh;
+						display: none;
 					}
 
 					>.graph{
@@ -212,34 +263,46 @@ body{
 				>.availability{
 					position: absolute;
 					left: 0;
-					bottom: 2vmin;
+					top: 80%;
 					width: 100%;
 					font-size: 2.3vmin;
 					text-align: center;
 					text-transform: uppercase;
-					font-family: $font_museo;
 					letter-spacing: .1vw;
 
 					>p:first-child{
 						display: block;
 						margin: 0 auto;
 						max-width: 100%;
-						width: 400px;
+						width: 360px;
 						-webkit-font-smoothing: antialiased;
 						line-height: 1.2;
 						font-weight: 700;
+						font-family: $font_museo;
 					}
 
 					>.time{
 						line-height: 0;
-						font-weight: 300;
 					}
 
 					.state-portrait &{
-						left: auto;
-						right: 4vmin;
-						width: 50%;
+						position: static;
 						text-align: right;
+
+						>p{
+							margin: 0;
+							line-height: 1.2;
+							font-size: 18px;
+
+							&:first-child{
+								display: inline-block;
+								max-width: 80%;
+							}
+						}
+
+						>.time{
+							margin-top: 10px;
+						}
 					}
 				}
 			}

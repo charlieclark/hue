@@ -15,6 +15,7 @@ $font_museo: 'museo-sans', sans-serif;
 .time {
 	font-family: $font_museo;
 	font-weight: 300;
+	-webkit-font-smoothing: antialiased;
 }
 
 .person {

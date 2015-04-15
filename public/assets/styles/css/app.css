@@ -50,7 +50,8 @@
 
 .time {
   font-family: "museo-sans", sans-serif;
-  font-weight: 300; }
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased; }
 
 .person {
   font-family: "Crimson Text", serif;
@@ -161,12 +162,46 @@ body {
         overflow: hidden;
         white-space: normal;
         transition: background-color 1s linear; }
+        .state-portrait #splash-page #room-split > .room-container > section {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 4vmin;
+          box-sizing: border-box; }
         #splash-page #room-split > .room-container > section > .number {
           position: absolute;
           top: 1vmin;
           left: 4vmin;
-          font-size: 16vmin;
-          -webkit-font-smoothing: antialiased; }
+          white-space: nowrap; }
+          #splash-page #room-split > .room-container > section > .number > .graph {
+            display: none; }
+          #splash-page #room-split > .room-container > section > .number > p {
+            margin: 0;
+            font-size: 16vmin;
+            -webkit-font-smoothing: antialiased; }
+          .state-portrait #splash-page #room-split > .room-container > section > .number {
+            position: static; }
+            .state-portrait #splash-page #room-split > .room-container > section > .number > .graph {
+              display: inline-block;
+              vertical-align: middle;
+              width: 12vh;
+              height: 12vh;
+              background-size: 100% 100%;
+              transform: translateZ(0); }
+              .state-portrait #splash-page #room-split > .room-container > section > .number > .graph.room-1 {
+                background-image: url("/assets/images/icon-room-1.png"); }
+              .state-portrait #splash-page #room-split > .room-container > section > .number > .graph.room-2 {
+                background-image: url("/assets/images/icon-room-2.png"); }
+              .state-portrait #splash-page #room-split > .room-container > section > .number > .graph.room-3 {
+                background-image: url("/assets/images/icon-room-3.png"); }
+              .state-portrait #splash-page #room-split > .room-container > section > .number > .graph.room-5 {
+                background-image: url("/assets/images/icon-room-5.png"); }
+            .state-portrait #splash-page #room-split > .room-container > section > .number > p {
+              display: inline-block;
+              vertical-align: middle;
+              font-size: 13vh;
+              margin-top: -2vh;
+              text-indent: 3vh; }
         #splash-page #room-split > .room-container > section > .circle {
           position: absolute;
           left: calc(50% - 10vw);
@@ -174,15 +209,12 @@ body {
           width: 20vw;
           height: 20vw;
           border-radius: 100%;
-          border: 2px solid #fff;
+          border: 3px solid #fff;
           overflow: hidden;
           transition: transform 0.25s cubic-bezier(0.23, 1, 0.32, 1);
           transform: translateZ(0); }
           .state-portrait #splash-page #room-split > .room-container > section > .circle {
-            left: calc(50% - 7.5vh);
-            top: calc(50% - 7.5vh);
-            width: 15vh;
-            height: 15vh; }
+            display: none; }
           #splash-page #room-split > .room-container > section > .circle > .graph {
             width: 100%;
             height: 100%;
@@ -201,29 +233,35 @@ body {
         #splash-page #room-split > .room-container > section > .availability {
           position: absolute;
           left: 0;
-          bottom: 2vmin;
+          top: 80%;
           width: 100%;
           font-size: 2.3vmin;
           text-align: center;
           text-transform: uppercase;
-          font-family: "museo-sans", sans-serif;
           letter-spacing: .1vw; }
           #splash-page #room-split > .room-container > section > .availability > p:first-child {
             display: block;
             margin: 0 auto;
             max-width: 100%;
-            width: 400px;
+            width: 360px;
             -webkit-font-smoothing: antialiased;
             line-height: 1.2;
-            font-weight: 700; }
+            font-weight: 700;
+            font-family: "museo-sans", sans-serif; }
           #splash-page #room-split > .room-container > section > .availability > .time {
-            line-height: 0;
-            font-weight: 300; }
+            line-height: 0; }
           .state-portrait #splash-page #room-split > .room-container > section > .availability {
-            left: auto;
-            right: 4vmin;
-            width: 50%;
+            position: static;
             text-align: right; }
+            .state-portrait #splash-page #room-split > .room-container > section > .availability > p {
+              margin: 0;
+              line-height: 1.2;
+              font-size: 18px; }
+              .state-portrait #splash-page #room-split > .room-container > section > .availability > p:first-child {
+                display: inline-block;
+                max-width: 80%; }
+            .state-portrait #splash-page #room-split > .room-container > section > .availability > .time {
+              margin-top: 10px; }
 
 #room-single {
   display: none;
