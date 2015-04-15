@@ -26,7 +26,9 @@ var MyApp = Marionette.Application.extend({
 
 		state.start({
 			"home" : "home",
-			"room" : "room"
+			"room" : "room",
+			"key" : "key",
+			"sequencer" : "sequencer"
 		});
 	} 
 });

@@ -1,4 +1,5 @@
 var state 		= require( "state" );
+var pipe 		= require( "pipe" );
 
 var calendarLoad = require("controllers/calendarLoad");
 var CalendarSingle 	= require("views/calendarSingle");
@@ -15,25 +16,76 @@ var LightPatternController = require("controllers/lightPatternController");
 
 var firstAnim = true;
 
+var pageConfig = {
+	room : {
+		animIn : "fromBottom",
+		animOut : "fromTop"
+	},
+	key : {
+		animIn : "fromRight",
+		animOut : "fromLeft"
+	},
+	sequencer : {
+		animIn : "fromLeft",
+		animOut : "fromRight"
+	}
+}
+
 var CalendarView = Marionette.LayoutView.extend({
 	template : _.template( require("templates/calendarWrapper.html") ),
 	regions : {
-		roomSingle : "#room-single",
-		splashPage : "#splash-page",
-		keyPage : "#key-page",
+		room : "#room-single",
+		home : "#splash-page",
+		key : "#key-page",
+		sequencer : "#sequencer-page"
 	},
 	ui : {
+		commandButtons : "[data-cmd]",
 		pages : ".page",
 		colorPicker : ".color",
 		test : "#test",
 		hexButton : "#hex",
 		hexInput : "#hex-input"
 	},
-	events : {},
+	stateEvents : {
+		"change:page" : function( model, key ){ 
+			
+			switch( key ){
+				case "home":
+					this.animatePage( "home" );
+					break;
+				case "key":
+					this.animatePage( "key" );
+					break;
+				case "sequencer":
+					this.animatePage( "sequencer" );
+					break;
+				case "room":
+					this.showRoom( state.get("section") );
+					break;
+			}
+		}
+	},
+	commands : {
+		"select:page" : function( page ){
+			state.navigate( page );
+		}
+	},
+	events : {
+		"click @ui.commandButtons" : "commandButtonClick"
+	},
 	initialize : function(){
 		
 		this.calendarStore = {};
+
+		Marionette.bindEntityEvents(this, pipe, this.commands);
+        Marionette.bindEntityEvents(this, state, this.stateEvents);
+		
 		this.listenTo( hueConnect.events, "eventsLoaded", this.eventsLoaded );
+
+			this.$el.on("click", ".button", function(){
+			console.log("!@!#!")
+		});
 	},
 	onShow : function(){
 
@@ -45,40 +97,11 @@ var CalendarView = Marionette.LayoutView.extend({
 		});
 
 		this._splashView = new SplashView({ model : new Backbone.Model({ rooms : {}, roomsData : {} }) }) ;
-		this.getRegion("splashPage").show( this._splashView );
+		this.getRegion("home").show( this._splashView );
 
 		this.ui.pages.hide();
-
-		this.listenTo( state, "change:page", _.bind(function( model, key ){
-			
-			console.log("PAGE", key)
-
-			switch( key ){
-				case "home":
-					this.showSplit();
-					break;
-				case "room":
-					this.showRoom( state.get("section") );
-					break;
-			}
-			console.log("!@!#!@#!",key);
-			// this.showRoom( key );
-		}, this));
-		// this.listenTo( state, "route:defaultRoute", this.showSplit );
-	},
-	showSplit : function(){
-
-		var $splitEl = this.getRegion( "splashPage" ).$el;
-		this.animatePage( $splitEl, "fromLeft" );
-
-		// var $singleEl = this.getRegion( "roomSingle" ).$el;
-
-		// $splitEl.show();
-		// $singleEl.hide();
 	},
 	showRoom : function( key ){
-
-		var $splitEl = this.getRegion( "splashPage" ).$el;
 		
 		var model = this.calendarStore[ key ];
 
@@ -87,27 +110,28 @@ var CalendarView = Marionette.LayoutView.extend({
 		} else {
 			
 			var view = new CalendarSingle({ model : model });
-			var region = this.getRegion( "roomSingle" ).show( view );
+			var region = this.getRegion( "room" ).show( view );
 
-			$singleEl = region.$el;
-			this.animatePage( $singleEl, "fromBottom" );
+			this.animatePage( "room" );
 		}
 	},
 
-	animatePage : function( $showPage, direction, instant ){
+	animatePage : function( page, instant ){
 
-		console.log("ANIMATE PAGE", $showPage, direction, instant);
+		$showPage = this.getRegion( page ).$el;
+		$hidePage = this.lastPage ? this.getRegion( this.lastPage ).$el : null;
 
-		direction = direction || "fromRight";
-		var animTime = (instant || firstAnim) ? 0 : 0.75;
+		var animTime = (instant || firstAnim) ? 0 : 0.5;
 		firstAnim = false;
-		$hidePage = this.$currentPage;
-		this.$currentPage = $showPage;
-
+		
 		var tweenBase = { force3D : true, ease : Quad.easeOut, x : 0, y : 0 };
-
 		var fromPos = {};
 		var toPos = {};
+
+		var isBack = page == "home";
+		var animUse = isBack ? this.lastPage : page;
+		this.lastPage = page;
+		var direction = pageConfig[ animUse ] ? pageConfig[ animUse ][ isBack ? 'animOut' : 'animIn' ] : 'fromLeft';
 
 		switch ( direction ){
 			case "fromRight" : 
@@ -121,11 +145,20 @@ var CalendarView = Marionette.LayoutView.extend({
 			case "fromBottom" : 
 				fromPos.y = Common.wh;
 				toPos.y = -Common.wh;
+				break;
+			case "fromTop" : 
+				fromPos.y = -Common.wh;
+				toPos.y = Common.wh;
 				break; 
 		}
 
 		if( $hidePage ){
-			TweenMax.to( $hidePage, animTime, _.extend( {}, tweenBase, toPos   ) );
+			TweenMax.to( $hidePage, animTime, _.extend( { 
+				onComplete : function(){
+					$hidePage.hide();
+				}
+			}, tweenBase, toPos ) );
+
 		}
 
 		$showPage.show();
@@ -164,10 +197,16 @@ var CalendarView = Marionette.LayoutView.extend({
 		myCalendarModel.set("updated", updated);
 
 		this.checkQueue();
-	} 
+	},
+	commandButtonClick : function( e ){
+
+		var $el = $(e.currentTarget);
+
+		var cmd = $el.data("cmd");
+		var arg = $el.data("arg");
+
+		pipe.trigger( cmd, arg );
+	}
 });
 
-
 module.exports = CalendarView;                    
-    
- 

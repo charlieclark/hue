@@ -1,8 +1,11 @@
-<div class="number"><%= key %></div>
+<div class="number">
+	<div class="graph room-<%= key %>"></div>
+	<p><%= key %></p>
+</div>
 <div class="circle">
 	<div class="graph room-<%= key %>"></div>
 </div>
 <div class="availability">
-	<p><%= currentEventData ? currentEventData.summary : 'nothing' %></p>
+	<p><%= currentEventData ? currentEventData.summary : 'available' %></p>
 	<p class="time"></p>
 </div>

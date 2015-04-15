@@ -1,4 +1,10 @@
+<div id="room-split">
 <% _.each( roomData, function( data, key ){ %>
 	<div class="room-container" id="room-<%= key %>" data-id="<%= key %>">
 	</div>
 <% }); %>
+</div>
+<div id="home-nav">
+	<button class="button" data-cmd="select:page" data-arg="key">key</button>
+	<button class="button" data-cmd="select:page" data-arg="sequencer">sequencer</button>
+</div>

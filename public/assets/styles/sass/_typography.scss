@@ -3,12 +3,19 @@
 
 $font_raleway: 'Raleway', sans-serif;
 $font_crimson: 'Crimson Text', serif;
+$font_museo: 'museo-sans', sans-serif;
 
 
 .number {
 	font-family: $font_raleway;
 	font-weight: 100;
 	line-height: 1;
+}
+
+.time {
+	font-family: $font_museo;
+	font-weight: 300;
+	-webkit-font-smoothing: antialiased;
 }
 
 .person {
