@@ -57,6 +57,42 @@
   font-family: "Crimson Text", serif;
   line-height: 1; }
 
+#event-list-container {
+  overflow: hidden; }
+
+#event-list {
+  margin: 0;
+  padding: 0;
+  -webkit-user-select: none; }
+  #event-list .item.available {
+    color: white; }
+  #event-list .item.occupied {
+    color: white; }
+  #event-list .item.scheduled {
+    background: #d6d6d6;
+    color: black; }
+    #event-list .item.scheduled:nth-child(even) {
+      background: #f3f3f3; }
+  #event-list .item > .time {
+    display: inline-block;
+    vertical-align: top;
+    height: 100%;
+    color: black;
+    background: white;
+    min-width: 130px;
+    text-align: right; }
+    #event-list .item > .time > p {
+      margin: 0;
+      padding-right: 30px;
+      text-transform: uppercase;
+      font-weight: 700;
+      font-size: 20px; }
+  #event-list .item > .event {
+    display: inline-block;
+    vertical-align: top;
+    height: 100%;
+    color: inherit; }
+
 /* apply a natural box layout model to all elements, but allowing components to change */
 html {
   box-sizing: border-box; }
@@ -277,7 +313,3 @@ body {
   width: 100%;
   height: 100%;
   overflow: hidden; }
-
-#event-list {
-  margin: 0;
-  padding: 0; }
