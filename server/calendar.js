@@ -1,5 +1,6 @@
 var google = require('googleapis');
 var _ = require('underscore');
+var roomData = require("./shared/roomData");
 
 var events = require('events');
 var eventEmitter = new events.EventEmitter();
@@ -19,7 +20,6 @@ var oauth2Client = new OAuth2(clientId, clientSecret, callback);
 var pullInterval = 1000 * 10;
 
 var autenticated = false;
-var roomData = null;
 
 var myCalendars = {};
 
@@ -30,14 +30,15 @@ function init(){
 function authenticate( callback ) {
   // generate consent page url
   var url = oauth2Client.generateAuthUrl({
-    access_type: 'offline', // will return a refresh token
-    scope: scopes // can be a space-delimited string or an array of scopes
-});
+      access_type: 'offline', // will return a refresh token
+      scope: scopes // can be a space-delimited string or an array of scopes
+  });
 
   callback( url );
 }
 
 function useCode( code ){
+  
     oauth2Client.getToken(code, function(err, tokens) {
 
       if(!err) {
@@ -49,23 +50,19 @@ function useCode( code ){
 
 function pullRooms(){
 
-    if(!autenticated || !roomData) return;
-
-    console.log("pulling rooms");
+    if(!autenticated ) return;
 
     _.each( roomData, function( data, key ){
 
         var myCalendarItem = myCalendars[ key ] || new CalendarItem( key, data, calendar, oauth2Client, eventEmitter );
         myCalendars[ key ] = myCalendarItem;
-        myCalendarItem.pull( function( key, roomData ){
-          eventEmitter.emit("updateData", { key : key , data : roomData })
-        });
+        myCalendarItem.pull();
     });
 }
 
 function request(){
 
-    if(!autenticated || !roomData) return;
+    if(!autenticated) return;
 
     var returnData = {};
 
@@ -73,26 +70,17 @@ function request(){
 
         var myCalendarItem = myCalendars[ key ];
         if( myCalendarItem ){
-          returnData[ key ] = myCalendarItem.get( key );  
+          returnData[ key ] = myCalendarItem.get();  
         }
     });
 
     return returnData;
 }
 
-
-
-function setRoomData(data ){
-
-  roomData = data;
-}
-
 module.exports = {
-
   init :  init,
   authenticate : authenticate,
   useCode : useCode,
-  setRoomData : setRoomData,
   request : request,
   eventEmitter : eventEmitter
 }

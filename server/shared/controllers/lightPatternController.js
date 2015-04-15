@@ -27,11 +27,9 @@ LightPatternController.prototype = {
 				start : model.get("start").raw,
 				end : model.get("end").raw
 			}
-
 		}
 		
 		this.newPattern( type, data );
-
 	},
 	isAvailable : function(){
 
@@ -50,7 +48,6 @@ LightPatternController.prototype = {
 		this.stopExisting();
 
 		this._currentPattern = new LightPattern( key, type, data, this._model );
-
 	},
 	stopExisting : function(){
 

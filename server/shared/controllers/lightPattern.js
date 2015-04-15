@@ -152,7 +152,7 @@ var patterns = {
 		wait: 0,
 		start : 0,
 		end : 0,
-		colors: ["#2dcc3d", "#f3e533", "#fc312c"],
+		colors: ["#0EFF63", "#f3e533", "#fc312c"],
 		sequence : []
 	}
 }
