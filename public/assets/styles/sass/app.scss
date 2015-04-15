@@ -64,6 +64,14 @@ body{
 	height: 100%;
 	padding-bottom: 70px;
 
+	#home-nav{
+		position: absolute;
+		bottom: 0;
+		height: 70px;
+		width: 100%;
+		left: 0;
+	}
+
 	#room-split{
 		height: 100%;
 		font-size: 0;
