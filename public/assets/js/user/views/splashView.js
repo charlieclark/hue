@@ -1,4 +1,4 @@
-var AppRouter 		= require( "controllers/appRouter" );
+var state 		= require( "state" );
 
 var State = require('models/state');
 var roomData = require("roomData");
@@ -26,7 +26,7 @@ var SplashView = Marionette.LayoutView.extend({
 		"click @ui.roomContainers" : function( e ){
 
 			var key = $( e.currentTarget ).data("id");
-			AppRouter.navigate("room/"+key, {trigger: true});
+			state.navigate("room/"+key);
 
 			// this.ui.roomContainers.each(function(index, el) {
 			// 	var shouldExpand = (el === e.currentTarget);

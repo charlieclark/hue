@@ -12,6 +12,7 @@ var AppLayout = require( "views/appLayout" );
 //custom
 var CalendarWrapper	= require("views/calendarWrapper");
 var roomData = require("roomData");
+var state = require("state");
 
 //THE APPLICATION
 var MyApp = Marionette.Application.extend({
@@ -23,9 +24,10 @@ var MyApp = Marionette.Application.extend({
 		var myCalendar = new CalendarWrapper( { model : new Backbone.Model({ rooms : roomData }) });
 		AppLayout.getRegion("main").show( myCalendar );
 
-		Backbone.history.start({
-			pushState : false
-		}); 
+		state.start({
+			"home" : "home",
+			"room" : "room"
+		});
 	} 
 });
 

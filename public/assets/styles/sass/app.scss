@@ -25,6 +25,7 @@ body{
 #content{
 	height: 100%;
 	box-sizing: border-box;
+	overflow: hidden;
 
 	@media screen and (max-width: $break-small) {
 	  padding: $split_padding_small $split_padding_small 70px $split_padding_small;

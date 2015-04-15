@@ -1,5 +1,5 @@
 var CalendarItem 	= require("views/calendarItem");
-var AppRouter 		= require( "controllers/appRouter" );
+var state = require("state");
 
 var CalendarSingle = Marionette.LayoutView.extend({
 	template : _.template( require("templates/calendarSingle.html") ),
@@ -25,7 +25,7 @@ var CalendarSingle = Marionette.LayoutView.extend({
 	},
 	onClose : function(){
 
-		AppRouter.navigate("/", {trigger: true});
+		state.navigate("");
 	}
 });
 

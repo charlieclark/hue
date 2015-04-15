@@ -7,8 +7,6 @@ var pipe = require("pipe");
 var helpers = require("helpers");
 var roomData = require("roomData");
 
-var router = require("controllers/appRouter");
-
 function init(){
 
 	connect(function(){

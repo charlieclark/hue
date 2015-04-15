@@ -39,7 +39,7 @@ function authenticate(callback) {
         scope: scopes // can be a space-delimited string or an array of scopes
     });
 
-    callback(url);
+    callback(url);   
 }
 
 function useCode(code) {

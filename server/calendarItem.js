@@ -80,6 +80,8 @@ CalendarItem.prototype = {
 	//this logic is copied from front-end
 	setData : function( roomData ){
 
+		if( !roomData ) return;
+
 		var updated = roomData.updated;
 
 		this._model.set("roomData", roomData);
