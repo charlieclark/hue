@@ -28,11 +28,11 @@ var SplashView = Marionette.LayoutView.extend({
 			var key = $( e.currentTarget ).data("id");
 			AppRouter.navigate("room/"+key, {trigger: true});
 
-			this.ui.roomContainers.each(function(index, el) {
-				var shouldExpand = (el === e.currentTarget);
-				$(el).toggleClass('expanded', shouldExpand);
-				$(el).toggleClass('collapsed', !shouldExpand);
-			});
+			// this.ui.roomContainers.each(function(index, el) {
+			// 	var shouldExpand = (el === e.currentTarget);
+			// 	$(el).toggleClass('expanded', shouldExpand);
+			// 	$(el).toggleClass('collapsed', !shouldExpand);
+			// });
 		}
 	},
 	reset : function(){

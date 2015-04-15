@@ -17,7 +17,8 @@ var CalendarView = Marionette.LayoutView.extend({
 	template : _.template( require("templates/calendarWrapper.html") ),
 	regions : {
 		roomSingle : "#room-single",
-		splashPage : "#splash-page"
+		splashPage : "#splash-page",
+		keyPage : "#key-page",
 	},
 	ui : {
 		colorPicker : ".color",
@@ -25,17 +26,7 @@ var CalendarView = Marionette.LayoutView.extend({
 		hexButton : "#hex",
 		hexInput : "#hex-input"
 	},
-	events : {
-		"click @ui.test" : function(){
-			for( var i = 0 ; i < 5 ; i++ ){
-				new LightPattern(i+1, "test");
-			}
-		},
-		"click @ui.hexButton" : function(){
-			var color = this.ui.hexInput.val();
-			this.testColor( color );
-		}
-	},
+	events : {},
 	initialize : function(){
 		
 		this.calendarStore = {};
@@ -63,10 +54,12 @@ var CalendarView = Marionette.LayoutView.extend({
 	showSplit : function(){
 
 		var $splitEl = this.getRegion( "splashPage" ).$el;
-		var $singleEl = this.getRegion( "roomSingle" ).$el;
+		this.animatePage( $splitEl );
 
-		$splitEl.show();
-		$singleEl.hide();
+		// var $singleEl = this.getRegion( "roomSingle" ).$el;
+
+		// $splitEl.show();
+		// $singleEl.hide();
 	},
 	showRoom : function( key ){
 
@@ -80,63 +73,43 @@ var CalendarView = Marionette.LayoutView.extend({
 			
 			var view = new CalendarSingle({ model : model });
 			var region = this.getRegion( "roomSingle" ).show( view );
-			$singleEl = region.$el;
 
-			$singleEl.show();
-			$splitEl.hide();
+			$singleEl = region.$el;
+			this.animatePage( $singleEl );
 		}
 	},
+
+	animatePage : function( $showPage, direction, instant ){
+
+		direction = direction || "fromRight";
+		var animTime = instant ? 0 : 1;
+		$hidePage = this.$currentPage;
+		this.$currentPage = $showPage;
+
+		var fromPos = {};
+		var toPos = {};
+
+		switch ( direction ){
+			case "fromRight" : 
+				fromPos.x = Common.ww;
+				toPos.x = -Common.ww;
+				break; 
+		}
+
+		if( $hidePage ){
+			TweenMax.to( $hidePage, animTime, _.extend( {}, toPos ) );
+		}
+
+		$showPage.show();
+		TweenMax.set( $showPage, fromPos );
+		TweenMax.to( $showPage, animTime, { x : 0, y : 0 } );
+	},
+
 	checkQueue : function(){
 
 		if( this.queuedKey ){
 			this.showRoom( this.queuedKey );
 		}
-	},
-	testColor : function( _color ){
-
-		var color = one.color( _color );
-		var hsl = {
-			h : Math.floor( color.h() * 360), 
-			s : Math.floor( color.s() * 100),
-			l : Math.floor( color.l() * 100) 
-		};
-		hueConnect.update([
-			{
-				'id' : 1,
-				'data' : {
-					'hsl' : hsl,
-					'duration' : 1
-				}
-			},
-			{
-				'id' : 2,
-				'data' : {
-					'hsl' : hsl,
-					'duration' : 1
-				}
-			},
-			{
-				'id' : 3,
-				'data' : {
-					'hsl' : hsl,
-					'duration' : 1
-				}
-			},
-			{
-				'id' : 4,
-				'data' : {
-					'hsl' : hsl,
-					'duration' : 1
-				}
-			},
-			{
-				'id' : 5,
-				'data' : {
-					'hsl' : hsl,
-					'duration' : 1
-				}
-			}
-		]);		
 	},
 	eventsLoaded : function( data ){
 		
