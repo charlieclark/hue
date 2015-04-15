@@ -53,8 +53,8 @@ function init(){
 
 function connect( callback ){
 
-	var socket = 'http://charliepi.local:3000';  
-	// var socket = 'http://localhost:3000';  
+	// var socket = 'http://charliepi.local:3000';  
+	var socket = 'http://localhost:3000';  
 
 	mySocket = io.connect( socket );   
 

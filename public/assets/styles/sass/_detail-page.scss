@@ -1,0 +1,54 @@
+#event-list-container{
+	overflow: hidden;
+}
+
+#event-list{
+	margin: 0;
+	padding: 0;
+	-webkit-user-select: none;
+
+	.item{
+
+		&.available{
+			color: white;
+		}
+
+		&.occupied{
+			color: white;
+		}
+
+		&.scheduled{
+			background: #d6d6d6;
+			color: black;
+
+			&:nth-child(even) {
+				background: #f3f3f3;
+			}
+		}
+
+		>.time{
+			display: inline-block;
+			vertical-align: top;
+			height: 100%;
+			color: black;
+			background: white;
+			min-width: 130px;
+			text-align: right;
+
+			>p{
+				margin: 0;
+				padding-right: 30px;
+				text-transform: uppercase;
+				font-weight: 700;
+				font-size: 20px;
+			}
+		}
+
+		>.event{
+			display: inline-block;
+			vertical-align: top;
+			height: 100%;
+			color: inherit;
+		}
+	}
+}

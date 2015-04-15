@@ -11,7 +11,6 @@ var CalendarSingle = Marionette.LayoutView.extend({
 	events : {
 	},
 	initialize : function(){
-
 		this.collectionView = new Marionette.CollectionView({
 			tagName : 'ul',
 			id : 'event-list',

@@ -54,16 +54,23 @@ CalendarItem.prototype = {
 
 	pull : function(){
 
-	    var from = new Date();
-	    var to = new Date();
-	    to.setDate( to.getDate() + 1 );
+		var dayStart = new Date();
+			dayStart.setHours(8);
+			dayStart.setMinutes(0);
+
+		var dayEnd = new Date();
+			dayEnd.setHours( dayStart.getHours() + 10 )
+
+	    // var from = new Date();
+	    // var to = new Date();
+	    // to.setDate( to.getDate() + 1 );
 
 	    this._calendar.events.list({ 
             userId: 'me', 
             auth: this._oauth2Client,
             calendarId : this._data.calendarId,
-            timeMin : from.toISOString(),
-            timeMax : to.toISOString(),
+            timeMin : dayStart.toISOString(),
+            timeMax : dayEnd.toISOString(),
             singleEvents : true
         }, _.bind( function(err, response) {
 
