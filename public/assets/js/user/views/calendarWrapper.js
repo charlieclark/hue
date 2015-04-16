@@ -181,7 +181,7 @@ var CalendarView = Marionette.LayoutView.extend({
 
 			myCalendarModel = new CalendarModel({
 				key : key,
-				eventCollection : new CalendarCollection()
+				eventCollection : new CalendarCollection( { key : key } )
 			});
 			
 			this.calendarStore[ key ] = myCalendarModel;

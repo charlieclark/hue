@@ -6,8 +6,9 @@ var CalendarCollection = Backbone.Collection.extend({
 
 	model : CalendarModel,
 
-	initialize : function(){
+	initialize : function( options ){
 
+		this._key = options.key;
 		this.listenTo( this, "reset", this.onReset );
 	},
 
@@ -21,7 +22,7 @@ var CalendarCollection = Backbone.Collection.extend({
 
 		return this.find(function( model ){
 
-			return model.isNow();
+			return model.isNow(); 
 		});
 	},
 	setStartEnd : function( start, end ){
@@ -69,7 +70,8 @@ var CalendarCollection = Backbone.Collection.extend({
 		return {
 			start : start,
 			end : end,
-			available : true
+			available : true,
+			id : this._key+"_"+start.toString()
 		}
 
 		
