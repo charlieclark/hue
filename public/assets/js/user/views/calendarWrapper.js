@@ -193,6 +193,9 @@ var CalendarView = Marionette.LayoutView.extend({
 		var roomData = data.data;
 		var updated = roomData.updated;
 
+		console.log( myCalendarModel );
+		myCalendarModel.get("eventCollection").setStartEnd( roomData.dayStart, roomData.dayEnd );
+
 		myCalendarModel.set("roomData", roomData);
 		myCalendarModel.set("updated", updated);
 

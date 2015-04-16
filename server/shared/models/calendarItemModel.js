@@ -19,7 +19,6 @@ var CalendarItemModel = Backbone.Model.extend({
 		if(!dateString) return;
 		
 		dateString = dateString.dateTime;
-		var now = new Date();
 		var date = new Date( dateString );
 
 		this.set( key, {
@@ -44,7 +43,7 @@ var CalendarItemModel = Backbone.Model.extend({
 		 var end = this.get("end").raw;
 		 var now = new Date();
 
-		 if( now > start && now < end ){
+		 if( now > start && now < end && !this.get("isDummy") ){
 		 	return true;
 		 }
 

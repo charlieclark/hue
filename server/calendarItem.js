@@ -57,13 +57,10 @@ CalendarItem.prototype = {
 		var dayStart = new Date();
 			dayStart.setHours(8);
 			dayStart.setMinutes(0);
+			dayStart.setSeconds(0);
 
 		var dayEnd = new Date();
-			dayEnd.setHours( dayStart.getHours() + 10 )
-
-	    // var from = new Date();
-	    // var to = new Date();
-	    // to.setDate( to.getDate() + 1 );
+			dayEnd.setHours( dayStart.getHours() + 12 );
 
 	    this._calendar.events.list({ 
             userId: 'me', 
@@ -74,7 +71,8 @@ CalendarItem.prototype = {
             singleEvents : true
         }, _.bind( function(err, response) {
 
-            
+        	response.dayStart = dayStart;
+        	response.dayEnd = dayEnd;
             this.setData( response );
         }, this) );
 	},
