@@ -65,13 +65,13 @@ var CalendarCollection = Backbone.Collection.extend({
 	},
 	dummy : function( start, end ){ 
 
-		console.log("gen");
+		console.log("gen", start);
 
 		return {
 			start : start,
 			end : end,
 			available : true,
-			id : this._key+"_"+start.toString()
+			id : this._key +"_"+ (_.isDate( start ) ? start.toString() : Math.random() * 1000000000 + "")
 		}
 
 		

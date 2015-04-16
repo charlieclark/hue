@@ -24,7 +24,7 @@ CalendarItem.prototype = {
 		//creating model
 		var myCalendarModel = new CalendarModel({
 			key : this._key,
-			eventCollection : new CalendarCollection()
+			eventCollection : new CalendarCollection( { key : this._key } )
 		});
 
 		myCalendarModel.on( "change:updated", _.bind( function( model ){ 
