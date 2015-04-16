@@ -13,6 +13,7 @@ var CalendarSingle = Marionette.LayoutView.extend({
 		"change:updated" : "setCurrent"
 	},
 	initialize : function(){
+
 		this.collectionView = new Marionette.CollectionView({
 			tagName : 'ul',
 			id : 'event-list',
@@ -23,8 +24,8 @@ var CalendarSingle = Marionette.LayoutView.extend({
 	onShow : function(){
 
 		this.getRegion( "eventListContainer" ).show( this.collectionView );
-
 		setTimeout($.proxy(this.setCurrent,this), 0);
+		
 	},
 	setCurrent : function(){
 		var currentEvent = this.collectionView.collection.getCurrent();
@@ -32,6 +33,9 @@ var CalendarSingle = Marionette.LayoutView.extend({
 		if(currentEvent) {
 			var eventId = currentEvent.get('id');
 			var $items = this.$el.find('.item');
+
+			if( !$items.length ) return;
+
 			var $curEl = $items.filter(function() {
 				console.log($(this).data('id'), eventId);
 				return $(this).data('id') == eventId

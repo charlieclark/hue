@@ -21,7 +21,7 @@ function init(){
 		});
 
 		//REQUEST DATA & PASS UNIQUE ID
-		mySocket.emit('requestData',{}, function( rooms ){
+		mySocket.emit('requestData',{}, function( rooms, globalData ){
 
 			_.each( rooms, function( data, key ){
 				events.trigger( "eventsLoaded", { data : data, key : key } );

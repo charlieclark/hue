@@ -2,55 +2,75 @@ var _ = require('underscore');
 var Backbone = require('backbone');
 
 var CalendarItemModel = Backbone.Model.extend({
-	defaults : {
-		summary : "n/a",
-		description : "n/a",
-		start : "n/a",
-		end : "n/a",
+	defaults: {
+		summary: "n/a",
+		description: "n/a",
+		start: "n/a",
+		end: "n/a",
+		organizer: "n/a"
 	},
-	initialize : function(){
+	initialize: function() {
 
 		this.convertDate("start");
 		this.convertDate("end");
 	},
-	convertDate : function( key ){
+	convertDate: function(key) {
 		//convert datas
-		var dateString = this.get( key )
-		if(!dateString) return;
-		
-		dateString = dateString.dateTime;
-		var now = new Date();
-		var date = new Date( dateString );
+		var date = this.get(key);
+		if (!date) return;
 
-		this.set( key, {
-			raw : date,
-			twelveHour : this.getTwelveHour(date),
-			formatted : date.toString()
+		if (!_.isDate(date)) {
+			var dateString = date.dateTime;
+			date = new Date(dateString);
+		}
+
+		this.set(key, {
+			raw: date,
+			twelveHour: this.getTwelveHour(date),
+			formatted: date.toString()
 		});
 	},
-	getTwelveHour : function (date) {
-	  var hours = date.getHours();
-	  var minutes = date.getMinutes();
-	  var ampm = hours >= 12 ? 'pm' : 'am';
-	  hours = hours % 12;
-	  hours = hours ? hours : 12; // the hour '0' should be '12'
-	  minutes = minutes < 10 ? '0'+minutes : minutes;
-	  var strTime = hours + ':' + minutes + ' ' + ampm;
-	  return strTime;
+	getTwelveHour: function(date) {
+		var hours = date.getHours();
+		var minutes = date.getMinutes();
+		var ampm = hours >= 12 ? 'pm' : 'am';
+		hours = hours % 12;
+		hours = hours ? hours : 12; // the hour '0' should be '12'
+		minutes = minutes < 10 ? '0' + minutes : minutes;
+		var strTime = hours + ':' + minutes + ' ' + ampm;
+		return strTime;
 	},
-	isActive : function(){
-		
-		 var start = this.get("start").raw;
-		 var end = this.get("end").raw;
-		 var now = new Date();
+	isActive: function() {
 
-		 if( now > start && now < end ){
-		 	return true;
-		 }
-
-		 return false;
+		return( !this.isAvailable() && this.isNow() );
 	},
-	getPatternType : function(){
+	isNow: function() {
+
+		var start = this.get("start").raw;
+		var end = this.get("end").raw;
+		var now = new Date();
+
+		return (now > start && now < end);
+	},
+	isPast: function() {
+
+		var end = this.get("end").raw;
+		var now = new Date();
+
+		return (now > end );
+	},
+	isFuture: function() {
+
+		var start = this.get("start").raw;
+		var now = new Date();
+
+		return (now < start);
+	},
+	isAvailable : function(){
+
+		return this.get("available");
+	},
+	getPatternType: function() {
 
 		var type = "occupied";
 		return type;

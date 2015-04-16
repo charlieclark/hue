@@ -23,31 +23,38 @@ var CalendarItem = Marionette.ItemView.extend({
 		var minuteHeight = halfHourHeight / 30;
 		var height = minuteHeight * minutes;
 
-		var type;
+		var types = [];
 		var background;
 		var now = new Date();
 
-		if( now > start && now < end ) {
-			
-			type = "occupied";
+		if( this.model.isAvailable() ) {
+				
+			types.push( "available" );
+		} 
 
+		if( this.model.isActive() ) {
+			
+			types.push( "occupied" );
 			var colors = patterns['occupied'].colors;
 			background = 'linear-gradient(to bottom,' + colors.join(',') + ')';
+		}
+
+		if( this.model.isPast() ) {
+
+			types.push( "past" );
 			
-		}else {
+		} else if( this.model.isNow() ) {
 
-			type = "scheduled";
-		}
-/*
-		else {
+			types.push( "now" );
 
-			background = patterns['available'].colors[0];
+		} else if( this.model.isFuture() ) {
+
+			types.push( "future" );
 		}
-*/
 
 		this.$el
 			.height( height + 'px' )
-			.addClass(type)
+			.addClass(types.join(" "))
 			.data("id", this.model.get('id'))
 			.css('background', background);
 	}
