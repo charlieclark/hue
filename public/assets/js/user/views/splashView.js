@@ -52,7 +52,7 @@ var SplashView = Marionette.LayoutView.extend({
 	},
 	addRoom : function( model ){
 		var key = model.get("key");
-		var region = this.getRegion( key );
+		var region = this.getRegion( key );console.log(model.toJSON())
 		region.show( new SplashItemView({ model : model } ) );
 	},
 	resize : function(){

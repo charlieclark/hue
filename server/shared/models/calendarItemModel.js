@@ -42,7 +42,7 @@ var CalendarItemModel = Backbone.Model.extend({
 
 		var strTime = hours + ':' + minutes + ' ' + ampm;
 
-		if(shortened && date.getMinutes() === 0) {
+		if(shortened && !date.getMinutes()) {
 			 strTime = hours + ' ' + ampm;
 		}
 

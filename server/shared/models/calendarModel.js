@@ -4,7 +4,8 @@ var CalendarItemModel 	= require("./calendarItemModel.js");
 
 var CalendarModel = Backbone.Model.extend({
 	defaults : {
-		organizer : "Wes"
+		organizer : "Wes",
+		currentEventData: {}
 	},
 	initialize : function(){
 

@@ -34,7 +34,6 @@ var CalendarCollection = Backbone.Collection.extend({
 
 		console.log("RE", this.start , this.end)
 
-		var prevStart = this.start;
 		var prevEnd = this.start;
 
 		var dummyGen = [];
@@ -46,7 +45,7 @@ var CalendarCollection = Backbone.Collection.extend({
 
 			if(!start.valueOf()) return;
 
-			if( start != prevEnd ){
+			if( start != prevEnd &&  start - prevEnd > 0 ){
 				dummyGen.push( this.dummy( prevEnd, start ) );
 			}
 

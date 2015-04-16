@@ -17,11 +17,13 @@ var CalendarItem = Marionette.ItemView.extend({
 
 		var start = this.model.get('start').raw;
 		var end = this.model.get('end').raw;
-		var minutes = (end - start) / 1000 / 60;
+		var minutes = ((end - start) / 1000 / 60) || 0;
 
 		var halfHourHeight = 140;
+		var minHeight = halfHourHeight;
+		var maxHeight = 600;
 		var minuteHeight = halfHourHeight / 30;
-		var height = minuteHeight * minutes;
+		var height = Math.min( maxHeight, Math.max(minHeight, minuteHeight * minutes) );
 
 		var types = [];
 		var background;

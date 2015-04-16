@@ -72,6 +72,22 @@ html {
 *, *:before, *:after {
   box-sizing: inherit; }
 
+#room-single header > button {
+  border: none;
+  outline: none;
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-appearance: none; }
+
+.grab {
+  cursor: url(/assets/styles/cursor/grab.cur) 28 28, -webkit-grab !important; }
+
+.grabbing {
+  cursor: url(/assets/styles/cursor/grabbing.cur) 28 28, -webkit-grabbing !important; }
+
 html, body {
   visibility: visible;
   margin: 0;
@@ -98,7 +114,9 @@ body {
 
 #main {
   position: relative;
-  height: 100%; }
+  height: 100%;
+  cursor: url(/assets/styles/cursor/default.cur) 8 8, default;
+  -webkit-user-select: none; }
 
 .main-list {
   font-size: 0.8em; }
@@ -163,8 +181,8 @@ body {
       vertical-align: top;
       width: 25%;
       height: 100%;
-      cursor: pointer;
-      transition: width 0.25s cubic-bezier(0.23, 1, 0.32, 1); }
+      transition: width 0.25s cubic-bezier(0.23, 1, 0.32, 1);
+      cursor: url(/assets/styles/cursor/pointer.cur) 20 9, pointer; }
       #splash-page #room-split > .room-container.hovered {
         width: 28%; }
         #splash-page #room-split > .room-container.hovered .circle {
@@ -291,10 +309,47 @@ body {
   width: 100%;
   height: 100%;
   overflow: hidden; }
+  #room-single header {
+    height: 12vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; }
+    #room-single header > .number {
+      height: 100%;
+      font-size: 10vh;
+      margin: 0; }
+    #room-single header > button {
+      color: black;
+      outline: 1px solid black;
+      margin: 0 40px; }
+  #room-single .viewport {
+    position: relative;
+    height: 88vh;
+    overflow: hidden !important; }
+    #room-single .viewport .needle {
+      position: absolute;
+      top: 0;
+      right: 0;
+      margin-top: -14px;
+      width: 85%;
+      height: 23px; }
+      #room-single .viewport .needle:before {
+        content: "";
+        display: block;
+        position: absolute;
+        left: -80px;
+        width: 80px;
+        height: 100%;
+        background-image: url("/assets/images/needle-head.png"); }
+      #room-single .viewport .needle:after {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 100%;
+        background-image: url("/assets/images/needle-fill.png"); }
   #room-single #event-list {
     margin: 0;
     padding: 0;
-    -webkit-user-select: none;
     -webkit-font-smoothing: antialiased; }
     #room-single #event-list .item {
       white-space: nowrap;
@@ -306,6 +361,8 @@ body {
         color: white; }
       #room-single #event-list .item.occupied {
         color: white; }
+      #room-single #event-list .item.past {
+        opacity: .25; }
       #room-single #event-list .item > .time {
         display: inline-block;
         vertical-align: top;
@@ -340,29 +397,3 @@ body {
           margin: 0;
           line-height: 2.2;
           letter-spacing: 2px; }
-  #room-single .viewport {
-    position: relative;
-    height: 100%;
-    overflow-x: hidden;
-    overflow-y: auto; }
-    #room-single .viewport .needle {
-      position: absolute;
-      top: 0;
-      right: 0;
-      margin-top: -14px;
-      width: 85%;
-      height: 23px; }
-      #room-single .viewport .needle:before {
-        content: "";
-        display: block;
-        position: absolute;
-        left: -80px;
-        width: 80px;
-        height: 100%;
-        background-image: url("/assets/images/needle-head.png"); }
-      #room-single .viewport .needle:after {
-        content: "";
-        display: block;
-        width: 100%;
-        height: 100%;
-        background-image: url("/assets/images/needle-fill.png"); }

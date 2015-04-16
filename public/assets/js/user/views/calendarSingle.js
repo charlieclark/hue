@@ -3,7 +3,6 @@ var state = require("state");
 
 var CalendarSingle = Marionette.LayoutView.extend({
 	template : _.template( require("templates/calendarSingle.html") ),
-	className : "viewport",
 	regions : {
 		eventListContainer : "#event-list-container"
 	},
@@ -20,27 +19,57 @@ var CalendarSingle = Marionette.LayoutView.extend({
 			childView : CalendarItem,
 			collection : this.model.get("eventCollection")
 		});
+
+		this._onMouseWheel = $.proxy(this.onMouseWheel, this);
+
+		this._dragStartY = 0;console.log(this.model);
 	},
 	onShow : function(){
 
 		this.getRegion( "eventListContainer" ).show( this.collectionView );
-		setTimeout($.proxy(this.setCurrent,this), 0);
-		
+		setTimeout($.proxy(this.resetScrollPosition,this), 0);
+
+		this.$viewport = this.$viewport || this.$el.find('.viewport');
+		this.viewport = this.viewport || this.$viewport.get(0);
+
+		this._draggable = this._draggable || new Draggable(this.viewport, {
+	    'type': 'scrollTop',
+	    'bounds': '#event-list-container',
+	    'edgeResistance': 0.85,
+	    'throwProps': true,
+	    'dragClickables': true,
+	    'zIndexBoost': false,
+	    'onDragStart': this.onDragStart,
+	    'onDragStartScope': this,
+	    'onDragEnd': this.onDragEnd,
+	    'onDragEndScope': this
+	  });
+
+		this._scrollTo = this._scrollTo || TweenMax.to(this.viewport, 1, {
+			'scrollTo': {y: 0},
+			'ease': Power4.easeOut
+		});
+
+	  this.$viewport.on('mousewheel', this._onMouseWheel);
+	},
+	resetScrollPosition : function(){
+		var y = this.setCurrent() - ($(window).height()/2 - this.$el.find('header').height());
+
+		this._scrollTo.updateTo({
+			'scrollTo': {y: y}
+		}, true);
 	},
 	setCurrent : function(){
 		var currentEvent = this.collectionView.collection.getCurrent();
-
-		console.log("CURRENT")
-		console.log( currentEvent.get("id") )
+		var y = 0;
 
 		if(currentEvent) {
 			var eventId = currentEvent.get('id');
-			var $items = this.$el.find('.item');
+			var $items = this.$viewport.find('.item');
 
 			if( !$items.length ) return;
 
 			var $curEl = $items.filter(function() {
-				// console.log($(this).data('id'), eventId);
 				return $(this).data('id') == eventId
 			});
 			var top = $curEl.position().top;
@@ -50,17 +79,36 @@ var CalendarSingle = Marionette.LayoutView.extend({
 			var end = currentEvent.get('end').raw;
 			var now = new Date();
 			var timeProgress = (now - start) / (end - start);
-			var y = top + height * timeProgress;
 			
-			var $needle = this.$el.find('.needle');
+			y = top + height * timeProgress;
+			
+			var $needle = this.$viewport.find('.needle');
 			$needle.css('top', y+'px');
-
-			// console.log($curEl.get(0), $curEl.position().top, height)
 		}
+
+		return y;
 	},
 	onClose : function(){
 
 		state.navigate("");
+	},
+	onDragStart : function(){
+		this.$viewport.toggleClass('grabbing', true);
+		this._dragStartY = this.viewport.scrollTop;
+	},
+	onDragEnd : function(){
+		this.$viewport.toggleClass('grabbing', false);
+		if(this._dragStartY === 0 && this._draggable.getDirection() === 'down') {
+			state.navigate('home', null, null, true);
+		}
+	},
+	onMouseWheel : function(e) {
+
+		var y = this.viewport.scrollTop - e.deltaY * e.deltaFactor * 4;
+
+		this._scrollTo.updateTo({
+			'scrollTo': {y: y}
+		}, true);
 	}
 });
 

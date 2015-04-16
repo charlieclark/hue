@@ -17,6 +17,45 @@ html {
   box-sizing: inherit;
 }
 
+%resetButton{
+  border: none;
+  outline: none;
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-appearance: none;
+}
+
+@mixin chromeOSDefaultCursor() {
+  cursor: url(/assets/styles/cursor/default.cur) 8 8, default;
+}
+
+@mixin chromeOSPointerCursor() {
+  cursor: url(/assets/styles/cursor/pointer.cur) 20 9, pointer;
+}
+
+@mixin chromeOSGrabCursor() {
+  cursor: url(/assets/styles/cursor/grab.cur) 28 28, -webkit-grab !important;
+}
+
+@mixin chromeOSGrabbingCursor() {
+  cursor: url(/assets/styles/cursor/grabbing.cur) 28 28, -webkit-grabbing !important;
+}
+
+@mixin chromeOSHelpCursor() {
+  cursor: url(/assets/styles/cursor/help.cur) 8 8, help;
+}
+
+.grab{
+	@include chromeOSGrabCursor;
+}
+
+.grabbing{
+	@include chromeOSGrabbingCursor;
+}
+
 html, body{
 	visibility: visible;
 	margin: 0;
@@ -48,6 +87,8 @@ body{
 #main{
 	position: relative;
 	height: 100%;
+	@include chromeOSDefaultCursor;
+	-webkit-user-select: none;
 }
 
 .main-list{
@@ -138,8 +179,8 @@ body{
 			vertical-align: top;
 			width: 25%;
 			height: 100%;
-			cursor: pointer;
 			transition: width .25s cubic-bezier(0.23, 1, 0.32, 1);
+			@include chromeOSPointerCursor;
 
 			&.hovered{
 				width: 28%;

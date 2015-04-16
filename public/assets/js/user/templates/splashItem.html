@@ -6,6 +6,6 @@
 	<div class="graph room-<%= key %>"></div>
 </div>
 <div class="availability">
-	<p><%= currentEventData.available ? 'available' : currentEventData.summary %></p>
+	<p><%= currentEventData && !currentEventData.available ? currentEventData.summary : "available" %></p>
 	<p class="time"></p>
 </div>
