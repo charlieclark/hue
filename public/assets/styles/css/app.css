@@ -72,7 +72,7 @@ html {
 *, *:before, *:after {
   box-sizing: inherit; }
 
-#room-single header > button {
+#splash-page #home-nav button, #room-single header > button {
   border: none;
   outline: none;
   margin: 0;
@@ -134,7 +134,20 @@ body {
     bottom: 0;
     height: 70px;
     width: 100%;
-    left: 0; }
+    left: 0;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; }
+    @media screen and (max-width: 320px) {
+      #splash-page #home-nav {
+        padding: 2px; } }
+    @media screen and (min-width: 320px) and (max-width: 1200px) {
+      #splash-page #home-nav {
+        padding: 4px; } }
+    @media screen and (min-width: 1200px) {
+      #splash-page #home-nav {
+        padding: 8px; } }
   #splash-page #room-split {
     height: 100%;
     font-size: 0;
@@ -316,8 +329,23 @@ body {
     align-items: center; }
     #room-single header > .number {
       height: 100%;
-      font-size: 10vh;
+      font-size: 9vh;
       margin: 0; }
+      #room-single header > .number > span {
+        display: inline-block;
+        vertical-align: middle;
+        width: 10vh;
+        height: 10vh;
+        margin-right: 5px;
+        background-size: 100% 100%; }
+        #room-single header > .number > span.room-1 {
+          background-image: url("/assets/images/icon-room-1-black.png"); }
+        #room-single header > .number > span.room-2 {
+          background-image: url("/assets/images/icon-room-2-black.png"); }
+        #room-single header > .number > span.room-3 {
+          background-image: url("/assets/images/icon-room-3-black.png"); }
+        #room-single header > .number > span.room-5 {
+          background-image: url("/assets/images/icon-room-5-black.png"); }
     #room-single header > button {
       color: black;
       outline: 1px solid black;

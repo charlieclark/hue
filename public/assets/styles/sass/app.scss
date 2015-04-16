@@ -111,6 +111,24 @@ body{
 		height: 70px;
 		width: 100%;
 		left: 0;
+		box-sizing: border-box;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+		@media screen and (max-width: $break-small) {
+	    padding: $split_padding_small;
+	  }
+	  @media screen and (min-width: $break-small) and (max-width: $break-large) {
+	    padding: $split_padding_medium;
+	  }
+	  @media screen and (min-width: $break-large) {
+	    padding: $split_padding_large;
+	  }
+
+		button{
+			@extend %resetButton;
+		}
 	}
 
 	#room-split{

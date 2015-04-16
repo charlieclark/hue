@@ -55,6 +55,10 @@ var CalendarSingle = Marionette.LayoutView.extend({
 	resetScrollPosition : function(){
 		var y = this.setCurrent() - ($(window).height()/2 - this.$el.find('header').height());
 
+		if(y > this.viewport.scrollHeight - this.$viewport.height()) {
+			y = 'max';
+		}
+
 		this._scrollTo.updateTo({
 			'scrollTo': {y: y}
 		}, true);
