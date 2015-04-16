@@ -21,7 +21,7 @@ var CalendarCollection = Backbone.Collection.extend({
 
 		return this.find(function( model ){
 
-			return model.isActive();
+			return model.isNow();
 		});
 	},
 	setStartEnd : function( start, end ){
@@ -62,15 +62,17 @@ var CalendarCollection = Backbone.Collection.extend({
 
 		this.dummyGen( dummyGen );
 	},
-	dummy : function( start, end ){
+	dummy : function( start, end ){ 
+
+		console.log("gen");
 
 		return {
 			start : start,
 			end : end,
-			isDummy : true
+			available : true
 		}
 
-		console.log("gen");
+		
 
 		// this.add({
 		// 	start : start,

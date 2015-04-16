@@ -59,45 +59,11 @@
   font-weight: 300;
   -webkit-font-smoothing: antialiased; }
 
-.person {
-  font-family: "Crimson Text", serif;
-  line-height: 1; }
-
-#event-list-container {
-  overflow: hidden; }
-
-#event-list {
-  margin: 0;
-  padding: 0;
-  -webkit-user-select: none; }
-  #event-list .item.available {
-    color: white; }
-  #event-list .item.occupied {
-    color: white; }
-  #event-list .item.scheduled {
-    background: #d6d6d6;
-    color: black; }
-    #event-list .item.scheduled:nth-child(even) {
-      background: #f3f3f3; }
-  #event-list .item > .time {
-    display: inline-block;
-    vertical-align: top;
-    height: 100%;
-    color: black;
-    background: white;
-    min-width: 130px;
-    text-align: right; }
-    #event-list .item > .time > p {
-      margin: 0;
-      padding-right: 30px;
-      text-transform: uppercase;
-      font-weight: 700;
-      font-size: 20px; }
-  #event-list .item > .event {
-    display: inline-block;
-    vertical-align: top;
-    height: 100%;
-    color: inherit; }
+.name {
+  font-family: "museo-sans", sans-serif;
+  font-weight: 700;
+  -webkit-font-smoothing: antialiased;
+  text-transform: uppercase; }
 
 /* apply a natural box layout model to all elements, but allowing components to change */
 html {
@@ -325,3 +291,64 @@ body {
   width: 100%;
   height: 100%;
   overflow: hidden; }
+  #room-single #event-list {
+    margin: 0;
+    padding: 0;
+    -webkit-user-select: none; }
+    #room-single #event-list .item {
+      white-space: nowrap; }
+      #room-single #event-list .item.available {
+        color: white; }
+      #room-single #event-list .item.occupied {
+        color: white; }
+      #room-single #event-list .item.scheduled {
+        background: #d6d6d6;
+        color: black; }
+        #room-single #event-list .item.scheduled:nth-child(even) {
+          background: #f3f3f3; }
+      #room-single #event-list .item > .time {
+        display: inline-block;
+        vertical-align: top;
+        height: 100%;
+        color: black;
+        background: white;
+        width: 15%;
+        min-width: 130px;
+        text-align: right; }
+        #room-single #event-list .item > .time > p {
+          margin: 0;
+          padding-right: 30px;
+          text-transform: uppercase;
+          font-weight: 700;
+          font-size: 20px; }
+      #room-single #event-list .item > .event {
+        display: inline-block;
+        vertical-align: top;
+        width: 85%;
+        height: 100%;
+        color: inherit;
+        font-family: "museo-sans", sans-serif; }
+        #room-single #event-list .item > .event h2 {
+          text-transform: capitalize; }
+  #room-single .viewport {
+    position: relative;
+    overflow: hidden; }
+    #room-single .viewport .needle {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 85%; }
+      #room-single .viewport .needle:before {
+        content: "";
+        display: block;
+        position: absolute;
+        left: -80px;
+        width: 80px;
+        height: 23px;
+        background-image: url("/assets/images/needle-head.png"); }
+      #room-single .viewport .needle:after {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 23px;
+        background-image: url("/assets/images/needle-fill.png"); }

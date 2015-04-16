@@ -19,34 +19,44 @@ var CalendarItem = Marionette.ItemView.extend({
 		var end = this.model.get('end').raw;
 		var minutes = (end - start) / 1000 / 60;
 
-		var halfHourHeight = 10;
+		var halfHourHeight = 100;
 		var minuteHeight = halfHourHeight / 30;
 		var height = minuteHeight * minutes;
 
-		var type;
+		var types = [];
 		var background;
 		var now = new Date();
 
-		if( now > start && now < end) {
-			
-			type = "occupied";
+		if( this.model.isAvailable() ) {
+				
+			types.push( "available" );
+		} 
 
+		if( this.model.isActive() ) {
+			
+			types.push( "occupied" );
 			var colors = patterns['occupied'].colors;
 			background = 'linear-gradient(to bottom,' + colors.join(',') + ')';
+		}
+
+		if( this.model.isPast() ) {
+
+			types.push( "past" );
 			
+		} else if( this.model.isNow() ) {
 
-		}else {
-			type = "scheduled";
+			types.push( "now" );
 
+		} else if( this.model.isFuture() ) {
+
+			types.push( "future" );
 		}
-/*
-		else {
 
-			background = patterns['available'].colors[0];
-		}
-*/
-
-		$(this.el).height( height + 'vh' ).addClass(type).css('background', background);
+		this.$el
+			.height( height + 'px' )
+			.addClass(types.join(" "))
+			.data("id", this.model.get('id'))
+			.css('background', background);
 	}
 });
 

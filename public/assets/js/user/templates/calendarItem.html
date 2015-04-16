@@ -2,7 +2,7 @@
 	<p><%= start.twelveHour %></p>
 </div>
 
-<div class="event">
+<div class="event" class="<?= isDummy ? 'dummy' : '' ?>" >
 	<h2><%= summary %></h2>
-	<h3>description : <%= description %></h3>
+	<h3 class="name"><%= organizer.displayName %></h3>
 </div>
