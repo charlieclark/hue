@@ -35,13 +35,13 @@ body{
 	overflow: hidden;
 
 	@media screen and (max-width: $break-small) {
-	  padding: $split_padding_small $split_padding_small $split_padding_small $split_padding_small;
+	  padding: $split_padding_small $split_padding_small 0 $split_padding_small;
 	}
 	@media screen and (min-width: $break-small) and (max-width: $break-large) {
-	  padding: $split_padding_medium $split_padding_medium $split_padding_small $split_padding_medium;
+	  padding: $split_padding_medium $split_padding_medium 0 $split_padding_medium;
 	}
 	@media screen and (min-width: $break-large) {
-	  padding: $split_padding_large $split_padding_large $split_padding_small $split_padding_large;
+	  padding: $split_padding_large $split_padding_large 0 $split_padding_large;
 	}
 }
 

@@ -19,7 +19,7 @@ var CalendarItem = Marionette.ItemView.extend({
 		var end = this.model.get('end').raw;
 		var minutes = (end - start) / 1000 / 60;
 
-		var halfHourHeight = 100;
+		var halfHourHeight = 140;
 		var minuteHeight = halfHourHeight / 30;
 		var height = minuteHeight * minutes;
 

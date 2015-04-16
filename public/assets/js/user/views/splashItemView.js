@@ -1,3 +1,5 @@
+var helpers = require('helpers');
+
 var TimeDisplayTemplate = _.template( require("templates/timeDisplay.html") );
 
 var SplashItemView = Marionette.ItemView.extend({
@@ -28,8 +30,9 @@ var SplashItemView = Marionette.ItemView.extend({
 
 		var key = model.get("key");
 		this.ui.timeDisplay.html( TimeDisplayTemplate({
-			hours : data.hours,
-			minutes : data.minutes,
+			hours : helpers.addLeadingZero(data.hours, 2),
+			minutes : helpers.addLeadingZero(data.minutes, 2),
+			seconds : helpers.addLeadingZero(data.seconds, 2),
 			showColon : (data.seconds % 2 === 0)
 		}) );
 	},
