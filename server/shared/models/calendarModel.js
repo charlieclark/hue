@@ -22,8 +22,8 @@ var CalendarModel = Backbone.Model.extend({
 
 		//getting current event
 		var current = eventCollection.getCurrent();
-		
-		this.set("currentEventData", current ? current.toJSON() : null);
+
+		this.set("currentEventData", current ? current.toJSON() : {});
 		this.set("currentEvent", current );	
 	},
 	changeCurrent : function(view, model){
