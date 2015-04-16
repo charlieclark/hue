@@ -51,8 +51,6 @@ var CalendarSingle = Marionette.LayoutView.extend({
 			
 			var $needle = this.$el.find('.needle');
 			$needle.css('top', y+'px');
-
-			console.log($curEl.get(0), $curEl.position().top, height)
 		}
 	},
 	onClose : function(){

@@ -1,8 +1,8 @@
 <div class="time">
-	<p><%= start.twelveHour %></p>
+	<p><%= start.twelveHourShortened %></p>
 </div>
 
 <div class="event" class="<?= isDummy ? 'dummy' : '' ?>" >
-	<h2><%= summary %></h2>
+	<h2><%= available ? 'available' : summary %></h2>
 	<h3 class="name"><%= organizer.displayName %></h3>
 </div>

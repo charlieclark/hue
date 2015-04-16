@@ -294,18 +294,18 @@ body {
   #room-single #event-list {
     margin: 0;
     padding: 0;
-    -webkit-user-select: none; }
+    -webkit-user-select: none;
+    -webkit-font-smoothing: antialiased; }
     #room-single #event-list .item {
-      white-space: nowrap; }
+      white-space: nowrap;
+      background: #d6d6d6;
+      color: black; }
+      #room-single #event-list .item:nth-child(odd) {
+        background: #f3f3f3; }
       #room-single #event-list .item.available {
         color: white; }
       #room-single #event-list .item.occupied {
         color: white; }
-      #room-single #event-list .item.scheduled {
-        background: #d6d6d6;
-        color: black; }
-        #room-single #event-list .item.scheduled:nth-child(even) {
-          background: #f3f3f3; }
       #room-single #event-list .item > .time {
         display: inline-block;
         vertical-align: top;

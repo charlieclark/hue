@@ -5,9 +5,16 @@
 	margin: 0;
 	padding: 0;
 	-webkit-user-select: none;
+	-webkit-font-smoothing: antialiased;
 
 	.item{
 		white-space: nowrap;
+		background: #d6d6d6;
+		color: black;
+
+		&:nth-child(odd) {
+			background: #f3f3f3;
+		}
 
 		&.available{
 			color: white;
@@ -15,15 +22,6 @@
 
 		&.occupied{
 			color: white;
-		}
-
-		&.scheduled{
-			background: #d6d6d6;
-			color: black;
-
-			&:nth-child(even) {
-				background: #f3f3f3;
-			}
 		}
 
 		>.time{

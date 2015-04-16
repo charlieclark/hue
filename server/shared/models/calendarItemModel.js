@@ -7,7 +7,8 @@ var CalendarItemModel = Backbone.Model.extend({
 		description: "n/a",
 		start: "n/a",
 		end: "n/a",
-		organizer: "n/a"
+		organizer: "n/a",
+		available : false
 	},
 	initialize: function() {
 
@@ -27,17 +28,24 @@ var CalendarItemModel = Backbone.Model.extend({
 		this.set(key, {
 			raw: date,
 			twelveHour: this.getTwelveHour(date),
+			twelveHourShortened: this.getTwelveHour(date, true),
 			formatted: date.toString()
 		});
 	},
-	getTwelveHour: function(date) {
+	getTwelveHour: function(date, shortened) {
 		var hours = date.getHours();
 		var minutes = date.getMinutes();
 		var ampm = hours >= 12 ? 'pm' : 'am';
 		hours = hours % 12;
 		hours = hours ? hours : 12; // the hour '0' should be '12'
 		minutes = minutes < 10 ? '0' + minutes : minutes;
+
 		var strTime = hours + ':' + minutes + ' ' + ampm;
+
+		if(shortened && date.getMinutes() === 0) {
+			 strTime = hours + ' ' + ampm;
+		}
+
 		return strTime;
 	},
 	isActive: function() {

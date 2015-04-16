@@ -30,6 +30,8 @@ var CalendarItem = Marionette.ItemView.extend({
 		if( this.model.isAvailable() ) {
 				
 			types.push( "available" );
+			var color = patterns['available'].colors[0];
+			background = color;
 		} 
 
 		if( this.model.isActive() ) {
