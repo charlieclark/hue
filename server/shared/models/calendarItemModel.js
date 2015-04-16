@@ -80,7 +80,7 @@ var CalendarItemModel = Backbone.Model.extend({
 	},
 	getPatternType: function() {
 
-		var type = "occupied";
+		var type = this.isActive() ? "occupied" : "available";
 		return type;
 	}
 })
