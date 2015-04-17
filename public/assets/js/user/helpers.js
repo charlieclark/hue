@@ -1,5 +1,7 @@
+var Rainbow = require("libs/rainbow");
+
 module.exports = {
-	 getParameterByName : function(name) {
+	getParameterByName : function(name) {
 	    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
 	    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
 	        results = regex.exec(location.search);
@@ -32,5 +34,20 @@ module.exports = {
 		}
 		result = result.slice(result, n);
 		return result;
+	},
+	createGradientStops : function(colors, n) {
+			var rainbow = new Rainbow();
+			rainbow.setSpectrum.apply( rainbow, colors );
+
+			var gradients = [];
+			for(var i = 0; i < n; i++) {
+				var i1 = i/n;
+				var i2 = (i+1)/n;
+				var color1 = rainbow.colourAt( i1 * 100 );
+				var color2 = rainbow.colourAt( i2 * 100 );
+				gradients.push( ['#'+color1, '#'+color2] );
+			}
+
+			return gradients;
 	}
 }

@@ -15,9 +15,20 @@
 					<h6><%= data.title %></h6>
 					<div class="pattern">
 					<% _.each( data.colors, function( color ){ %>
-						<div style="background:<%= color %>"></div>
+						<% if (typeof color === 'string') { %>
+							<div style="background:<%= color %>"></div>
+						<% } else { %>
+							<div style="background:linear-gradient(to right, <%=color[0]%>, <%=color[1]%>)"></div>
+						<% } %>
 					<% }); %>
 					</div>
+					<% if (data.key === 'occupied') { %>
+					<div class="caption">
+						<span>Start</span>
+						<span>Halfway</span>
+						<span>Ending</span>
+					</div>
+					<% } %>
 				</div>
 			</li>
 			<% } %>

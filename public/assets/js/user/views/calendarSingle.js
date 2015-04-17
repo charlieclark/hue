@@ -28,7 +28,7 @@ var CalendarSingle = Marionette.LayoutView.extend({
 
 		this._onMouseWheel = $.proxy(this.onMouseWheel, this);
 
-		this._dragStartY = 0;console.log(this.model);
+		this._dragStartY = 0;
 	},
 	onShow : function(){
 

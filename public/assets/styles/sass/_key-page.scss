@@ -125,7 +125,7 @@ header{
 				}
 
 				.pattern{
-					padding: 1.5vw 0;
+					padding: 1.5vh 0;
 
 					>div{
 						display: inline-block;
@@ -152,6 +152,21 @@ header{
 						&:hover{
 							opacity: .5;
 						}
+					}
+				}
+
+				.caption{
+					height: 0;
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+					padding: 10px 3vw 0 1vw;
+					font-weight: 700;
+					font-family: $font_museo;
+					font-size: 2vmin;
+
+					.state-portrait &{
+						margin-right: 2vw;
 					}
 				}
 			}

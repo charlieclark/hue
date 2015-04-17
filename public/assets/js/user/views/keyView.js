@@ -19,11 +19,12 @@ var keyView = Marionette.LayoutView.extend({
 	},
 	initialize : function(){
 
-		var _patterns = _.map(patterns, function(pattern){
+		var _patterns = _.map(patterns, function(pattern, key){
 			return {
+				key: key,
 				title: pattern.title,
 				type: pattern.type,
-				colors: helpers.extendColors( pattern.colors, 5 )
+				colors: (key === 'occupied') ? helpers.createGradientStops(pattern.colors, 5) : helpers.extendColors(pattern.colors, 5)
 			};
 		});
 

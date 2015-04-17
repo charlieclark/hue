@@ -580,7 +580,7 @@ body {
             letter-spacing: 2px;
             margin: 0; }
           #key-page .content-container section ul > li .pattern {
-            padding: 1.5vw 0; }
+            padding: 1.5vh 0; }
             #key-page .content-container section ul > li .pattern > div {
               display: inline-block;
               vertical-align: middle;
@@ -601,3 +601,14 @@ body {
               transition: opacity 0.2s; }
               #key-page .content-container section ul > li .pattern > button:hover {
                 opacity: .5; }
+          #key-page .content-container section ul > li .caption {
+            height: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 3vw 0 1vw;
+            font-weight: 700;
+            font-family: "museo-sans", sans-serif;
+            font-size: 2vmin; }
+            .state-portrait #key-page .content-container section ul > li .caption {
+              margin-right: 2vw; }
