@@ -9,7 +9,8 @@ var CalendarItemModel 	= require("models/calendarItemModel");
 var CalendarCollection 	= require("collections/calendarCollection");
 
 var SplashView 	= require("views/splashView");
- 
+var KeyView 	= require("views/keyView");
+
 var hueConnect = require("controllers/hueConnect");
 var LightPattern = require("controllers/lightPattern");
 var LightPatternController = require("controllers/lightPatternController");
@@ -55,6 +56,8 @@ var CalendarView = Marionette.LayoutView.extend({
 					this.animatePage( "home" );
 					break;
 				case "key":
+					var view = new KeyView({ model : new Backbone.Model({ }) });
+					var region = this.getRegion( "key" ).show( view );
 					this.animatePage( "key" );
 					break;
 				case "sequencer":
@@ -82,10 +85,6 @@ var CalendarView = Marionette.LayoutView.extend({
         Marionette.bindEntityEvents(this, state, this.stateEvents);
 		
 		this.listenTo( hueConnect.events, "eventsLoaded", this.eventsLoaded );
-
-			this.$el.on("click", ".button", function(){
-			console.log("!@!#!")
-		});
 	},
 	onShow : function(){
 
@@ -121,10 +120,10 @@ var CalendarView = Marionette.LayoutView.extend({
 		$showPage = this.getRegion( page ).$el;
 		$hidePage = this.lastPage ? this.getRegion( this.lastPage ).$el : null;
 
-		var animTime = (instant || firstAnim) ? 0 : 0.5;
+		var animTime = (instant || firstAnim) ? 0 : 0.4;
 		firstAnim = false;
 		
-		var tweenBase = { force3D : true, ease : Quad.easeOut, x : 0, y : 0 };
+		var tweenBase = { force3D : true, ease : Cubic.easeInOut, x : 0, y : 0 };
 		var fromPos = {};
 		var toPos = {};
 
@@ -153,7 +152,7 @@ var CalendarView = Marionette.LayoutView.extend({
 		}
 
 		if( $hidePage ){
-			TweenMax.to( $hidePage, animTime, _.extend( { 
+			TweenMax.to( $hidePage, animTime, _.extend( {
 				onComplete : function(){
 					$hidePage.hide();
 				}

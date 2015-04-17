@@ -1,0 +1,160 @@
+header{
+	height: 12vh;
+	padding: 0 40px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	>.icon{
+		width: 9vh;
+		height: 9vh;
+		margin: 0;
+		background-size: 100% 100%;
+		background-image: url('/assets/images/icon-lightbulb.png');
+	}
+
+	>button{
+		@extend %resetButton;
+		color: black;
+		font-size: 5vh;
+		opacity: 1;
+		@include transition(opacity .2s);
+
+		&:hover{
+			opacity: .5;
+		}
+	}
+}
+
+.content-container{
+	position: relative;
+	height: 88vh;
+
+	section{
+		position: relative;
+		-webkit-font-smoothing: antialiased;
+
+		&.standard{
+			background: #f3f3f3;
+		}
+
+		h5{
+			position: absolute;
+			width: 0;
+			height: 0;
+			top: 50%;
+			left: 60px;
+			padding: 0;
+			margin: 0;
+
+			>span{
+				position: relative;
+				left: -150px;
+				display: block;
+				width: 300px;
+				text-align: center;
+				font-size: 22px;
+				font-weight: 700;
+				font-family: $font_museo;
+				text-transform: uppercase;
+				letter-spacing: 2px;
+				color: #929292;
+				@include transform(rotate(-90deg));
+				@include transform-origin(center center);
+
+				.state-portrait &{
+					width: 250px;
+					left: -125px;
+					font-size: 16px;
+				}
+			}
+		}
+
+		ul{
+			padding: 40px 0;
+			padding-left: 80px;
+			overflow: hidden;
+
+			>li{
+				width: 50%;
+				height: 18vh;
+				min-height: 100px;
+				float: left;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+
+				.state-portrait &{
+					float: none;
+					width: 100%;
+					height: 14vh;
+					border-right: none !important;
+					justify-content: flex-start;
+					padding: 5vh 0 5vh 10vw;
+				}
+
+				&:nth-child(odd) {
+					border-right: 1px solid #cccccc;
+				}
+
+				&.starter{
+					.pattern{
+						>div{
+							background: #cccccc;
+							text-align: center;
+							@extend .s;
+							@extend .s-plus;
+
+							&:before{
+								font-size: 4vmin;
+								line-height: 7vmin;
+								color: white;
+							}
+						}
+					}
+				}
+
+				h6{
+					font-size: 24px;
+					font-weight: 700;
+					font-family: $font_museo;
+					text-transform: uppercase;
+					color: black;
+					letter-spacing: 2px;
+					margin: 0;
+				}
+
+				.pattern{
+					padding: 1.5vw 0;
+
+					>div{
+						display: inline-block;
+						vertical-align: middle;
+						margin-right: 2vw;
+						width: 7vmin;
+						height: 7vmin;
+						border-radius: 100%;
+
+						.state-portrait &{
+							margin-right: 4vw;
+						}
+					}
+
+					>button{
+						display: inline-block;
+						vertical-align: middle;
+						@extend %resetButton;
+						color: black;
+						font-size: 4vmin;
+						opacity: 1;
+						@include transition(opacity .2s);
+
+						&:hover{
+							opacity: .5;
+						}
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,19 +1,20 @@
 header{
 	height: 12vh;
+	padding: 0 40px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 
 	>.number{
-		height: 100%;
-		font-size: 9vh;
+		height: 80%;
+		font-size: 8vh;
 		margin: 0;
 
 		>span{
 			display: inline-block;
 			vertical-align: middle;
-			width: 10vh;
-			height: 10vh;
+			width: 9vh;
+			height: 9vh;
 			margin-right: 5px;
 			background-size: 100% 100%;
 
@@ -35,8 +36,13 @@ header{
 	>button{
 		@extend %resetButton;
 		color: black;
-		outline: 1px solid black;
-		margin: 0 40px;
+		font-size: 5vh;
+		opacity: 1;
+		@include transition(opacity .2s);
+
+		&:hover{
+			opacity: .6;
+		}
 	}
 }
 

@@ -6,7 +6,13 @@ var CalendarSingle = Marionette.LayoutView.extend({
 	regions : {
 		eventListContainer : "#event-list-container"
 	},
+	ui : {
+		'back' : '.back'
+	},
 	events : {
+		'click @ui.back' : function(e){
+			state.navigate('home', null, null, true);
+		}
 	},
 	modelEvents : {
 		"change:updated" : "setCurrent"
@@ -108,7 +114,7 @@ var CalendarSingle = Marionette.LayoutView.extend({
 	},
 	onMouseWheel : function(e) {
 
-		var y = this.viewport.scrollTop - e.deltaY * e.deltaFactor * 4;
+		var y = this.viewport.scrollTop - e.deltaY * e.deltaFactor * 2;
 
 		this._scrollTo.updateTo({
 			'scrollTo': {y: y}

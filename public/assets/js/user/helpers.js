@@ -21,7 +21,16 @@ module.exports = {
         zeros += "0";
     zeros += str;
     return n >= 0 ? zeros : "-" + zeros;
+	},
+	extendColors : function(colors, n) {
+		var result = colors.slice(0, colors.length);
+		var l = result.length;
+		while(l < n) {
+			var copiedColors = colors.slice(0, colors.length);
+			result.push.apply(result, copiedColors);
+			l = result.length;
+		}
+		result = result.slice(result, n);
+		return result;
 	}
 }
-
-

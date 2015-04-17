@@ -1,0 +1,61 @@
+<header>
+	<button class="back s s-back"></button>
+	<div class="icon"></div>
+	<button class="home"></button>
+</header>
+
+<div class="content-container">
+	<section class="standard">
+		<h5><span>Standard</span></h5>
+		<ul>
+		<% _.each( patterns, function( data, key ){ %>
+			<% if (data.type === 'default') { %>
+			<li>
+				<div>
+					<h6><%= data.title %></h6>
+					<div class="pattern">
+					<% _.each( data.colors, function( color ){ %>
+						<div style="background:<%= color %>"></div>
+					<% }); %>
+					</div>
+				</div>
+			</li>
+			<% } %>
+		<% }); %>
+		</ul>
+	</section>
+
+	<section class="custom">
+		<h5><span>Custom Sequence</span></h5>
+		<ul>
+			<li class="starter">
+				<div>
+					<h6>Custom</h6>
+					<div class="pattern">
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<button class="forward s s-forward"></button>
+					</div>
+				</div>
+			</li>
+		<% _.each( patterns, function( data, key ){ %>
+			<% if (data.type === 'custom') { %>
+			<li>
+				<div>
+					<h6><%= data.title %></h6>
+					<div class="pattern">
+					<% _.each( data.colors, function( color ){ %>
+						<div style="background:<%= color %>"></div>
+					<% }); %>
+					<button class="forward s s-forward"></button>
+					</div>
+				</div>
+			</li>
+			<% } %>
+		<% }); %>
+		</ul>
+	</section>
+</div>

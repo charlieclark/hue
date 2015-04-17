@@ -38,11 +38,3 @@ $(function(){
 	window.app = new MyApp();
 	window.app.start(); 
 });
-
-
-
-
-
-
-
-         

@@ -1,3 +1,4 @@
+@import "bourbon/bourbon";
 @import "icons";
 @import "typography";
 
@@ -15,17 +16,6 @@ html {
 }
 *, *:before, *:after {
   box-sizing: inherit;
-}
-
-%resetButton{
-  border: none;
-  outline: none;
-  margin: 0;
-  padding: 0;
-  background-color: transparent;
-  -webkit-touch-callout: none;
-  -webkit-tap-highlight-color: transparent;
-  -webkit-appearance: none;
 }
 
 @mixin chromeOSDefaultCursor() {
@@ -46,6 +36,18 @@ html {
 
 @mixin chromeOSHelpCursor() {
   cursor: url(/assets/styles/cursor/help.cur) 8 8, help;
+}
+
+%resetButton{
+  border: none;
+  outline: none;
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-appearance: none;
+  @include chromeOSPointerCursor;
 }
 
 .grab{
@@ -72,6 +74,7 @@ body{
 #content{
 	height: 100%;
 	overflow: hidden;
+	@include chromeOSDefaultCursor;
 
 	@media screen and (max-width: $break-small) {
 	  padding: $split_padding_small $split_padding_small 0 $split_padding_small;
@@ -87,7 +90,6 @@ body{
 #main{
 	position: relative;
 	height: 100%;
-	@include chromeOSDefaultCursor;
 	-webkit-user-select: none;
 }
 
@@ -111,23 +113,58 @@ body{
 		height: 70px;
 		width: 100%;
 		left: 0;
+		padding-top: 0 !important;
 		box-sizing: border-box;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-
+		
 		@media screen and (max-width: $break-small) {
 	    padding: $split_padding_small;
+
+			$size: (70px - $split_padding_small);
+
+	    button{
+				width: $size;
+				height: $size;
+				font-size: $size;
+	    }
 	  }
 	  @media screen and (min-width: $break-small) and (max-width: $break-large) {
 	    padding: $split_padding_medium;
+
+			$size: (70px - $split_padding_medium);
+
+	    button{
+				width: $size;
+				height: $size;
+				font-size: $size;
+	    }
 	  }
 	  @media screen and (min-width: $break-large) {
 	    padding: $split_padding_large;
+
+			$size: (70px - $split_padding_large);
+
+	    button{
+				width: $size;
+				height: $size;
+				font-size: $size;
+	    }
 	  }
 
 		button{
 			@extend %resetButton;
+			border-radius: 100%;
+			color: white;
+			background: $color_blue;
+			@include transform(scale(1));
+			@include transition(transform ease-out 0.1s, background 0.2s);
+
+			&:hover{
+				background: darken($color_blue, 10%);
+				@include transform(scale(.93));
+			}
 		}
 	}
 
@@ -393,4 +430,13 @@ body{
 	height: 100%;
 	overflow: hidden;
 	@import "detail-page";
+}
+
+#key-page{
+	display: none;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	@import "key-page";
 }
