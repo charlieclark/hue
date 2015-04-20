@@ -8,6 +8,8 @@ $font_museo: 'museo-sans', sans-serif;
 $color_green: #14c847;
 $color_blue: #3904ff;
 
+$easeOutBack: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
 .number {
 	font-family: $font_raleway;
 	font-weight: 100;
