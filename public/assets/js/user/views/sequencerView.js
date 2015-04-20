@@ -1,10 +1,7 @@
 var state = require( "state" );
 var helpers = require( 'helpers' );
 
-var patterns = require( 'patternData' );
-
-var State = require( 'models/state' );
-var roomData = require( "roomData" );
+var PreloadView = require( "views/preloadView" );
 
 var keyView = Marionette.LayoutView.extend( {
 	template: _.template( require( "templates/sequencer.html" ) ),
@@ -27,9 +24,15 @@ var keyView = Marionette.LayoutView.extend( {
 				.addClass( 'clicked' );
 		}
 	},
-	initialize: function() {
+	onShow: function() {
 
+		var gradientImg = PreloadView.getAsset( 'gradient' );
+		console.log( "SHOW SEQUENCER" )
+		var canvas = this.$el.find( 'canvas' ).get( 0 );
 
+		canvas.width = gradientImg.width;
+		canvas.height = gradientImg.height;
+		canvas.getContext( '2d' ).drawImage( gradientImg, 0, 0 );
 	},
 } );
 

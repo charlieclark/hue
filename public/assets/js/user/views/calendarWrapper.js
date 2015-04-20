@@ -8,6 +8,7 @@ var CalendarModel = require( "models/calendarModel" );
 var CalendarItemModel = require( "models/calendarItemModel" );
 var CalendarCollection = require( "collections/calendarCollection" );
 
+var PreloadView = require( "views/preloadView" );
 var SplashView = require( "views/splashView" );
 var KeyView = require( "views/keyView" );
 var SequencerView = require( "views/sequencerView" );
@@ -15,8 +16,6 @@ var SequencerView = require( "views/sequencerView" );
 var hueConnect = require( "controllers/hueConnect" );
 var LightPattern = require( "controllers/lightPattern" );
 var LightPatternController = require( "controllers/lightPatternController" );
-
-var PreloadView = require( "views/preloadView" );
 
 var firstAnim = true;
 
@@ -50,27 +49,18 @@ var CalendarView = Marionette.LayoutView.extend( {
 	},
 	stateEvents: {
 		"change:page": function( model, key ) {
-
 			switch ( key ) {
 				case "home":
-					this.animatePage( "home" );
-					break;
 				case "key":
-					var view = new KeyView( {
-						model: new Backbone.Model( {} )
-					} );
-					var region = this.getRegion( "key" ).show( view );
-					this.animatePage( "key" );
-					break;
 				case "sequencer":
-					var view = new SequencerView( {
-						model: new Backbone.Model( {} )
-					} );
-					var region = this.getRegion( "sequencer" ).show( view );
-					this.animatePage( "sequencer" );
+					if ( this._hasAllComplete ) {
+						this.animatePage( key );
+					}
 					break;
 				case "room":
-					this.showRoom( state.get( "section" ) );
+					if ( this._hasAllComplete ) {
+						this.showRoom( state.get( "section" ) );
+					}
 					break;
 			}
 		}
@@ -129,7 +119,12 @@ var CalendarView = Marionette.LayoutView.extend( {
 		this.eventsLoaded( room5Data );
 
 		this.ui.pages.hide();
-		this.animatePage( state.get( "page" ), true );
+
+		if ( state.get( 'section' ) ) {
+			this.showRoom( state.get( 'section' ) );
+		} else {
+			this.animatePage( state.get( "page" ), true );
+		}
 	},
 	onShow: function() {
 		this.showChildView( "preloader", PreloadView );
@@ -139,12 +134,15 @@ var CalendarView = Marionette.LayoutView.extend( {
 		var model = this.calendarStore[ key ];
 
 		if ( !model ) {
+
 			this.queuedKey = key;
+
 		} else {
 
 			var view = new CalendarSingle( {
 				model: model
 			} );
+
 			var region = this.getRegion( "room" ).show( view );
 
 			this.animatePage( "room" );
@@ -152,6 +150,25 @@ var CalendarView = Marionette.LayoutView.extend( {
 	},
 
 	animatePage: function( page, instant ) {
+
+		if ( !this.getRegion( page ).hasView() ) {
+
+			switch ( page ) {
+				case 'sequencer':
+					var view = new SequencerView( {
+						model: new Backbone.Model( {} )
+					} );
+					break;
+
+				case 'key':
+					var view = new KeyView( {
+						model: new Backbone.Model( {} )
+					} );
+					break;
+			}
+
+			var region = this.getRegion( page ).show( view );
+		};
 
 		$showPage = this.getRegion( page ).$el;
 		$hidePage = this.lastPage ? this.getRegion( this.lastPage ).$el : null;

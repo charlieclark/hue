@@ -52,7 +52,6 @@ var PreloadView = Marionette.ItemView.extend( {
 		} ];
 
 		this._assets = {};
-		this._isLoaded = false;
 
 		var assetsPath = '/assets/';
 		this._loader = new createjs.LoadQueue( true, assetsPath );
@@ -64,9 +63,6 @@ var PreloadView = Marionette.ItemView.extend( {
 		this._loader.setMaxConnections( 5 );
 		this._loader.loadManifest( assetManifest );
 	},
-	isLoaded: function() {
-		return this._isLoaded;
-	},
 	getAsset: function( id ) {
 		return this._assets[ id ];
 	},
@@ -74,7 +70,6 @@ var PreloadView = Marionette.ItemView.extend( {
 		this._assets[ e.item.id ] = e.result;
 	},
 	onFileLoadComplete: function( e ) {
-		this._isLoaded = true;
 		this.trigger( 'complete' );
 	},
 	onFileLoadError: function( e ) {}
