@@ -5,7 +5,6 @@ var roomData = require("roomData");
 var SplashItemView = require("views/splashItemView");
 
 var SplashView = Marionette.LayoutView.extend({
-	id : "page-inner",
 	template : _.template( require("templates/splashWrapper.html") ),
 	ui : {
 		roomContainers : ".room-container"

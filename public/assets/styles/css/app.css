@@ -7,7 +7,7 @@
   src: url("../fonts/myfont.eot?#iefix") format("eot"), url("../fonts/myfont.woff") format("woff"), url("../fonts/myfont.ttf") format("truetype"), url("../fonts/myfont.svg#myfont") format("svg");
   font-weight: normal;
   font-style: normal; }
-.s:before, #key-page .content-container section ul > li.starter .pattern > div:before {
+.s:before, #key-page .content-container section ul > li.starter .pattern > div:before, #sequencer-page .toolbar > .pattern-container > .pattern > li > button:before {
   display: inline-block;
   font-family: "myfont";
   font-style: normal;
@@ -55,7 +55,7 @@
 .s-back:before {
   content: ""; }
 
-.s-plus:before, #key-page .content-container section ul > li.starter .pattern > div:before {
+.s-plus:before, #key-page .content-container section ul > li.starter .pattern > div:before, #sequencer-page .toolbar > .pattern-container > .pattern > li > button:before {
   content: ""; }
 
 .number {
@@ -74,6 +74,136 @@
   -webkit-font-smoothing: antialiased;
   text-transform: uppercase; }
 
+/* Generated with Bounce.js. Edit at http://goo.gl/GA6zYU */
+@-webkit-keyframes pop {
+  0% {
+    transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  2.1% {
+    transform: matrix3d(1.056, 0.019, 0, 0, 0.019, 1.056, 0, 0, 0, 0, 1, 0, -0.124, -7.048, 0, 1); }
+  3.2% {
+    transform: matrix3d(1.077, 0.025, 0, 0, 0.025, 1.077, 0, 0, 0, 0, 1, 0, -0.23, -9.92, 0, 1); }
+  4.1% {
+    transform: matrix3d(1.09, 0.028, 0, 0, 0.028, 1.09, 0, 0, 0, 0, 1, 0, -0.308, -11.808, 0, 1); }
+  6.41% {
+    transform: matrix3d(1.111, 0.032, 0, 0, 0.032, 1.111, 0, 0, 0, 0, 1, 0, -0.426, -14.762, 0, 1); }
+  8.21% {
+    transform: matrix3d(1.115, 0.031, 0, 0, 0.031, 1.115, 0, 0, 0, 0, 1, 0, -0.424, -15.381, 0, 1); }
+  11.41% {
+    transform: matrix3d(1.104, 0.024, 0, 0, 0.024, 1.104, 0, 0, 0, 0, 1, 0, -0.297, -13.784, 0, 1); }
+  12.71% {
+    transform: matrix3d(1.095, 0.02, 0, 0, 0.02, 1.095, 0, 0, 0, 0, 1, 0, -0.232, -12.497, 0, 1); }
+  14.51% {
+    transform: matrix3d(1.08, 0.016, 0, 0, 0.016, 1.08, 0, 0, 0, 0, 1, 0, -0.15, -10.412, 0, 1); }
+  18.92% {
+    transform: matrix3d(1.041, 0.006, 0, 0, 0.006, 1.041, 0, 0, 0, 0, 1, 0, -0.031, -5.131, 0, 1); }
+  20.72% {
+    transform: matrix3d(1.027, 0.004, 0, 0, 0.004, 1.027, 0, 0, 0, 0, 1, 0, -0.012, -3.266, 0, 1); }
+  25.23% {
+    transform: matrix3d(0.999, 0, 0, 0, 0, 0.999, 0, 0, 0, 0, 1, 0, 0, 0.125, 0, 1); }
+  27.03% {
+    transform: matrix3d(0.992, -0.001, 0, 0, -0.001, 0.992, 0, 0, 0, 0, 1, 0, -0.001, 0.961, 0, 1); }
+  31.43% {
+    transform: matrix3d(0.983, -0.001, 0, 0, -0.001, 0.983, 0, 0, 0, 0, 1, 0, -0.003, 1.957, 0, 1); }
+  33.23% {
+    transform: matrix3d(0.983, -0.001, 0, 0, -0.001, 0.983, 0, 0, 0, 0, 1, 0, -0.003, 2.028, 0, 1); }
+  45.75% {
+    transform: matrix3d(0.996, 0, 0, 0, 0, 0.996, 0, 0, 0, 0, 1, 0, 0, 0.471, 0, 1); }
+  56.46% {
+    transform: matrix3d(1.002, 0, 0, 0, 0, 1.002, 0, 0, 0, 0, 1, 0, 0, -0.299, 0, 1); }
+  58.26% {
+    transform: matrix3d(1.003, 0, 0, 0, 0, 1.003, 0, 0, 0, 0, 1, 0, 0, -0.309, 0, 1); }
+  81.48% {
+    transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0.045, 0, 1); }
+  83.28% {
+    transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0.046, 0, 1); }
+  100% {
+    transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); } }
+@-moz-keyframes pop {
+  0% {
+    transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  2.1% {
+    transform: matrix3d(1.056, 0.019, 0, 0, 0.019, 1.056, 0, 0, 0, 0, 1, 0, -0.124, -7.048, 0, 1); }
+  3.2% {
+    transform: matrix3d(1.077, 0.025, 0, 0, 0.025, 1.077, 0, 0, 0, 0, 1, 0, -0.23, -9.92, 0, 1); }
+  4.1% {
+    transform: matrix3d(1.09, 0.028, 0, 0, 0.028, 1.09, 0, 0, 0, 0, 1, 0, -0.308, -11.808, 0, 1); }
+  6.41% {
+    transform: matrix3d(1.111, 0.032, 0, 0, 0.032, 1.111, 0, 0, 0, 0, 1, 0, -0.426, -14.762, 0, 1); }
+  8.21% {
+    transform: matrix3d(1.115, 0.031, 0, 0, 0.031, 1.115, 0, 0, 0, 0, 1, 0, -0.424, -15.381, 0, 1); }
+  11.41% {
+    transform: matrix3d(1.104, 0.024, 0, 0, 0.024, 1.104, 0, 0, 0, 0, 1, 0, -0.297, -13.784, 0, 1); }
+  12.71% {
+    transform: matrix3d(1.095, 0.02, 0, 0, 0.02, 1.095, 0, 0, 0, 0, 1, 0, -0.232, -12.497, 0, 1); }
+  14.51% {
+    transform: matrix3d(1.08, 0.016, 0, 0, 0.016, 1.08, 0, 0, 0, 0, 1, 0, -0.15, -10.412, 0, 1); }
+  18.92% {
+    transform: matrix3d(1.041, 0.006, 0, 0, 0.006, 1.041, 0, 0, 0, 0, 1, 0, -0.031, -5.131, 0, 1); }
+  20.72% {
+    transform: matrix3d(1.027, 0.004, 0, 0, 0.004, 1.027, 0, 0, 0, 0, 1, 0, -0.012, -3.266, 0, 1); }
+  25.23% {
+    transform: matrix3d(0.999, 0, 0, 0, 0, 0.999, 0, 0, 0, 0, 1, 0, 0, 0.125, 0, 1); }
+  27.03% {
+    transform: matrix3d(0.992, -0.001, 0, 0, -0.001, 0.992, 0, 0, 0, 0, 1, 0, -0.001, 0.961, 0, 1); }
+  31.43% {
+    transform: matrix3d(0.983, -0.001, 0, 0, -0.001, 0.983, 0, 0, 0, 0, 1, 0, -0.003, 1.957, 0, 1); }
+  33.23% {
+    transform: matrix3d(0.983, -0.001, 0, 0, -0.001, 0.983, 0, 0, 0, 0, 1, 0, -0.003, 2.028, 0, 1); }
+  45.75% {
+    transform: matrix3d(0.996, 0, 0, 0, 0, 0.996, 0, 0, 0, 0, 1, 0, 0, 0.471, 0, 1); }
+  56.46% {
+    transform: matrix3d(1.002, 0, 0, 0, 0, 1.002, 0, 0, 0, 0, 1, 0, 0, -0.299, 0, 1); }
+  58.26% {
+    transform: matrix3d(1.003, 0, 0, 0, 0, 1.003, 0, 0, 0, 0, 1, 0, 0, -0.309, 0, 1); }
+  81.48% {
+    transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0.045, 0, 1); }
+  83.28% {
+    transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0.046, 0, 1); }
+  100% {
+    transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); } }
+@keyframes pop {
+  0% {
+    transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  2.1% {
+    transform: matrix3d(1.056, 0.019, 0, 0, 0.019, 1.056, 0, 0, 0, 0, 1, 0, -0.124, -7.048, 0, 1); }
+  3.2% {
+    transform: matrix3d(1.077, 0.025, 0, 0, 0.025, 1.077, 0, 0, 0, 0, 1, 0, -0.23, -9.92, 0, 1); }
+  4.1% {
+    transform: matrix3d(1.09, 0.028, 0, 0, 0.028, 1.09, 0, 0, 0, 0, 1, 0, -0.308, -11.808, 0, 1); }
+  6.41% {
+    transform: matrix3d(1.111, 0.032, 0, 0, 0.032, 1.111, 0, 0, 0, 0, 1, 0, -0.426, -14.762, 0, 1); }
+  8.21% {
+    transform: matrix3d(1.115, 0.031, 0, 0, 0.031, 1.115, 0, 0, 0, 0, 1, 0, -0.424, -15.381, 0, 1); }
+  11.41% {
+    transform: matrix3d(1.104, 0.024, 0, 0, 0.024, 1.104, 0, 0, 0, 0, 1, 0, -0.297, -13.784, 0, 1); }
+  12.71% {
+    transform: matrix3d(1.095, 0.02, 0, 0, 0.02, 1.095, 0, 0, 0, 0, 1, 0, -0.232, -12.497, 0, 1); }
+  14.51% {
+    transform: matrix3d(1.08, 0.016, 0, 0, 0.016, 1.08, 0, 0, 0, 0, 1, 0, -0.15, -10.412, 0, 1); }
+  18.92% {
+    transform: matrix3d(1.041, 0.006, 0, 0, 0.006, 1.041, 0, 0, 0, 0, 1, 0, -0.031, -5.131, 0, 1); }
+  20.72% {
+    transform: matrix3d(1.027, 0.004, 0, 0, 0.004, 1.027, 0, 0, 0, 0, 1, 0, -0.012, -3.266, 0, 1); }
+  25.23% {
+    transform: matrix3d(0.999, 0, 0, 0, 0, 0.999, 0, 0, 0, 0, 1, 0, 0, 0.125, 0, 1); }
+  27.03% {
+    transform: matrix3d(0.992, -0.001, 0, 0, -0.001, 0.992, 0, 0, 0, 0, 1, 0, -0.001, 0.961, 0, 1); }
+  31.43% {
+    transform: matrix3d(0.983, -0.001, 0, 0, -0.001, 0.983, 0, 0, 0, 0, 1, 0, -0.003, 1.957, 0, 1); }
+  33.23% {
+    transform: matrix3d(0.983, -0.001, 0, 0, -0.001, 0.983, 0, 0, 0, 0, 1, 0, -0.003, 2.028, 0, 1); }
+  45.75% {
+    transform: matrix3d(0.996, 0, 0, 0, 0, 0.996, 0, 0, 0, 0, 1, 0, 0, 0.471, 0, 1); }
+  56.46% {
+    transform: matrix3d(1.002, 0, 0, 0, 0, 1.002, 0, 0, 0, 0, 1, 0, 0, -0.299, 0, 1); }
+  58.26% {
+    transform: matrix3d(1.003, 0, 0, 0, 0, 1.003, 0, 0, 0, 0, 1, 0, 0, -0.309, 0, 1); }
+  81.48% {
+    transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0.045, 0, 1); }
+  83.28% {
+    transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0.046, 0, 1); }
+  100% {
+    transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); } }
 /* apply a natural box layout model to all elements, but allowing components to change */
 html {
   box-sizing: border-box; }
@@ -81,7 +211,7 @@ html {
 *, *:before, *:after {
   box-sizing: inherit; }
 
-#splash-page #home-nav button, #room-single header > button, #key-page header > button, #key-page .content-container section ul > li .pattern > button {
+#splash-page #home-nav button, #room-single header > button, #key-page header > button, #key-page .content-container section ul > li .pattern > button, #sequencer-page header > button, #sequencer-page .toolbar > .pattern-container > .pattern > li > button, #sequencer-page .toolbar > .room-container > .rooms > li > button, #sequencer-page .toolbar > .send {
   border: none;
   outline: none;
   margin: 0;
@@ -90,6 +220,7 @@ html {
   -webkit-touch-callout: none;
   -webkit-tap-highlight-color: transparent;
   -webkit-appearance: none;
+  -webkit-font-smoothing: antialiased;
   cursor: url(/assets/styles/cursor/pointer.cur) 20 9, pointer; }
 
 .grab {
@@ -107,6 +238,10 @@ html, body {
 body {
   position: absolute;
   width: 100%;
+  height: 100%; }
+
+.page > div {
+  position: relative;
   height: 100%; }
 
 #content {
@@ -139,6 +274,8 @@ body {
   width: 100%;
   height: 100%;
   padding-bottom: 70px; }
+  #splash-page > div {
+    position: static; }
   #splash-page #home-nav {
     position: absolute;
     bottom: 0;
@@ -612,3 +749,160 @@ body {
             font-size: 2vmin; }
             .state-portrait #key-page .content-container section ul > li .caption {
               margin-right: 2vw; }
+
+#sequencer-page {
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden; }
+  #sequencer-page header {
+    position: relative;
+    z-index: 1;
+    height: 12vh;
+    padding: 0 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; }
+    #sequencer-page header > button {
+      font-size: 5vh;
+      opacity: 1;
+      -webkit-transition: opacity 0.2s;
+      -moz-transition: opacity 0.2s;
+      transition: opacity 0.2s; }
+      #sequencer-page header > button:hover {
+        opacity: .5; }
+  #sequencer-page .gradient-pane {
+    position: absolute;
+    background: #dfdfdf;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    z-index: 0;
+    padding-bottom: 110px; }
+    #sequencer-page .gradient-pane > canvas {
+      display: block;
+      width: 100%;
+      height: 100%; }
+    @media screen and (max-height: 768px) {
+      #sequencer-page .gradient-pane {
+        padding-bottom: 80px; } }
+  #sequencer-page .toolbar {
+    width: 100%;
+    height: 110px;
+    background: white;
+    position: absolute;
+    bottom: 0;
+    z-index: 1; }
+    @media screen and (max-height: 768px) {
+      #sequencer-page .toolbar {
+        height: 80px; } }
+    #sequencer-page .toolbar ul {
+      margin: 0; }
+      #sequencer-page .toolbar ul > li {
+        list-style-type: none; }
+    #sequencer-page .toolbar > .pattern-container {
+      float: left;
+      width: 30%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center; }
+      #sequencer-page .toolbar > .pattern-container > .pattern {
+        padding: 0;
+        display: inline-block; }
+        #sequencer-page .toolbar > .pattern-container > .pattern > li {
+          display: inline-block;
+          vertical-align: middle;
+          margin: 0 12px; }
+          #sequencer-page .toolbar > .pattern-container > .pattern > li > button {
+            width: 57px;
+            height: 57px;
+            border-radius: 100%;
+            background: #cccccc;
+            text-align: center; }
+            #sequencer-page .toolbar > .pattern-container > .pattern > li > button:before {
+              font-size: 34px;
+              line-height: 57px;
+              color: white; }
+    #sequencer-page .toolbar > .room-container {
+      float: left;
+      width: 50%;
+      height: 100%;
+      background: #efefef;
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 3vw; }
+      #sequencer-page .toolbar > .room-container > p {
+        font-size: 28px;
+        letter-spacing: 6px;
+        text-transform: uppercase;
+        font-family: "museo-sans", sans-serif;
+        font-weight: 700; }
+      #sequencer-page .toolbar > .room-container > .rooms {
+        padding: 0; }
+        #sequencer-page .toolbar > .room-container > .rooms > li {
+          display: inline-block;
+          vertical-align: middle;
+          margin: 0 12px; }
+          #sequencer-page .toolbar > .room-container > .rooms > li > button {
+            width: 70px;
+            height: 70px;
+            text-align: center;
+            font-family: "museo-sans", sans-serif;
+            font-weight: 700;
+            font-size: 40px;
+            border-radius: 100%;
+            border: 3px solid transparent;
+            -webkit-transition: border-color 0.25s;
+            -moz-transition: border-color 0.25s;
+            transition: border-color 0.25s; }
+            #sequencer-page .toolbar > .room-container > .rooms > li > button:active {
+              border-color: #3904ff; }
+    #sequencer-page .toolbar > .send {
+      float: left;
+      position: relative;
+      z-index: 10;
+      width: 20%;
+      height: 100%;
+      background: #3904ff;
+      color: white;
+      font-weight: 700;
+      letter-spacing: 6px;
+      font-size: 28px;
+      text-transform: uppercase;
+      font-family: "museo-sans", sans-serif;
+      -webkit-transition: background 0.2s;
+      -moz-transition: background 0.2s;
+      transition: background 0.2s; }
+      #sequencer-page .toolbar > .send > span {
+        width: 100%;
+        text-align: center; }
+        #sequencer-page .toolbar > .send > span.text-send {
+          display: block; }
+        #sequencer-page .toolbar > .send > span.text-sent {
+          display: none; }
+      #sequencer-page .toolbar > .send:hover {
+        background: #2c00d0; }
+      #sequencer-page .toolbar > .send:active {
+        background: #21009d; }
+      #sequencer-page .toolbar > .send.clicked {
+        background: #14c847;
+        -webkit-animation: pop 750ms linear both;
+        -moz-animation: pop 750ms linear both;
+        animation: pop 750ms linear both; }
+        #sequencer-page .toolbar > .send.clicked > .text-send {
+          display: none; }
+        #sequencer-page .toolbar > .send.clicked > .text-sent {
+          display: block; }
+  @media screen and (max-width: 320px) {
+    #sequencer-page {
+      padding-bottom: 2px; } }
+  @media screen and (min-width: 320px) and (max-width: 1200px) {
+    #sequencer-page {
+      padding-bottom: 4px; } }
+  @media screen and (min-width: 1200px) {
+    #sequencer-page {
+      padding-bottom: 8px; } }

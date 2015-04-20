@@ -3,10 +3,6 @@ var helpers = require('helpers');
 
 var patterns = require('patternData');
 
-var State = require('models/state');
-var roomData = require("roomData");
-//var SplashItemView = require("views/splashItemView");
-
 var keyView = Marionette.LayoutView.extend({
 	template : _.template( require("templates/key.html") ),
 	ui : {

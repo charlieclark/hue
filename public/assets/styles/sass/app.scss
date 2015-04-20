@@ -47,6 +47,7 @@ html {
   -webkit-touch-callout: none;
   -webkit-tap-highlight-color: transparent;
   -webkit-appearance: none;
+  -webkit-font-smoothing: antialiased;
   @include chromeOSPointerCursor;
 }
 
@@ -69,6 +70,13 @@ body{
 	position: absolute;
 	width: 100%;
 	height: 100%;
+}
+
+.page{
+	>div{
+		position: relative;
+		height: 100%;
+	}
 }
 
 #content{
@@ -106,6 +114,10 @@ body{
 	width: 100%;
 	height: 100%;
 	padding-bottom: 70px;
+
+	>div{
+		position: static;
+	}
 
 	#home-nav{
 		position: absolute;
@@ -439,4 +451,23 @@ body{
 	height: 100%;
 	overflow: hidden;
 	@import "key-page";
+}
+
+#sequencer-page{
+	display: none;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	@import "sequencer-page";
+
+	@media screen and (max-width: $break-small) {
+	  padding-bottom: $split_padding_small;
+	}
+	@media screen and (min-width: $break-small) and (max-width: $break-large) {
+	  padding-bottom: $split_padding_medium;
+	}
+	@media screen and (min-width: $break-large) {
+	  padding-bottom: $split_padding_large;
+	}
 }
