@@ -70,7 +70,17 @@ var PreloadView = Marionette.ItemView.extend( {
 		this._assets[ e.item.id ] = e.result;
 	},
 	onFileLoadComplete: function( e ) {
-		this.trigger( 'complete' );
+
+		TweenMax.to( $( '#preloader' ).get( 0 ), .5, {
+			delay: 1,
+			opacity: 0,
+			display: 'none',
+			ease: Cubic.easeOut,
+			onComplete: function() {
+				this.trigger( 'complete' );
+			},
+			onCompleteScope: this
+		} );
 	},
 	onFileLoadError: function( e ) {}
 } );

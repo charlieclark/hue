@@ -120,11 +120,24 @@ var CalendarView = Marionette.LayoutView.extend( {
 
 		this.ui.pages.hide();
 
+		var $showPage;
+
 		if ( state.get( "page" ) === "room" ) {
-			this.showRoom( state.get( "section" ) );
+			$showPage = this.showRoom( state.get( "section" ) );
 		} else {
-			this.animatePage( state.get( "page" ), true );
+			$showPage = this.animatePage( state.get( "page" ), true );
 		}
+
+		TweenMax.fromTo( $showPage.get( 0 ), .85, {
+			scale: .45,
+			opacity: 0
+		}, {
+			delay: .25,
+			scale: 1,
+			opacity: 1,
+			ease: Cubic.easeInOut,
+			clearProps: 'scale, opacity'
+		} );
 	},
 	onShow: function() {
 		this.showChildView( "preloader", PreloadView );
@@ -145,7 +158,7 @@ var CalendarView = Marionette.LayoutView.extend( {
 
 			var region = this.getRegion( "room" ).show( view );
 
-			this.animatePage( "room" );
+			return this.animatePage( "room" );
 		}
 	},
 
@@ -232,6 +245,8 @@ var CalendarView = Marionette.LayoutView.extend( {
 				}
 			}
 		}, tweenBase ) );
+
+		return $showPage;
 	},
 
 	checkQueue: function() {

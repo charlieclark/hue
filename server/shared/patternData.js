@@ -26,8 +26,8 @@ module.exports = {
 		type: null,
 		instant: false,
 		repeat: -1,
-		fade: 0.5,
-		wait: 1,
+		fade: 1,
+		wait: 2,
 		colors: [ "#000000", "#fc312c" ],
 		sequence: []
 	},

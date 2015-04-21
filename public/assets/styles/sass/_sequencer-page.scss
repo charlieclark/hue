@@ -1,3 +1,6 @@
+$button_size_large: 5.7em;
+$button_size_medium: 4em;
+
 &{
 	cursor: none;
 }
@@ -6,7 +9,7 @@ header{
 	position: relative;
 	z-index: 1;
 	height: 12vh;
-	padding: 0 40px;
+	padding: 0 5%;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -38,8 +41,8 @@ header{
 		height: 100%;
 	}
 
-	@media screen and (max-height: 768px) {
-	  padding-bottom: 80px;
+	@media screen and (min-width: $break-small) and (max-width: 960px) {
+		padding-bottom: 220px;
 	}
 }
 
@@ -99,8 +102,8 @@ header{
 	z-index: 1;
 	@include chromeOSDefaultCursor;
 
-	@media screen and (max-height: 768px) {
-	  height: 80px;
+	@media screen and (min-width: $break-small) and (max-width: 960px) {
+		height: 220px;
 	}
 
 	ul{
@@ -114,10 +117,18 @@ header{
 	>.pattern-container{
 		float: left;
 		width: 30%;
-		height: 100%;
+		height: 110px;
 		display: flex;
 		justify-content: center;
 		align-items: center;
+
+		@media screen and (min-width: $break-small) and (max-width: 960px) {
+			width: 100%;
+		}
+
+		@media screen and (min-width: 960px) and (max-width: $break-widescreen) {
+			width: 40%;
+		}
 
 		>.pattern{
 			padding: 0;
@@ -126,14 +137,23 @@ header{
 			>li{
 				display: inline-block;
 				vertical-align: middle;
-				margin: 0 12px;
+
+				@media screen and (min-width: $break-small) {
+					font-size: .6em;
+				}
+
+				@media screen and (min-width: $break-widescreen) {
+					font-size: 1em;
+				}
 
 				>button{
 					@extend %resetButton;
 					@extend .s;
 					@extend .s-plus;
-					width: 57px;
-					height: 57px;
+					font-size: inherit;
+					width: $button_size_large;
+					height: $button_size_large;
+					margin: 0 1.2em;
 					border-radius: 100%;
 					background: #cccccc;
 					text-align: center;
@@ -151,8 +171,8 @@ header{
 					}
 
 					&:before{
-						font-size: 34px;
-						line-height: 57px;
+						font-size: 3.4em;
+						line-height: (3.4em/$button_size_large);
 						color: white;
 					}
 				}
@@ -163,7 +183,7 @@ header{
 	>.room-container{
 		float: left;
 		width: 50%;
-		height: 100%;
+		height: 110px;
 		background: #efefef;
 		-webkit-font-smoothing: antialiased;
 		display: flex;
@@ -171,12 +191,36 @@ header{
 		align-items: center;
 		padding: 0 3vw;
 
+		@media screen and (min-width: $break-small) and (max-width: 960px) {
+			width: 70%;
+		}
+
+		@media screen and (max-width: $break-widescreen) {
+			padding: 0 0;
+			justify-content: center;
+
+			>p{
+				display: none;
+			}
+		}
+
+		@media screen and (min-width: 960px) and (max-width: $break-widescreen) {
+			width: 40%;
+		}
+
 		>p{
-			font-size: 28px;
-			letter-spacing: 6px;
+			letter-spacing: .2em;
 			text-transform: uppercase;
 			font-family: $font_museo;
 			font-weight: 700;
+
+			@media screen and (min-width: $break-small) {
+				font-size: 2em;
+			}
+
+			@media screen and (min-width: 1600px) {
+				font-size: 2.8em;
+			}
 		}
 
 		>.rooms{
@@ -185,23 +229,41 @@ header{
 			>li{
 				display: inline-block;
 				vertical-align: middle;
-				margin: 0 12px;
 
 				>button{
 					@extend %resetButton;
-					width: 57px;
-					height: 57px;
+					margin: 0 2em;
+					width: $button_size_large;
+					height: $button_size_large;
+					font-size: inherit;
 					text-align: center;
-					font-family: $font_museo;
-					font-weight: 700;
-					font-size: 40px;
 					border-radius: 100%;
 					@include transition(box-shadow .25s ease-out);
 					box-shadow: transparent 0 0 0 0px;
 
+					>span{
+						font-family: $font_museo;
+						font-weight: 700;
+						font-size: 4em;
+					}
+
 					&.active, &:active{
 						box-shadow: $color_blue 0 0 0 4px;
 					}
+				}
+
+				@media screen and (min-width: $break-small) {
+					font-size: .6em;
+				}
+
+				@media screen and (min-width: $break-small) and (max-width: 960px) {
+					>button{
+						margin: 0 .5em;
+					}
+				}
+
+				@media screen and (min-width: 1600px) {
+					font-size: 1em;
 				}
 			}
 		}
@@ -211,17 +273,22 @@ header{
 		@extend %resetButton;
 		float: left;
 		position: relative;
-		z-index: 10;
 		width: 20%;
-		height: 100%;
+		z-index: 10;
+		height: 110px;
 		background: $color_blue;
 		color: white;
 		font-weight: 700;
-		letter-spacing: 6px;
-		font-size: 28px;
+		letter-spacing: .2em;
+		font-size: 2.8em;
 		text-transform: uppercase;
 		font-family: $font_museo;
 		@include transition(background 0.2s);
+
+		@media screen and (min-width: $break-small) and (max-width: 960px) {
+			width: 30%;
+			font-size: 1.8em;
+		}
 
 		>span{
 			width: 100%;
