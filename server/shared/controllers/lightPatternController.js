@@ -1,47 +1,61 @@
-var _ = require('underscore');
-var LightPattern = require("./lightPattern");
+var _ = require( 'underscore' );
+var LightPattern = require( "./lightPattern" );
 
-function LightPatternController( model ){
-	
+function LightPatternController( model ) {
+
 	this._model = model;
-	this.init( );
+	this.init();
 }
 
 LightPatternController.prototype = {
-	init : function(){
+	init: function() {
 
 		this.isAvailable();
-		this._model.on( "change:currentEvent", this.currentChanged, this  );
+		this._model.on( "change:currentEvent", this.currentChanged, this );
+
+		setInterval( _.bind( this.checkPatternType, this ), 1000 );
 	},
-	currentChanged : function( parent, model ){
+	checkPatternType: function() {
+		if ( this._roomModel ) {
+			var changed = this._roomModel.getPatternType();
+			if ( changed ) {
+				this.typeChanged( this._roomModel );
+			}
+		}
+	},
+	currentChanged: function( parent, model ) {
+
+		this._roomModel = model;
+	},
+	typeChanged: function( model ) {
+
+		var type = model.get( "type" );
+
+		console.log( "type changed", type )
 
 		this.stopExisting();
 
 		var data = {};
-		var type = 'available';
 
-		if( model ){
-
-			type = model.getPatternType();
-			data = {
-				start : model.get("start").raw,
-				end : model.get("end").raw
-			}
+		data = {
+			start: model.get( "start" ).raw,
+			end: model.get( "end" ).raw
 		}
-		
+
+
 		this.newPattern( type, data );
 	},
-	isAvailable : function(){
+	isAvailable: function() {
 
 		this.newPattern( "available" );
 	},
-	getCurrent : function(){
+	getCurrent: function() {
 
 		return this._currentPattern;
 	},
-	newPattern : function( type, data ){
+	newPattern: function( type, data ) {
 
-		var key = this._model.get("key");
+		var key = this._model.get( "key" );
 
 		data = data || {};
 
@@ -49,10 +63,10 @@ LightPatternController.prototype = {
 
 		this._currentPattern = new LightPattern( key, type, data, this._model );
 	},
-	stopExisting : function(){
+	stopExisting: function() {
 
-		if( this._currentPattern ){
-			this._currentPattern.stopSequence();	
+		if ( this._currentPattern ) {
+			this._currentPattern.stopSequence();
 		}
 	}
 }

@@ -48,21 +48,45 @@ header{
 	z-index: 2;
 	margin: -40px;
 	font-size: 80px;
-	color: white;
+	width: 80px;
+	height: 80px;
 	text-shadow: rgba(black, .075) 8px 8px 12px;
 	pointer-events: none;
 	opacity: 1;
 	@include transform(scale(1));
 	@include transition(transform .15s $easeOutBack, opacity .15s, text-shadow .2s);
 
-	&.hide{
-		opacity: 0 !important;
+	&:not(.dragging) {
+		@extend .s;
+		@extend .s-picker;
+		color: white !important;
+		background: transparent !important;
+
+		&.press{
+			text-shadow: rgba(black, .075) 2px 2px 10px;
+			opacity: .45;
+			@include transform(scale(.75));
+		}
+
+		&.hide{
+			opacity: 0 !important;
+		}
 	}
 
-	&.press{
-		text-shadow: rgba(black, .075) 2px 2px 10px;
-		opacity: .45;
-		@include transform(scale(.75));
+	&.dragging{
+		border-radius: 100%;
+		border: 6px solid white;
+		box-sizing: border-box;
+		box-shadow: rgba(black, .075) 8px 8px 12px;
+		@include transform(scale(.65));
+
+		&.hovered{
+			border: none;
+			background: none !important;
+			@extend .s;
+			@extend .s-picker;
+			@include transform(scale(1));
+		}
 	}
 }
 
@@ -106,13 +130,25 @@ header{
 
 				>button{
 					@extend %resetButton;
+					@extend .s;
+					@extend .s-plus;
 					width: 57px;
 					height: 57px;
 					border-radius: 100%;
 					background: #cccccc;
 					text-align: center;
-					@extend .s;
-					@extend .s-plus;
+					box-shadow: transparent 0 0 0 0px;
+					@include transition(box-shadow .45s $easeOutExpo, background .75s $easeOutExpo);
+
+					&.active, &:active{
+						box-shadow: $color_blue 0 0 0 4px;
+					}
+				
+					&.filled{
+						&:before{
+							font-size: 0;
+						}
+					}
 
 					&:before{
 						font-size: 34px;
@@ -153,18 +189,18 @@ header{
 
 				>button{
 					@extend %resetButton;
-					width: 70px;
-					height: 70px;
+					width: 57px;
+					height: 57px;
 					text-align: center;
 					font-family: $font_museo;
 					font-weight: 700;
 					font-size: 40px;
 					border-radius: 100%;
-					border: 3px solid transparent;
-					@include transition(border-color .25s);
+					@include transition(box-shadow .25s ease-out);
+					box-shadow: transparent 0 0 0 0px;
 
-					&:active{
-						border-color: $color_blue;
+					&.active, &:active{
+						box-shadow: $color_blue 0 0 0 4px;
 					}
 				}
 			}
@@ -190,6 +226,8 @@ header{
 		>span{
 			width: 100%;
 			text-align: center;
+			opacity: 1;
+			@include transition(opacity 0.2s);
 
 			&.text-send{
 				display: block;
@@ -206,6 +244,13 @@ header{
 
 		&:active{
 			background: darken($color_blue, 20%);
+		}
+
+		&:disabled{
+			background: #cccccc;
+			>span{
+				opacity: .25;
+			}
 		}
 
 		&.clicked{

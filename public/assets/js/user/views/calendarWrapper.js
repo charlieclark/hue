@@ -120,8 +120,8 @@ var CalendarView = Marionette.LayoutView.extend( {
 
 		this.ui.pages.hide();
 
-		if ( state.get( 'section' ) ) {
-			this.showRoom( state.get( 'section' ) );
+		if ( state.get( "page" ) === "room" ) {
+			this.showRoom( state.get( "section" ) );
 		} else {
 			this.animatePage( state.get( "page" ), true );
 		}
@@ -172,6 +172,8 @@ var CalendarView = Marionette.LayoutView.extend( {
 
 		$showPage = this.getRegion( page ).$el;
 		$hidePage = this.lastPage ? this.getRegion( this.lastPage ).$el : null;
+		var showPageView = this.getRegion( page ).currentView;
+		var hidePageView = this.lastPage ? this.getRegion( this.lastPage ).currentView : null;
 
 		var animTime = ( instant || firstAnim ) ? 0 : 0.4;
 		firstAnim = false;
@@ -213,6 +215,9 @@ var CalendarView = Marionette.LayoutView.extend( {
 			TweenMax.to( $hidePage, animTime, _.extend( {
 				onComplete: function() {
 					$hidePage.hide();
+					if ( hidePageView.deactivate ) {
+						hidePageView.deactivate();
+					};
 				}
 			}, tweenBase, toPos ) );
 
@@ -220,7 +225,13 @@ var CalendarView = Marionette.LayoutView.extend( {
 
 		$showPage.show();
 		TweenMax.set( $showPage, _.extend( {}, tweenBase, fromPos ) );
-		TweenMax.to( $showPage, animTime, tweenBase );
+		TweenMax.to( $showPage, animTime, _.extend( {
+			onComplete: function() {
+				if ( showPageView.activate ) {
+					showPageView.activate();
+				}
+			}
+		}, tweenBase ) );
 	},
 
 	checkQueue: function() {

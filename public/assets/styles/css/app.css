@@ -7,7 +7,7 @@
   src: url("../fonts/myfont.eot?#iefix") format("eot"), url("../fonts/myfont.woff") format("woff"), url("../fonts/myfont.ttf") format("truetype"), url("../fonts/myfont.svg#myfont") format("svg");
   font-weight: normal;
   font-style: normal; }
-.s:before, #key-page .content-container section ul > li.starter .pattern > div:before, #sequencer-page .toolbar > .pattern-container > .pattern > li > button:before {
+.s:before, #key-page .content-container section ul > li.starter .pattern > div:before, #sequencer-page .picker:not(.dragging):before, #sequencer-page .picker.dragging.hovered:before, #sequencer-page .toolbar > .pattern-container > .pattern > li > button:before {
   display: inline-block;
   font-family: "myfont";
   font-style: normal;
@@ -37,9 +37,6 @@
   width: 1.2857142857142858em;
   text-align: center; }
 
-.s-picker:before {
-  content: ""; }
-
 .s-napoleon:before {
   content: ""; }
 
@@ -60,6 +57,9 @@
 
 .s-forward:before {
   content: ""; }
+
+.s-picker:before, #sequencer-page .picker:not(.dragging):before, #sequencer-page .picker.dragging.hovered:before {
+  content: ""; }
 
 .number {
   font-family: "Raleway", sans-serif;
@@ -365,12 +365,6 @@ body {
         .state-portrait #splash-page #room-split > .room-container.not-hovered {
           width: 100%;
           height: 24%; }
-        .state-portrait #splash-page #room-split > .room-container.expanded {
-          width: 100%;
-          height: 100%; }
-        .state-portrait #splash-page #room-split > .room-container.collapsed {
-          width: 100%;
-          height: 0%; }
     #splash-page #room-split > .room-container {
       display: inline-block;
       vertical-align: top;
@@ -797,7 +791,8 @@ body {
     z-index: 2;
     margin: -40px;
     font-size: 80px;
-    color: white;
+    width: 80px;
+    height: 80px;
     text-shadow: rgba(0, 0, 0, 0.075) 8px 8px 12px;
     pointer-events: none;
     opacity: 1;
@@ -809,16 +804,37 @@ body {
     -webkit-transition: -webkit-transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.15s, text-shadow 0.2s;
     -moz-transition: -moz-transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.15s, text-shadow 0.2s;
     transition: transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.15s, text-shadow 0.2s; }
-    #sequencer-page .picker.hide {
-      opacity: 0 !important; }
-    #sequencer-page .picker.press {
-      text-shadow: rgba(0, 0, 0, 0.075) 2px 2px 10px;
-      opacity: .45;
-      -webkit-transform: scale(0.75);
-      -moz-transform: scale(0.75);
-      -ms-transform: scale(0.75);
-      -o-transform: scale(0.75);
-      transform: scale(0.75); }
+    #sequencer-page .picker:not(.dragging) {
+      color: white !important;
+      background: transparent !important; }
+      #sequencer-page .picker:not(.dragging).press {
+        text-shadow: rgba(0, 0, 0, 0.075) 2px 2px 10px;
+        opacity: .45;
+        -webkit-transform: scale(0.75);
+        -moz-transform: scale(0.75);
+        -ms-transform: scale(0.75);
+        -o-transform: scale(0.75);
+        transform: scale(0.75); }
+      #sequencer-page .picker:not(.dragging).hide {
+        opacity: 0 !important; }
+    #sequencer-page .picker.dragging {
+      border-radius: 100%;
+      border: 6px solid white;
+      box-sizing: border-box;
+      box-shadow: rgba(0, 0, 0, 0.075) 8px 8px 12px;
+      -webkit-transform: scale(0.65);
+      -moz-transform: scale(0.65);
+      -ms-transform: scale(0.65);
+      -o-transform: scale(0.65);
+      transform: scale(0.65); }
+      #sequencer-page .picker.dragging.hovered {
+        border: none;
+        background: none !important;
+        -webkit-transform: scale(1);
+        -moz-transform: scale(1);
+        -ms-transform: scale(1);
+        -o-transform: scale(1);
+        transform: scale(1); }
   #sequencer-page .toolbar {
     width: 100%;
     height: 110px;
@@ -853,7 +869,15 @@ body {
             height: 57px;
             border-radius: 100%;
             background: #cccccc;
-            text-align: center; }
+            text-align: center;
+            box-shadow: transparent 0 0 0 0px;
+            -webkit-transition: box-shadow 0.45s cubic-bezier(0.19, 1, 0.22, 1), background 0.75s cubic-bezier(0.19, 1, 0.22, 1);
+            -moz-transition: box-shadow 0.45s cubic-bezier(0.19, 1, 0.22, 1), background 0.75s cubic-bezier(0.19, 1, 0.22, 1);
+            transition: box-shadow 0.45s cubic-bezier(0.19, 1, 0.22, 1), background 0.75s cubic-bezier(0.19, 1, 0.22, 1); }
+            #sequencer-page .toolbar > .pattern-container > .pattern > li > button.active, #sequencer-page .toolbar > .pattern-container > .pattern > li > button:active {
+              box-shadow: #3904ff 0 0 0 4px; }
+            #sequencer-page .toolbar > .pattern-container > .pattern > li > button.filled:before {
+              font-size: 0; }
             #sequencer-page .toolbar > .pattern-container > .pattern > li > button:before {
               font-size: 34px;
               line-height: 57px;
@@ -881,19 +905,19 @@ body {
           vertical-align: middle;
           margin: 0 12px; }
           #sequencer-page .toolbar > .room-container > .rooms > li > button {
-            width: 70px;
-            height: 70px;
+            width: 57px;
+            height: 57px;
             text-align: center;
             font-family: "museo-sans", sans-serif;
             font-weight: 700;
             font-size: 40px;
             border-radius: 100%;
-            border: 3px solid transparent;
-            -webkit-transition: border-color 0.25s;
-            -moz-transition: border-color 0.25s;
-            transition: border-color 0.25s; }
-            #sequencer-page .toolbar > .room-container > .rooms > li > button:active {
-              border-color: #3904ff; }
+            -webkit-transition: box-shadow 0.25s ease-out;
+            -moz-transition: box-shadow 0.25s ease-out;
+            transition: box-shadow 0.25s ease-out;
+            box-shadow: transparent 0 0 0 0px; }
+            #sequencer-page .toolbar > .room-container > .rooms > li > button.active, #sequencer-page .toolbar > .room-container > .rooms > li > button:active {
+              box-shadow: #3904ff 0 0 0 4px; }
     #sequencer-page .toolbar > .send {
       float: left;
       position: relative;
@@ -912,7 +936,11 @@ body {
       transition: background 0.2s; }
       #sequencer-page .toolbar > .send > span {
         width: 100%;
-        text-align: center; }
+        text-align: center;
+        opacity: 1;
+        -webkit-transition: opacity 0.2s;
+        -moz-transition: opacity 0.2s;
+        transition: opacity 0.2s; }
         #sequencer-page .toolbar > .send > span.text-send {
           display: block; }
         #sequencer-page .toolbar > .send > span.text-sent {
@@ -921,6 +949,10 @@ body {
         background: #2c00d0; }
       #sequencer-page .toolbar > .send:active {
         background: #21009d; }
+      #sequencer-page .toolbar > .send:disabled {
+        background: #cccccc; }
+        #sequencer-page .toolbar > .send:disabled > span {
+          opacity: .25; }
       #sequencer-page .toolbar > .send.clicked {
         background: #14c847;
         -webkit-animation: pop 750ms linear both;
