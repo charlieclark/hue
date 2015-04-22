@@ -1,6 +1,7 @@
 var state = require( "state" );
 var helpers = require( 'helpers' );
 var patterns = require( 'patternData' );
+var hueConnect = require( "controllers/hueConnect" );
 
 var PreloadView = require( "views/preloadView" );
 
@@ -49,7 +50,7 @@ var keyView = Marionette.LayoutView.extend( {
 				return button.getAttribute( 'data-id' );
 			} );
 
-			console.log( pattern, rooms );
+			hueConnect.sendPattern( pattern, rooms );
 		},
 		'click @ui.roomButtons': function( e ) {
 
