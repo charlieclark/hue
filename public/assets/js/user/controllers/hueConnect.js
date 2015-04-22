@@ -3,74 +3,85 @@ var isConnected = false;
 var isMaster = false;
 var myID = null;
 
-var pipe = require("pipe");
-var helpers = require("helpers");
-var roomData = require("roomData");
+var pipe = require( "pipe" );
+var helpers = require( "helpers" );
+var roomData = require( "roomData" );
 
-function init(){
+function init() {
 
-	connect(function(){
+	connect( function() {
 
-		var code = null ;
+		var code = null;
 
 		//DATA UPDATE LISTENER
-		mySocket.on('updateData', function(data){
+		mySocket.on( 'updateData', function( data ) {
 
-			console.log("DATA ENTRY", data);
+			console.log( "DATA ENTRY", data );
 			events.trigger( "eventsLoaded", data );
-		});
+		} );
 
 		//REQUEST DATA & PASS UNIQUE ID
-		mySocket.emit('requestData',{}, function( rooms, globalData ){
+		mySocket.emit( 'requestData', {}, function( rooms, globalData ) {
 
-			_.each( rooms, function( data, key ){
-				events.trigger( "eventsLoaded", { data : data, key : key } );
-			})
-		});
+			_.each( rooms, function( data, key ) {
+				events.trigger( "eventsLoaded", {
+					data: data,
+					key: key
+				} );
+			} )
+		} );
 
 		//CONDITIONAL STUFF
-		if( helpers.getParameterByName('authenticate') ){
+		if ( helpers.getParameterByName( 'authenticate' ) ) {
 
-			mySocket.on('authentication_url', function( data ){
+			mySocket.on( 'authentication_url', function( data ) {
 				mySocket.disconnect();
 				window.location = data;
-			});
-			mySocket.emit('authenticate',{
-				roomData : roomData
-			});
+			} );
+			mySocket.emit( 'authenticate', {
+				roomData: roomData
+			} );
 
-		} else if( code = helpers.getParameterByName('code') ){
+		} else if ( code = helpers.getParameterByName( 'code' ) ) {
 
-			mySocket.emit('got_code', code, function(){
+			mySocket.emit( 'got_code', code, function() {
 				//clear url
-				history.replaceState({}, '', '/');
+				history.replaceState( {}, '', '/' );
 				window.location.reload();
-			});
+			} );
 
-		}		
-	});
+		}
+	} );
 }
 
-function connect( callback ){
+function connect( callback ) {
 
 	// var socket = 'http://charliepi.local:3000';  
-	var socket = 'http://localhost:3000';  
+	var socket = 'http://localhost:3000';
 
-	mySocket = io.connect( socket );   
+	mySocket = io.connect( socket );
 
-	mySocket.on('connect', function(){
+	mySocket.on( 'connect', function() {
 
 		isConnected = true;
-		if(callback) callback();
-	});	
+		if ( callback ) callback();
+	} );
 }
 
-var events = _.extend({}, Backbone.Events);
+function sendPattern( pattern, roomKeys ) {
+
+	mySocket.emit( "custom_pattern", {
+		pattern, roomKeys
+	} );
+}
+
+var events = _.extend( {}, Backbone.Events );
 
 init();
 
-module.exports = {
-	init : init,
-	connected : isConnected,
-	events : events
+window.hueConnect = module.exports = {
+	init: init,
+	connected: isConnected,
+	events: events,
+	sendPattern: sendPattern
 }
