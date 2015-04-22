@@ -51,7 +51,11 @@ module.exports = {
 		return gradients;
 	},
 	rgbArrayToHex: function( rgbArray ) {
-		var rgb = 'rgb(' + rgbArray[ 0 ] + ',' + rgbArray[ 1 ] + ',' + rgbArray[ 2 ] + ')';
+		var rgbString = 'rgb(' + rgbArray[ 0 ] + ',' + rgbArray[ 1 ] + ',' + rgbArray[ 2 ] + ')';
+		return this.rgbStringToHex( rgbString );
+	},
+	rgbStringToHex: function( rgbString ) {
+		var rgb = rgbString;
 		rgb = rgb.match( /^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i );
 		return ( rgb && rgb.length === 4 ) ? "#" +
 			( "0" + parseInt( rgb[ 1 ], 10 ).toString( 16 ) ).slice( -2 ) +

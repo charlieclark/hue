@@ -6,20 +6,20 @@ var pipe = require( "./../pipe.js" );
 
 var isNode = typeof window === 'undefined';
 
-function LightPattern( lightId, patternId, opt_data, model ) {
+function LightPattern( lightId, pattern, opt_data, model ) {
 
-	this._pattern = patterns[ patternId ];
+	this._pattern = _.isObject( pattern ) ? pattern : patterns[ pattern ];
 	this._model = model;
 
-	// make sequence by patternId
-	this.createSequence( patternId, opt_data );
+	// make sequence by pattern id
+	this.createSequence( this._pattern.id, opt_data );
 
 	this._lightId = lightId;
 
 	this._step = 0;
 	this._iteration = 0;
 
-	this._sequence = this.startSequence( patternId );
+	this._sequence = this.startSequence( this._pattern.id );
 
 	this._timeout = null;
 }
@@ -88,8 +88,6 @@ LightPattern.prototype = {
 		clearTimeout( this._timeout );
 	},
 	playSequenceStep: function( step, instant ) {
-
-		// console.log("play sequence step")
 
 		this._step = step;
 

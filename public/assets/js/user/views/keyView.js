@@ -18,7 +18,6 @@ var keyView = Marionette.LayoutView.extend( {
 		}
 	},
 	initialize: function() {
-
 		var _patterns = _.map( patterns, function( pattern, key ) {
 			return {
 				key: key,
