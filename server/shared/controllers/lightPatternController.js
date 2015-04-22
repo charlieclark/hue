@@ -19,6 +19,7 @@ LightPatternController.prototype = {
 
 		pipe.on( "custom_pattern:" + key, _.bind( function( data ) {
 
+			console.log( data );
 			this.newPattern( data.pattern, null, true );
 		}, this ) );
 
@@ -78,6 +79,7 @@ LightPatternController.prototype = {
 			};;
 		} else {
 			this._currentPattern.customCallback( _.bind( function() {
+				console.log( "CUSTOM CALLBACK" );
 				if ( this._argumentSave ) {
 					this.newPattern( this._argumentSave.type, this._argumentSave.data )
 				}

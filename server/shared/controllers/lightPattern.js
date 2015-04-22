@@ -6,30 +6,31 @@ var pipe = require( "./../pipe.js" );
 
 var isNode = typeof window === 'undefined';
 
-function LightPattern( lightId, patternId, opt_data, model ) {
+function LightPattern( lightId, pattern, opt_data, model ) {
 
-	this._pattern = patterns[ patternId ];
+	this._pattern = _.isObject( pattern ) ? pattern : patterns[ pattern ];
+	console.log( "lightpattern", pattern );
 	this._model = model;
 
-	// make sequence by patternId
-	this.createSequence( patternId, opt_data );
+	// make sequence by pattern id
+	this.createSequence( opt_data );
 
 	this._lightId = lightId;
 
 	this._step = 0;
 	this._iteration = 0;
 
-	this._sequence = this.startSequence( patternId );
+	this._sequence = this.startSequence();
 
 	this._timeout = null;
 }
 
 LightPattern.prototype = {
-	createSequence: function( patternId, opt_data ) {
+	createSequence: function( opt_data ) {
 
-		var pattern = patterns[ patternId ];
+		var pattern = this._pattern;
 
-		switch ( patternId ) {
+		switch ( pattern.id ) {
 			case 'occupied':
 				var numStops = 30;
 
@@ -57,16 +58,16 @@ LightPattern.prototype = {
 
 		return this._sequence[ this._step ];
 	},
-	startSequence: function( patternId ) {
+	startSequence: function() {
 
-		var pattern = patterns[ patternId ];
+		var pattern = this._pattern;
 		this._sequence = pattern.sequence;
 
 		this.stopSequence();
 
 		var step;
 
-		switch ( patternId ) {
+		switch ( pattern.id ) {
 			case 'occupied':
 				step = Math.floor( ( new Date() - pattern.start ) / ( pattern.end - pattern.start ) * 30 );
 				break;
@@ -88,8 +89,6 @@ LightPattern.prototype = {
 		clearTimeout( this._timeout );
 	},
 	playSequenceStep: function( step, instant ) {
-
-		// console.log("play sequence step")
 
 		this._step = step;
 
@@ -132,10 +131,18 @@ LightPattern.prototype = {
 
 		if ( repeat > -1 && this._iteration > repeat ) {
 			this.stopSequence();
+
+			if ( this._customCallback && !this._calledBack ) {
+				this._calledBack = true;
+				this._customCallback();
+			}
 			return;
 		}
 
 		this.playSequenceStep( this._step );
+	},
+	customCallback: function( callback ) {
+		this._customCallback = callback;
 	}
 }
 

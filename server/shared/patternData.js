@@ -1,5 +1,8 @@
+var _ = require( 'underscore' );
+
 module.exports = {
 	'available': {
+		id: 'available',
 		title: 'Available',
 		type: 'default',
 		instant: true,
@@ -10,6 +13,7 @@ module.exports = {
 		sequence: []
 	},
 	'occupied': {
+		id: 'occupied',
 		title: 'In Use',
 		type: 'default',
 		instant: true,
@@ -22,6 +26,7 @@ module.exports = {
 		sequence: []
 	},
 	'ending': {
+		id: 'ending',
 		title: 'About to End',
 		type: null,
 		instant: false,
@@ -32,6 +37,7 @@ module.exports = {
 		sequence: []
 	},
 	'party': {
+		id: 'party',
 		title: 'Party Time',
 		type: 'custom',
 		instant: true,
@@ -42,6 +48,7 @@ module.exports = {
 		sequence: []
 	},
 	'client': {
+		id: 'client',
 		title: 'Client Meeting',
 		type: 'custom',
 		instant: true,
@@ -52,6 +59,7 @@ module.exports = {
 		sequence: []
 	},
 	'more': {
+		id: 'more',
 		title: 'Five More Minutes!',
 		type: 'custom',
 		instant: true,

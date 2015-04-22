@@ -1,6 +1,7 @@
 var state = require( "state" );
 var helpers = require( 'helpers' );
 var patterns = require( 'patternData' );
+var hueConnect = require( "controllers/hueConnect" );
 
 var PreloadView = require( "views/preloadView" );
 
@@ -30,6 +31,26 @@ var keyView = Marionette.LayoutView.extend( {
 			$button
 				.doTimeout( 'clicked', 1000, 'removeClass', 'clicked' )
 				.addClass( 'clicked' );
+
+			var filledColorButtons = this.ui.toolbar.find( '.pattern .filled' );
+			var colors = $.map( filledColorButtons, function( button ) {
+				var rgbString = $( button ).css( 'background-color' );
+				return helpers.rgbStringToHex( rgbString );
+			} );
+
+			var defaultId = state.get( 'section' );
+
+			var pattern = this.createCustomPattern( {
+				id: ( defaultId && defaultId.length > 0 ) ? defaultId : 'custom',
+				colors: colors
+			} );
+
+			var activeRoomButtons = this.ui.toolbar.find( '.rooms .active' );
+			var rooms = $.map( activeRoomButtons, function( button ) {
+				return button.getAttribute( 'data-id' );
+			} );
+
+			hueConnect.sendPattern( pattern, rooms );
 		},
 		'click @ui.roomButtons': function( e ) {
 
@@ -37,9 +58,7 @@ var keyView = Marionette.LayoutView.extend( {
 
 			$button.toggleClass( 'active', !$button.hasClass( 'active' ) );
 
-			var noActiveRoom = ( this.ui.toolbar.find( '.rooms .active' ).length === 0 );
-
-			this.ui.send.attr( 'disabled', noActiveRoom );
+			this.updateSendStatus();
 		},
 		'click @ui.colorButtons': function( e ) {
 
@@ -75,6 +94,26 @@ var keyView = Marionette.LayoutView.extend( {
 	},
 	hidePicker: function() {
 		this.ui.picker.addClass( 'hide' );
+	},
+	updateSendStatus: function() {
+
+		var noFilledColor = ( this.ui.toolbar.find( '.pattern .filled' ).length === 0 );
+		var noActiveRoom = ( this.ui.toolbar.find( '.rooms .active' ).length === 0 );
+
+		this.ui.send.attr( 'disabled', ( noActiveRoom || noFilledColor ) );
+	},
+	createCustomPattern: function( obj ) {
+		return _.extend( {
+			id: 'custom',
+			title: 'Custom',
+			type: null,
+			instant: true,
+			repeat: 1,
+			fade: 1,
+			wait: 2,
+			colors: [],
+			sequence: []
+		}, obj )
 	},
 	getColorFromPosition: function( clientX, clientY ) {
 		var canvasWidth = this.ui.canvas.width();
@@ -121,9 +160,7 @@ var keyView = Marionette.LayoutView.extend( {
 		$( this.ui.roomButtons[ 0 ] ).toggleClass( 'active', true );
 
 		this.ui.colorButtons.toggleClass( 'active', false );
-		$( this.ui.colorButtons[ 0 ] ).toggleClass( 'active', true );
-
-		this.ui.send.attr( 'disabled', false );
+		this.ui.send.attr( 'disabled', true );
 
 		// populate color preset by url section
 		var key = state.get( 'section' );
@@ -137,6 +174,8 @@ var keyView = Marionette.LayoutView.extend( {
 		} else {
 			this.unsetColorFromAllButtons();
 		}
+
+		this.updateSendStatus();
 	},
 	deactivate: function() {
 
@@ -174,6 +213,8 @@ var keyView = Marionette.LayoutView.extend( {
 
 			this._hasDragged = false;
 		}
+
+		this.updateSendStatus();
 	},
 	onMouseMove: function( e ) {
 		this.ui.picker.css( {
@@ -207,6 +248,8 @@ var keyView = Marionette.LayoutView.extend( {
 				}
 			}
 		}
+
+		this.updateSendStatus();
 
 		this._hasDragged = false;
 	},
