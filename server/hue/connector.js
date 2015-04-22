@@ -1,65 +1,68 @@
-var hue = require("node-hue-api"),
+var hue = require( "node-hue-api" ),
 	HueApi = hue.HueApi,
 	lightState = hue.lightState;
 
-var displayResults = function(result) {
-    console.log(JSON.stringify(result, null, 2));
+var displayResults = function( result ) {
+	console.log( JSON.stringify( result, null, 2 ) );
 };
 
-var displayError = function(err) {
-    console.error(err);
+var displayError = function( err ) {
+	console.error( err );
 };
 
-function Connector( hostname, username ){
+function Connector( hostname, username ) {
 	this._hostname = hostname;
 	this._username = username;
-	this._api = new HueApi(hostname, username);
+	this._api = new HueApi( hostname, username );
 }
 
 Connector.prototype = {
-	listLights : function(){
+	listLights: function() {
 
 		this._api.lights()
-		    .then(displayResults)
-		    .done();
+			.then( displayResults )
+			.done();
 	},
 
-	findNewLights : function(){
+	findNewLights: function() {
 
 		this._api.searchForNewLights()
-		    .then(displayResults)
-		    .done();
+			.then( displayResults )
+			.done();
 	},
 
-	listNewLights : function(){
+	listNewLights: function() {
 
 		this._api.newLights()
-		    .then(displayResults)
-		    .done();
+			.then( displayResults )
+			.done();
 	},
 
-	newUser : function( newUserName, userDescription ){
+	newUser: function( newUserName, userDescription ) {
 
-		this._api.registerUser(this._hostname, newUserName, userDescription)
-		    .then(displayResults)
-		    .fail(displayError)
-		    .done();
+		this._api.registerUser( this._hostname, newUserName, userDescription )
+			.then( displayResults )
+			.fail( displayError )
+			.done();
 	},
 
-	setLight : function( id, data ){
+	setLight: function( id, data ) {
 
-		console.log("set light")
 
-		var h = data.hsl.h;
-		var s = data.hsl.s;
-		var l = data.hsl.l;
+
+		var r = data.rgb.r;
+		var g = data.rgb.g;
+		var b = data.rgb.b;
+		var brightness = data.rgb.brightness;
 		var duration = data.duration * 1000;
 
-		state = lightState.create().on().hsl(h, s, l).transition( duration );
+		console.log( "set light", id, r, g, b, duration, brightness )
 
-		this._api.setLightState(id, state) // provide a value of false to turn off
-		    .fail(displayError)
-		    .done();
+		state = lightState.create().on().rgb( r, g, b ).brightness( brightness ).transition( duration );
+
+		this._api.setLightState( id, state ) // provide a value of false to turn off
+			.fail( displayError )
+			.done();
 	}
 }
 

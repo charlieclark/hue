@@ -28,7 +28,7 @@ module.exports = {
 		repeat: -1,
 		fade: 1,
 		wait: 2,
-		colors: [ "#000000", "#fc312c" ],
+		colors: [ "#0c00ff", "#fc312c" ],
 		sequence: []
 	},
 	'party': {
