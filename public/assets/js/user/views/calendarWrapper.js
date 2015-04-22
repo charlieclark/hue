@@ -128,7 +128,7 @@ var CalendarView = Marionette.LayoutView.extend( {
 			$showPage = this.animatePage( state.get( "page" ), true );
 		}
 
-		TweenMax.fromTo( $showPage.get( 0 ), .85, {
+		TweenMax.fromTo( $showPage.get( 0 ), .8, {
 			scale: .45,
 			opacity: 0
 		}, {

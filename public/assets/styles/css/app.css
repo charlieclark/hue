@@ -37,9 +37,6 @@
   width: 1.2857142857142858em;
   text-align: center; }
 
-.s-hue-bulb:before {
-  content: ""; }
-
 .s-hue-fixture:before {
   content: ""; }
 
@@ -66,6 +63,9 @@
 
 .s-picker:before, #sequencer-page .picker:not(.dragging):before, #sequencer-page .picker.dragging.hovered:before {
   content: ""; }
+
+.s-hue-bulb:before {
+  content: ""; }
 
 .number {
   font-family: "Raleway", sans-serif;
@@ -504,9 +504,19 @@ body {
   width: 100%;
   height: 100%;
   background-color: white;
-  background-image: url("/assets/images/loader.gif");
-  background-repeat: no-repeat;
-  background-position: center center; }
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+  #preloader .hue {
+    position: relative;
+    margin-top: -50%;
+    font-size: 10em; }
+    #preloader .hue > div {
+      position: relative; }
+      #preloader .hue > div.bulb {
+        z-index: 1;
+        color: #cccccc;
+        text-shadow: 0 0 60px; }
 
 #room-single {
   display: none;
