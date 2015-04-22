@@ -20,7 +20,7 @@ var keyView = Marionette.LayoutView.extend( {
 	},
 	events: {
 		'click @ui.back': function( e ) {
-			state.navigate( 'home', null, null, true );
+			state.navigate( state.previous( 'page' ), null, null, true );
 		},
 		'click @ui.send': function( e ) {
 
@@ -103,6 +103,18 @@ var keyView = Marionette.LayoutView.extend( {
 		this.ui.send.attr( 'disabled', ( noActiveRoom || noFilledColor ) );
 	},
 	createCustomPattern: function( obj ) {
+
+		var presetId = state.get( 'section' );
+
+		if ( presetId && presetId.length > 0 ) {
+
+			var presetColors = helpers.extendColors( patterns[ presetId ].colors, obj.colors.length );
+
+			if ( _.isEqual( obj.colors, presetColors ) ) {
+				return patterns[ presetId ];
+			}
+		}
+
 		return _.extend( {
 			id: 'custom',
 			title: 'Custom',

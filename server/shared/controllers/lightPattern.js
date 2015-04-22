@@ -94,7 +94,11 @@ LightPattern.prototype = {
 
 		var color = one( this.getColor() );
 
-		var fade = instant ? 0 : this._pattern.fade;
+		if ( !color ) {
+			return;
+		}
+
+		var fade = instant ? 1 : this._pattern.fade;
 		var wait = this._pattern.wait;
 
 		var rgb = {
@@ -113,7 +117,6 @@ LightPattern.prototype = {
 				rgb: rgb
 			} );
 		}
-
 
 		clearTimeout( this._timeout );
 		this._timeout = setTimeout( _.bind( this.nextSequenceStep, this ), wait * 1000 );

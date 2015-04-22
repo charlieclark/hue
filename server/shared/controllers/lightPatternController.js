@@ -5,6 +5,7 @@ var pipe = require( "./../pipe.js" );
 function LightPatternController( model ) {
 
 	this._model = model;
+	this.isCustom = false;
 	this.init();
 }
 
@@ -64,6 +65,10 @@ LightPatternController.prototype = {
 	},
 	newPattern: function( type, data, custom ) {
 
+		if ( this.isCustom === true && custom === false ) {
+			return;
+		}
+
 		var key = this._model.get( "key" );
 
 		data = data || {};
@@ -76,10 +81,13 @@ LightPatternController.prototype = {
 			this._argumentSave = {
 				type: type,
 				data: data
-			};;
+			};
 		} else {
+
+			this.isCustom = true;
+
 			this._currentPattern.customCallback( _.bind( function() {
-				console.log( "CUSTOM CALLBACK" );
+				this.isCustom = false;
 				if ( this._argumentSave ) {
 					this.newPattern( this._argumentSave.type, this._argumentSave.data )
 				}

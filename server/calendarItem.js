@@ -95,6 +95,8 @@ CalendarItem.prototype = {
 			singleEvents: true
 		}, _.bind( function( err, response ) {
 
+			if ( !response ) return;
+
 			response.dayStart = dayStart;
 			response.dayEnd = dayEnd;
 			this.setData( response );

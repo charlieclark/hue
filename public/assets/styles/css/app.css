@@ -516,7 +516,12 @@ body {
       #preloader .hue > div.bulb {
         z-index: 1;
         color: #cccccc;
-        text-shadow: 0 0 60px; }
+        text-shadow: 0 0 150px; }
+        #preloader .hue > div.bulb > span {
+          color: transparent;
+          position: absolute;
+          top: 0;
+          text-shadow: inherit 0 0 250px; }
 
 #room-single {
   display: none;
