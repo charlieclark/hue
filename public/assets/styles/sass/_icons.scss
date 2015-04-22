@@ -33,6 +33,8 @@
   text-align: center;
 }
 
+.s-hue-bulb:before { content: "\E009" }
+.s-hue-fixture:before { content: "\E00A" }
 .s-napoleon:before { content: "\E001" }
 .s-something:before { content: "\E002" }
 .s-hamburger:before { content: "\E003" }

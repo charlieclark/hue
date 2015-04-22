@@ -37,6 +37,12 @@
   width: 1.2857142857142858em;
   text-align: center; }
 
+.s-hue-bulb:before {
+  content: ""; }
+
+.s-hue-fixture:before {
+  content: ""; }
+
 .s-napoleon:before {
   content: ""; }
 
